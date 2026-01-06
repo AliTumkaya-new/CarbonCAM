@@ -250,3 +250,34 @@ body::before {
 button, a, input, select, textarea {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Hide Clerk Development Mode & Badges Globally */
+.cl-internal-b3fm6y,
+.cl-badge,
+.__experimental_badge,
+.cl-internal-badge,
+[class*="cl-internal"][class*="badge"],
+.cl-footer,
+.cl-footerPages,
+.cl-footerPagesLink,
+.cl-organizationSwitcher-previewButton__badge,
+[data-localization-key*="badge"],
+[data-localization-key*="development"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Clean Clerk UI */
+.cl-userButton-root,
+.cl-organizationSwitcher-root {
+  border-radius: var(--radius-xl) !important;
+}
+
+.cl-userButton-box,
+.cl-organizationSwitcher-box {
+  gap: 0.5rem !important;
+}
