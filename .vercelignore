@@ -1,0 +1,13 @@
+# Ignore Python files - we only deploy Next.js
+*.py
+__pycache__/
+.venv/
+api/
+carboncam_engine/
+pyproject.toml
+requirements.txt
+Dockerfile
+Dockerfile.web
+docker-compose.yml
+supabase/
+docs/
