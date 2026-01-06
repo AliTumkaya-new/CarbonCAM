@@ -94,7 +94,7 @@ export default function SignUpPage() {
             transform: translateY(0);
           }
         }
-        
+
         /* Clerk badge ve footer'ı gizle */
         .cl-footer,
         .cl-footerPages,
@@ -177,7 +177,6 @@ export default function SignUpPage() {
           }}
         >
           <SignUp
-            applicationName="CarbonCAM"
             appearance={{
               elements: {
                 formButtonPrimary:
