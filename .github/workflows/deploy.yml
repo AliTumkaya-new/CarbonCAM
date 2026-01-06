@@ -1,9 +1,9 @@
 name: Deploy to Production
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  # push:
+  #   branches: [main]
+  workflow_dispatch:  # Only manual deployments for now
 
 jobs:
   # Deploy Backend to Render/Railway
