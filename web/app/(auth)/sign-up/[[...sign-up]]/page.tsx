@@ -209,13 +209,14 @@ export default function SignUpPage() {
                 colorPrimary: "#10b981",
               },
               layout: {
-                socialButtonsPlacement: "top",
+                socialButtonsPlacement: "bottom",
                 socialButtonsVariant: "blockButton",
-                showOptionalFields: false,
+                showOptionalFields: true,
               },
             }}
             routing="path"
             path="/sign-up"
+            signInUrl="/sign-in"
           />
 
           <div

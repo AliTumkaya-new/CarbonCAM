@@ -1,6 +1,7 @@
 # Ignore Python files - we only deploy Next.js
-*.py
-__pycache__/
+
+\*.py
+**pycache**/
 .venv/
 api/
 carboncam_engine/
