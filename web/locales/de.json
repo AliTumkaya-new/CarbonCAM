@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "calculate": "Berechnen",
+    "downloadReport": "Bericht herunterladen"
+  },
+  "terms": {
+    "carbonFootprint": "CO₂-Fußabdruck"
+  },
+  "optimization": {
+    "title": "Optimierungstipps",
+    "idleHigh": "Vorschlag: Die Leerlaufzeit während des Vorgangs beträgt {idlePct}. Prüfen Sie die Automatisierung beim Be- und Entladen.",
+    "aluminumFeedRate": "Tipp: Erhöhen Sie die Vorschubgeschwindigkeit um {increasePct}, um die Energieeffizienz zu verbessern. Aluminium eignet sich für höhere Geschwindigkeiten."
+  },
+  "language": {
+    "label": "Sprache",
+    "tr": "Türkisch",
+    "en": "Englisch",
+    "de": "Deutsch"
+  }
+}

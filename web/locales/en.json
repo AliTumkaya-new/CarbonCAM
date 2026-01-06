@@ -1,0 +1,158 @@
+{
+  "actions": {
+    "calculate": "Calculate",
+    "downloadReport": "Download Report",
+    "getStarted": "Get Started Free",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "terms": {
+    "carbonFootprint": "Carbon Footprint"
+  },
+  "optimization": {
+    "title": "Optimization Tips",
+    "idleHigh": "Suggestion: Idle time during the operation is {idlePct}. Review part loading/unloading automation.",
+    "aluminumFeedRate": "Tip: Increase the feed rate by {increasePct} to improve energy efficiency. Aluminum is suitable for higher speeds."
+  },
+  "language": {
+    "label": "Language",
+    "tr": "Turkish",
+    "en": "English",
+    "de": "German"
+  },
+  "landing": {
+    "hero": {
+      "tagline": "CarbonCAM",
+      "title": "Calculate energy and CO₂ in CNC machining with a",
+      "titleHighlight": " physics-based",
+      "titleEnd": " approach.",
+      "subtitle": "Move beyond Excel estimates. CarbonCAM produces consistent kWh and kgCO2 results using machining time, material, and machine parameters — ready for reporting.",
+      "logosTitle": "Teams modernizing machining footprint reporting"
+    },
+    "features": {
+      "output": "Output",
+      "outputValue": "kWh + kgCO2",
+      "scope": "Scope",
+      "scopeValue": "Part / operation",
+      "purpose": "Purpose",
+      "purposeValue": "Reporting & quoting"
+    },
+    "problem": {
+      "tag": "Problem",
+      "title": "Carbon accounting stays on \"assumptions\"",
+      "point1": "Different teams use different coefficients; results are inconsistent.",
+      "point2": "Idle consumption is ignored; real kWh is missed.",
+      "point3": "Report generation is manual; customer/audit requests are delayed."
+    },
+    "solution": {
+      "tag": "Solution",
+      "title": "Standardized results with machine + material + time",
+      "point1": "Parameter-based model: material and machine profiles.",
+      "point2": "Energy breakdown: processing + idle.",
+      "point3": "Actionable output: format ready for quote/report workflows."
+    },
+    "whatYouGet": {
+      "tag": "What you get",
+      "title": "Enterprise workflow ready",
+      "subtitle": "Reproducible and defensible results with minimal data entry.",
+      "feature1Title": "Standard inputs",
+      "feature1Desc": "Machine, material, time. All documented.",
+      "feature2Title": "Breakdowns",
+      "feature2Desc": "Break down energy and CO₂ into components.",
+      "feature3Title": "Reporting-ready",
+      "feature3Desc": "Output structure integrable into your processes."
+    },
+    "footer": {
+      "copyright": "© CarbonCAM. All rights reserved."
+    }
+  }
+  ,
+  "dashboard": {
+    "tabs": {
+      "dashboard": "Dashboard",
+      "developer": "Developer"
+    },
+    "balance": {
+      "label": "Balance",
+      "unit": "credits",
+      "empty": "—"
+    },
+    "quickCalculator": {
+      "tag": "Quick Calculator",
+      "title": "CarbonCAM - Industrial Footprint Calculator",
+      "subtitle": "Energy (kWh) and carbon (kgCO2) calculation for CNC machining.",
+      "machineParameters": {
+        "title": "Machine Parameters",
+        "subtitle": "Enter inputs and calculate the footprint."
+      },
+      "sections": {
+        "equipmentDetails": "Equipment Details",
+        "processParameters": "Process Parameters"
+      },
+      "labels": {
+        "machine": "Machine",
+        "material": "Material",
+        "initialWeight": "Initial Weight",
+        "finalWeight": "Final Weight",
+        "tariffType": "Tariff Type",
+        "currency": "Currency",
+        "operationStart": "Operation Start Time",
+        "operationEnd": "Operation End Time",
+        "time": "Operation Duration",
+        "toolDiameter": "Tool Diameter"
+      },
+      "tariff": {
+        "single": "Single (one rate)",
+        "multi": "Multi (three rates)"
+      },
+      "tooltips": {
+        "machine": "Machine standby power is auto-fetched.",
+        "material": "Material specific energy value is auto-fetched.",
+        "initialWeight": "Initial part weight before machining.",
+        "finalWeight": "Final part weight after machining.",
+        "time": "Total machining time (including idle).",
+        "toolDiameter": "Optional parameter (not used in current model)."
+      },
+      "resultPreview": {
+        "title": "Result Preview",
+        "subtitle": "Calculation outputs will be shown here.",
+        "noDataCta": "No data generated yet. Run a calculation to see the analysis."
+      },
+      "emptyState": {
+        "title": "Run a calculation to see results",
+        "subtitle": "Fill in the parameters on the left and click “Calculate Footprint”."
+      },
+      "errors": {
+        "invalidNumber": "Please enter valid values for all numeric fields.",
+        "calculateFailed": "Calculation failed."
+      }
+    },
+    "batch": {
+      "tag": "Batch Processing",
+      "title": "Batch Calculation (Excel)",
+      "subtitle": "Download and fill Template.xlsx, upload via drag & drop, then export results as Excel.",
+      "downloadTemplate": "Download Template.xlsx",
+      "uploadAndCalculate": "Upload & Calculate",
+      "selected": "Selected: {filename}",
+      "dropzone": {
+        "title": "Drag and drop the Excel file",
+        "columns": ".xlsx format, columns: Weight_In, Weight_Out, Time, Machine_ID, Material_ID",
+        "or": "or",
+        "chooseFile": "Choose file"
+      },
+      "status": {
+        "fileSelected": "{filename} selected",
+        "downloadingTemplate": "Downloading template...",
+        "templateDownloaded": "Template downloaded",
+        "uploading": "Uploading and calculating...",
+        "processing": "Processing...",
+        "resultsDownloaded": "Results downloaded"
+      },
+      "errors": {
+        "selectFile": "Please select an Excel file.",
+        "templateDownloadFailed": "Template download failed",
+        "batchFailed": "Batch calculation failed"
+      }
+    }
+  }
+}
