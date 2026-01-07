@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import CookieConsent from "./cookie-consent";
 import AnimatedLogo from "../components/animated-logo";
+import CookieConsent from "./cookie-consent";
 
 export default function MarketingLayout({
   children,

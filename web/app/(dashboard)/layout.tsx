@@ -4,8 +4,8 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import LanguageSwitcher from "../language-switcher";
 import AnimatedLogo from "../components/animated-logo";
+import LanguageSwitcher from "../language-switcher";
 
 function NavLink({
   href,

@@ -27,9 +27,10 @@ export default function AnimatedLogo({
   const iconStyles: CSSProperties = {
     width: `${sizes.icon}px`,
     height: `${sizes.icon}px`,
-    background: variant === "light" 
-      ? "rgba(255, 255, 255, 0.15)"
-      : "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
+    background:
+      variant === "light"
+        ? "rgba(255, 255, 255, 0.15)"
+        : "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
     borderRadius: size === "sm" ? "8px" : size === "md" ? "10px" : size === "lg" ? "12px" : "14px",
     display: "flex",
     alignItems: "center",
@@ -81,7 +82,10 @@ export default function AnimatedLogo({
         <div style={{ display: "flex", alignItems: "center" }}>
           <span style={textStyles}>Carb</span>
           {/* Animated "o" - The Eye */}
-          <div className="relative inline-flex items-center justify-center mx-0.5" style={{ width: `${sizes.text * 0.7}px`, height: `${sizes.text}px` }}>
+          <div
+            className="relative inline-flex items-center justify-center mx-0.5"
+            style={{ width: `${sizes.text * 0.7}px`, height: `${sizes.text}px` }}
+          >
             {/* Eye Open (Circle) */}
             <svg
               viewBox="0 0 24 24"
@@ -138,7 +142,8 @@ export default function AnimatedLogo({
           <div
             style={{
               fontSize: `${sizes.subtitle}px`,
-              color: variant === "dark" || variant === "light" ? "rgba(255, 255, 255, 0.7)" : "#64748b",
+              color:
+                variant === "dark" || variant === "light" ? "rgba(255, 255, 255, 0.7)" : "#64748b",
               fontWeight: 600,
               letterSpacing: "0.02em",
               textTransform: "uppercase",
