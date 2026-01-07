@@ -119,38 +119,62 @@ export default function SignInPage() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "14px",
               textDecoration: "none",
               marginBottom: "16px",
             }}
           >
             <div
               style={{
-                width: "48px",
-                height: "48px",
-                backgroundColor: "#10b981",
-                borderRadius: "12px",
+                width: "52px",
+                height: "52px",
+                background: "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
+                borderRadius: "14px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 8px 16px -4px rgba(16, 185, 129, 0.4)",
-                transition: "transform 0.3s ease",
+                boxShadow:
+                  "0 10px 30px -4px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255,255,255,0.1)",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                border: "2px solid rgba(255, 255, 255, 0.15)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "rotate(5deg) scale(1.05)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "rotate(0deg) scale(1)")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "rotate(-8deg) scale(1.1)";
+                e.currentTarget.style.boxShadow =
+                  "0 15px 40px -4px rgba(16, 185, 129, 0.7), 0 0 0 1px rgba(255,255,255,0.2)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "rotate(0deg) scale(1)";
+                e.currentTarget.style.boxShadow =
+                  "0 10px 30px -4px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255,255,255,0.1)";
+              }}
             >
               <svg
-                width="26"
-                height="26"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#fff"
-                strokeWidth="2.5"
+                strokeWidth="2.8"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <span style={{ fontSize: "28px", fontWeight: 800, color: "#fff" }}>CarbonCAM</span>
+            <span
+              style={{
+                fontSize: "32px",
+                fontWeight: 900,
+                background: "linear-gradient(135deg, #fff 0%, #f0fdf4 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                letterSpacing: "-0.03em",
+                fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
+                textShadow: "0 2px 10px rgba(255, 255, 255, 0.1)",
+              }}
+            >
+              CarbonCAM
+            </span>
           </Link>
           <p
             style={{

@@ -46,21 +46,28 @@ export default function MarketingLayout({
           >
             <div
               style={{
-                width: "32px",
-                height: "32px",
-                backgroundColor: "#0f172a",
-                borderRadius: "8px",
+                width: "36px",
+                height: "36px",
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                borderRadius: "10px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transition: "transform 0.2s",
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 12px rgba(16, 185, 129, 0.25)",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.08) rotate(-5deg)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(16, 185, 129, 0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1) rotate(0deg)";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(16, 185, 129, 0.25)";
+              }}
             >
               <svg
-                width="18"
-                height="18"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#fff"
@@ -71,10 +78,14 @@ export default function MarketingLayout({
             </div>
             <span
               style={{
-                fontSize: "19px",
-                fontWeight: 800,
-                color: "#0f172a",
-                letterSpacing: "-0.01em",
+                fontSize: "22px",
+                fontWeight: 900,
+                background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                letterSpacing: "-0.02em",
+                fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
               }}
             >
               CarbonCAM
@@ -199,18 +210,19 @@ export default function MarketingLayout({
               >
                 <div
                   style={{
-                    width: "28px",
-                    height: "28px",
-                    backgroundColor: "#0f172a",
-                    borderRadius: "6px",
+                    width: "32px",
+                    height: "32px",
+                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                    borderRadius: "8px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    boxShadow: "0 3px 10px rgba(16, 185, 129, 0.25)",
                   }}
                 >
                   <svg
-                    width="14"
-                    height="14"
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#fff"
@@ -225,9 +237,13 @@ export default function MarketingLayout({
                 </div>
                 <span
                   style={{
-                    fontSize: "17px",
-                    fontWeight: 700,
-                    color: "#0f172a",
+                    fontSize: "18px",
+                    fontWeight: 900,
+                    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 70%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    letterSpacing: "-0.02em",
                   }}
                 >
                   CarbonCAM

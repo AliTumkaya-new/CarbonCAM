@@ -179,7 +179,8 @@ export default function DashboardLayout({
             }}
           >
             {/* Logo */}
-            <div
+            <Link
+              href="/dashboard"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -187,23 +188,32 @@ export default function DashboardLayout({
                 height: "72px",
                 padding: "0 24px",
                 borderBottom: "1px solid #e2e8f0",
+                textDecoration: "none",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#f8fafc";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
               <div
                 style={{
-                  width: "36px",
-                  height: "36px",
-                  backgroundColor: "#10b981",
-                  borderRadius: "10px",
+                  width: "40px",
+                  height: "40px",
+                  background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                  borderRadius: "11px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: "0 4px 6px -1px rgba(16, 185, 129, 0.2)",
+                  boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
+                  transition: "all 0.3s ease",
                 }}
               >
                 <svg
-                  width="20"
-                  height="20"
+                  width="22"
+                  height="22"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#fff"
@@ -217,12 +227,33 @@ export default function DashboardLayout({
                 </svg>
               </div>
               <div>
-                <div style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a" }}>CarbonCAM</div>
-                <div style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>
+                <div
+                  style={{
+                    fontSize: "18px",
+                    fontWeight: 900,
+                    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 70%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    letterSpacing: "-0.02em",
+                    fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
+                  }}
+                >
+                  CarbonCAM
+                </div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#64748b",
+                    fontWeight: 600,
+                    letterSpacing: "0.02em",
+                    textTransform: "uppercase",
+                  }}
+                >
                   Industrial Platform
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Navigation */}
             <nav
