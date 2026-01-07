@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 
 interface AnimatedLogoProps {
   size?: "sm" | "md" | "lg" | "xl";
@@ -22,6 +22,7 @@ export default function AnimatedLogo({
   showSubtitle = false,
   className = "",
 }: AnimatedLogoProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const sizes = sizeMap[size];
 
   const iconStyles: CSSProperties = {
@@ -43,23 +44,11 @@ export default function AnimatedLogo({
     border: variant === "light" ? "2px solid rgba(255, 255, 255, 0.15)" : "none",
   };
 
-  const textStyles: CSSProperties = {
-    fontSize: `${sizes.text}px`,
-    fontWeight: 900,
-    background:
-      variant === "dark"
-        ? "#fff"
-        : variant === "light"
-          ? "linear-gradient(135deg, #fff 0%, #f0fdf4 100%)"
-          : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-    WebkitBackgroundClip: variant === "gradient" || variant === "light" ? "text" : undefined,
-    WebkitTextFillColor: variant === "gradient" || variant === "light" ? "transparent" : undefined,
-    backgroundClip: variant === "gradient" || variant === "light" ? "text" : undefined,
-    letterSpacing: "-0.03em",
-    fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
-    textShadow: variant === "light" ? "0 2px 10px rgba(255, 255, 255, 0.1)" : undefined,
-    color: variant === "dark" ? "#fff" : undefined,
-  };
+  // Stroke color based on variant
+  const strokeColor = variant === "dark" ? "#fff" : variant === "light" ? "#fff" : "#10b981";
+
+  // Fill color based on variant
+  const fillColor = variant === "dark" ? "#fff" : variant === "light" ? "#fff" : "#0f172a";
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
@@ -77,67 +66,61 @@ export default function AnimatedLogo({
         </svg>
       </div>
 
-      {/* Animated Text */}
-      <div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span style={textStyles}>Carb</span>
-          {/* Animated "o" - The Eye */}
-          <div
-            className="relative inline-flex items-center justify-center mx-0.5"
-            style={{ width: `${sizes.text * 0.7}px`, height: `${sizes.text}px` }}
+      {/* SVG Text with Stroke Animation */}
+      <div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="relative"
+      >
+        <svg
+          width={sizes.text * 9}
+          height={sizes.text * 1.5}
+          viewBox="0 0 400 60"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0f172a" />
+              <stop offset="50%" stopColor="#1e293b" />
+              <stop offset="100%" stopColor="#334155" />
+            </linearGradient>
+            <linearGradient id="lightGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#fff" />
+              <stop offset="100%" stopColor="#f0fdf4" />
+            </linearGradient>
+          </defs>
+
+          <text
+            x="0"
+            y="42"
+            fontSize={sizes.text * 1.5}
+            fontWeight="900"
+            fontFamily="'Inter', -apple-system, system-ui, sans-serif"
+            letterSpacing="-1"
+            className="logo-text"
+            fill={
+              variant === "dark"
+                ? "#fff"
+                : variant === "light"
+                  ? "url(#lightGradient)"
+                  : "url(#textGradient)"
+            }
+            stroke={strokeColor}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              fillOpacity: isHovered ? 0 : 1,
+              strokeOpacity: isHovered ? 1 : 0,
+              strokeDasharray: 600,
+              strokeDashoffset: isHovered ? 0 : 600,
+              transition: "all 1.2s cubic-bezier(0.47, 0, 0.745, 0.715)",
+            }}
           >
-            {/* Eye Open (Circle) */}
-            <svg
-              viewBox="0 0 24 24"
-              className="absolute eye-open"
-              style={{ width: `${sizes.text * 0.65}px`, height: `${sizes.text * 0.65}px` }}
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="9"
-                fill={variant === "dark" ? "#fff" : variant === "light" ? "#fff" : "#0f172a"}
-                opacity={variant === "gradient" || variant === "light" ? 0.9 : 1}
-              />
-            </svg>
+            CarbonCAM
+          </text>
+        </svg>
 
-            {/* Eye Closed (Curved Line) - Winking */}
-            <svg
-              viewBox="0 0 24 24"
-              className="absolute eye-closed"
-              style={{ width: `${sizes.text * 0.65}px`, height: `${sizes.text * 0.65}px` }}
-            >
-              <path
-                d="M 5 12 Q 12 18 19 12"
-                fill="none"
-                stroke={variant === "dark" ? "#fff" : variant === "light" ? "#fff" : "#0f172a"}
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                opacity={variant === "gradient" || variant === "light" ? 0.9 : 1}
-              />
-            </svg>
-
-            {/* Camera Shutter Effect (Optional Enhancement) */}
-            <svg
-              viewBox="0 0 24 24"
-              className="absolute camera-shutter"
-              style={{ width: `${sizes.text * 0.65}px`, height: `${sizes.text * 0.65}px` }}
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="9"
-                fill="none"
-                stroke={variant === "dark" ? "#fff" : variant === "light" ? "#fff" : "#10b981"}
-                strokeWidth="2"
-                strokeDasharray="56.5"
-                strokeDashoffset="0"
-                opacity="0.4"
-              />
-            </svg>
-          </div>
-          <span style={textStyles}>nCAM</span>
-        </div>
         {showSubtitle && (
           <div
             style={{
@@ -159,67 +142,6 @@ export default function AnimatedLogo({
         .logo-icon-hover:hover {
           transform: scale(1.08) rotate(-5deg);
           box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-
-        /* Eye Blink Animation - Logitech Style */
-        .eye-open {
-          animation: blinkOpen 4s ease-in-out infinite;
-        }
-
-        .eye-closed {
-          animation: blinkClosed 4s ease-in-out infinite;
-          opacity: 0;
-        }
-
-        /* Camera Shutter Animation */
-        .camera-shutter {
-          animation: shutterSpin 4s ease-in-out infinite;
-        }
-
-        @keyframes blinkOpen {
-          0%,
-          44%,
-          56%,
-          100% {
-            opacity: ${variant === "gradient" || variant === "light" ? 0.9 : 1};
-            transform: scale(1);
-          }
-          48%,
-          52% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-        }
-
-        @keyframes blinkClosed {
-          0%,
-          44%,
-          56%,
-          100% {
-            opacity: 0;
-            transform: scaleY(0.3);
-          }
-          48%,
-          52% {
-            opacity: ${variant === "gradient" || variant === "light" ? 0.9 : 1};
-            transform: scaleY(1);
-          }
-        }
-
-        @keyframes shutterSpin {
-          0%,
-          44%,
-          56%,
-          100% {
-            stroke-dashoffset: 0;
-            opacity: 0.4;
-          }
-          48%,
-          52% {
-            stroke-dashoffset: 56.5;
-            opacity: 0.8;
-            transform: rotate(45deg);
-          }
         }
       `}</style>
     </div>

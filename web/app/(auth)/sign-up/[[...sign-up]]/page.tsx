@@ -383,15 +383,26 @@ export default function SignUpPage() {
                   </span>
                 ))}
               </div>
-              <span style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "14px", fontWeight: 600 }}>
+              <span
+                style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "14px", fontWeight: 600 }}
+              >
                 4.9/5 Kullanıcı Memnuniyeti
               </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="2"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
-              <span style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "14px", fontWeight: 600 }}>
+              <span
+                style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "14px", fontWeight: 600 }}
+              >
                 ISO 14064 Uyumlu
               </span>
             </div>
