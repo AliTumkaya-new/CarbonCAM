@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import CookieConsent from "./cookie-consent";
+import AnimatedLogo from "../components/animated-logo";
 
 export default function MarketingLayout({
   children,
@@ -35,61 +36,8 @@ export default function MarketingLayout({
             justifyContent: "space-between",
           }}
         >
-          <Link
-            href="/"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              textDecoration: "none",
-            }}
-          >
-            <div
-              style={{
-                width: "36px",
-                height: "36px",
-                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                borderRadius: "10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "all 0.3s ease",
-                boxShadow: "0 4px 12px rgba(16, 185, 129, 0.25)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.08) rotate(-5deg)";
-                e.currentTarget.style.boxShadow = "0 6px 20px rgba(16, 185, 129, 0.4)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1) rotate(0deg)";
-                e.currentTarget.style.boxShadow = "0 4px 12px rgba(16, 185, 129, 0.25)";
-              }}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2.5"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span
-              style={{
-                fontSize: "22px",
-                fontWeight: 900,
-                background: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                letterSpacing: "-0.02em",
-                fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
-              }}
-            >
-              CarbonCAM
-            </span>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <AnimatedLogo size="md" variant="gradient" />
           </Link>
 
           <nav
@@ -200,54 +148,8 @@ export default function MarketingLayout({
           >
             {/* Brand */}
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  marginBottom: "16px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                    borderRadius: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 3px 10px rgba(16, 185, 129, 0.25)",
-                  }}
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#fff"
-                    strokeWidth="2.5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                </div>
-                <span
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 900,
-                    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 70%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  CarbonCAM
-                </span>
+              <div style={{ marginBottom: "16px" }}>
+                <AnimatedLogo size="sm" variant="gradient" />
               </div>
               <p
                 style={{

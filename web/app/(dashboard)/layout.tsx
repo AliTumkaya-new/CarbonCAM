@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import LanguageSwitcher from "../language-switcher";
+import AnimatedLogo from "../components/animated-logo";
 
 function NavLink({
   href,
@@ -182,14 +183,13 @@ export default function DashboardLayout({
             <Link
               href="/dashboard"
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
                 height: "72px",
                 padding: "0 24px",
                 borderBottom: "1px solid #e2e8f0",
                 textDecoration: "none",
                 transition: "all 0.2s ease",
+                display: "flex",
+                alignItems: "center",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#f8fafc";
@@ -198,61 +198,7 @@ export default function DashboardLayout({
                 e.currentTarget.style.backgroundColor = "transparent";
               }}
             >
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                  borderRadius: "11px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 4px 12px rgba(16, 185, 129, 0.3)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#fff"
-                  strokeWidth="2.5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 900,
-                    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 70%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    letterSpacing: "-0.02em",
-                    fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
-                  }}
-                >
-                  CarbonCAM
-                </div>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    color: "#64748b",
-                    fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Industrial Platform
-                </div>
-              </div>
+              <AnimatedLogo size="md" variant="gradient" showSubtitle />
             </Link>
 
             {/* Navigation */}

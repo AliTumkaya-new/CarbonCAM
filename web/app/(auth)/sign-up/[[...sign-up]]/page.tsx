@@ -3,6 +3,7 @@
 import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AnimatedLogo from "@/app/components/animated-logo";
 
 export default function SignUpPage() {
   const [isHovered, setIsHovered] = useState(false);
@@ -121,37 +122,11 @@ export default function SignUpPage() {
             href="/"
             style={{
               display: "inline-flex",
-              alignItems: "center",
-              gap: "12px",
               textDecoration: "none",
               marginBottom: "16px",
             }}
           >
-            <div
-              style={{
-                width: "48px",
-                height: "48px",
-                backgroundColor: "#10b981",
-                borderRadius: "12px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 8px 16px -4px rgba(16, 185, 129, 0.4)",
-                transition: "transform 0.3s ease",
-              }}
-            >
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2.5"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span style={{ fontSize: "28px", fontWeight: 800, color: "#fff" }}>CarbonCAM</span>
+            <AnimatedLogo size="xl" variant="light" />
           </Link>
           <p
             style={{

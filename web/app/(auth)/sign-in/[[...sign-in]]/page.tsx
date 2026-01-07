@@ -3,6 +3,7 @@
 import { SignIn } from "@clerk/nextjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AnimatedLogo from "@/app/components/animated-logo";
 
 export default function SignInPage() {
   const [mounted, setMounted] = useState(false);
@@ -118,63 +119,11 @@ export default function SignInPage() {
             href="/"
             style={{
               display: "inline-flex",
-              alignItems: "center",
-              gap: "14px",
               textDecoration: "none",
               marginBottom: "16px",
             }}
           >
-            <div
-              style={{
-                width: "52px",
-                height: "52px",
-                background: "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
-                borderRadius: "14px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow:
-                  "0 10px 30px -4px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255,255,255,0.1)",
-                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                border: "2px solid rgba(255, 255, 255, 0.15)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "rotate(-8deg) scale(1.1)";
-                e.currentTarget.style.boxShadow =
-                  "0 15px 40px -4px rgba(16, 185, 129, 0.7), 0 0 0 1px rgba(255,255,255,0.2)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "rotate(0deg) scale(1)";
-                e.currentTarget.style.boxShadow =
-                  "0 10px 30px -4px rgba(16, 185, 129, 0.5), 0 0 0 1px rgba(255,255,255,0.1)";
-              }}
-            >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2.8"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span
-              style={{
-                fontSize: "32px",
-                fontWeight: 900,
-                background: "linear-gradient(135deg, #fff 0%, #f0fdf4 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                letterSpacing: "-0.03em",
-                fontFamily: "'Inter', -apple-system, system-ui, sans-serif",
-                textShadow: "0 2px 10px rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              CarbonCAM
-            </span>
+            <AnimatedLogo size="xl" variant="light" />
           </Link>
           <p
             style={{
