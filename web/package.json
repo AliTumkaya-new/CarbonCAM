@@ -34,6 +34,9 @@
     "svix": "^1.84.1",
     "tailwind-merge": "^3.4.0"
   },
+  "optionalDependencies": {
+    "@parcel/watcher-linux-x64-glibc": "2.5.4"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
