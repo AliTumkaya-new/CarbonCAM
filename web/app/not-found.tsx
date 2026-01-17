@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { Home, ArrowLeft, Search } from "lucide-react";
 import AnimatedLogo from "@/app/components/animated-logo";
+import { ArrowLeft, Home } from "lucide-react";
+import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -15,21 +15,17 @@ export default function NotFound() {
 
         {/* 404 Number */}
         <div className="relative mb-6">
-          <h1 className="text-[150px] font-black text-slate-100 leading-none select-none">
-            404
-          </h1>
+          <h1 className="text-[150px] font-black text-slate-100 leading-none select-none">404</h1>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-6xl">🔍</div>
           </div>
         </div>
 
         {/* Message */}
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
-          Sayfa Bulunamadı
-        </h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-3">Sayfa Bulunamadı</h2>
         <p className="text-slate-500 mb-8 leading-relaxed">
-          Aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir.
-          Ana sayfaya dönüp tekrar deneyebilirsiniz.
+          Aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir. Ana sayfaya dönüp
+          tekrar deneyebilirsiniz.
         </p>
 
         {/* Action Buttons */}
