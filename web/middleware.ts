@@ -17,35 +17,48 @@ const clerkConfigured =
 // - / (Landing page) - herkese açık
 // - /api/webhooks(.*)  - Clerk webhooks için açık olmalı
 // - /sign-in, /sign-up  - Auth sayfaları
+// - Marketing pages - features, pricing, docs, blog, privacy, terms, cookies, help
 // Clerk yapılandırılmamışsa tüm sayfalar public (development mode).
 const isPublicRoute = createRouteMatcher(
   clerkConfigured
-    ? ["/", "/api/webhooks(.*)", "/sign-in(.*)", "/sign-up(.*)"]
+    ? [
+        "/",
+        "/api/webhooks(.*)",
+        "/sign-in(.*)",
+        "/sign-up(.*)",
+        "/features(.*)",
+        "/pricing(.*)",
+        "/docs(.*)",
+        "/blog(.*)",
+        "/privacy(.*)",
+        "/terms(.*)",
+        "/cookies(.*)",
+        "/help(.*)",
+      ]
     : ["/(.*)"]
 );
 
 // Korumalı sayfalar (sadece Clerk yapılandırılmışsa)
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/results(.*)", "/library(.*)", "/settings(.*)"]);
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/results(.*)",
+  "/library(.*)",
+  "/settings(.*)",
+]);
 
 const noopMiddleware = () => NextResponse.next();
 
 // Clerk keyleri yoksa/invalid ise tamamen no-op middleware export et.
 // Önemli: clerkMiddleware() çağrısı module init'te key doğrulaması yaptığı için,
 // invalid key ile crash'i engellemenin yolu export'u burada override etmektir.
-export default (
-  clerkConfigured
-    ? clerkMiddleware((auth, req) => {
-        if (isPublicRoute(req)) return NextResponse.next();
-        if (isProtectedRoute(req)) auth.protect();
-        return NextResponse.next();
-      })
-    : noopMiddleware
-);
+export default clerkConfigured
+  ? clerkMiddleware((auth, req) => {
+      if (isPublicRoute(req)) return NextResponse.next();
+      if (isProtectedRoute(req)) auth.protect();
+      return NextResponse.next();
+    })
+  : noopMiddleware;
 
 export const config = {
-  matcher: [
-    "/((?!.*\\..*|_next).*)",
-    "/",
-    "/(api|trpc)(.*)",
-  ],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

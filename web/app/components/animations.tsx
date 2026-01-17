@@ -313,3 +313,123 @@ export function ProgressBar({
     </div>
   );
 }
+
+// FadeInOnScroll - Modern scroll-triggered animation
+export function FadeInOnScroll({
+  children,
+  delay = 0,
+  duration = 600,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  duration?: number;
+  className?: string;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay * 1000);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    const current = ref.current;
+    if (current) observer.observe(current);
+
+    return () => {
+      if (current) observer.unobserve(current);
+    };
+  }, [delay]);
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transition: `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// StaggerChildren - Container for staggered animations
+export function StaggerChildren({
+  children,
+  className = "",
+  staggerDelay = 0.1,
+}: {
+  children: ReactNode;
+  className?: string;
+  staggerDelay?: number;
+}) {
+  return <div className={className}>{children}</div>;
+}
+
+// CountUp - Animated number counter
+export function CountUp({
+  end,
+  duration = 2,
+  decimals = 0,
+}: {
+  end: number;
+  duration?: number;
+  decimals?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const current = ref.current;
+    if (current) observer.observe(current);
+
+    return () => {
+      if (current) observer.unobserve(current);
+    };
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const startTime = Date.now();
+    const endTime = startTime + duration * 1000;
+
+    const updateCount = () => {
+      const now = Date.now();
+      const progress = Math.min((now - startTime) / (duration * 1000), 1);
+      
+      // Easing function (ease-out)
+      const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+      const currentCount = easeOutProgress * end;
+      
+      setCount(currentCount);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  }, [hasStarted, end, duration]);
+
+  return <span ref={ref}>{count.toFixed(decimals)}</span>;
+}

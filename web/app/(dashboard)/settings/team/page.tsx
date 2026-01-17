@@ -1,6 +1,6 @@
 "use client";
 
-import TeamSettings from "../../../settings/team/team-settings";
+import TeamSettings from "../../../settings/team/team-settings-new";
 
 export default function Page() {
   return <TeamSettings />;

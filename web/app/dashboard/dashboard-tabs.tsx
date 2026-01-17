@@ -32,48 +32,49 @@ export default function DashboardTabs() {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
       <DashboardTour enabled={tab === "calc"} />
 
-      {/* Header */}
+      {/* Header with Gradient */}
       <div
+        className="glass-card"
         style={{
-          animation: "fadeIn 0.6s ease-out",
-          animationDelay: "0.1s",
-          animationFillMode: "backwards",
+          padding: "48px 40px",
+          borderRadius: "24px",
+          background:
+            "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)",
+          border: "1px solid rgba(16, 185, 129, 0.1)",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <h1
+          className="gradient-text"
           style={{
-            fontSize: "36px",
-            fontWeight: 800,
-            color: "#0f172a",
-            marginBottom: "8px",
-            letterSpacing: "-0.02em",
+            fontSize: "48px",
+            fontWeight: 900,
+            marginBottom: "12px",
+            letterSpacing: "-0.03em",
           }}
         >
           Dashboard
         </h1>
-        <p style={{ fontSize: "15px", color: "#64748b", fontWeight: 500 }}>
+        <p style={{ fontSize: "16px", color: "#64748b", fontWeight: 500 }}>
           Karbon ayak izi hesaplama ve yönetim merkezi
         </p>
       </div>
 
-      {/* Tabs & Balance - Shadcn/UI Style */}
+      {/* Tabs & Balance - Modern Glassmorphism */}
       <div
+        className="glass-card card-hover"
         style={{
-          animation: "fadeIn 0.6s ease-out",
-          animationDelay: "0.2s",
-          animationFillMode: "backwards",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards",
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
-          gap: "16px",
-          padding: "16px",
-          backgroundColor: "#fff",
-          borderRadius: "16px",
-          border: "1px solid #e2e8f0",
-          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)",
+          justifyContent: "space-between",
+          gap: "24px",
+          padding: "24px",
+          borderRadius: "20px",
         }}
       >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>

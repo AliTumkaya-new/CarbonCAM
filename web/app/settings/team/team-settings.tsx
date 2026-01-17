@@ -4,7 +4,12 @@ import { OrganizationSwitcher } from "@clerk/nextjs";
 import { useEffect, useMemo, useState } from "react";
 
 type OrgMembership = {
-  public_user_data?: { identifier?: string; first_name?: string | null; last_name?: string | null; image_url?: string };
+  public_user_data?: {
+    identifier?: string;
+    first_name?: string | null;
+    last_name?: string | null;
+    image_url?: string;
+  };
   role?: string;
   user_id?: string;
 };
@@ -65,11 +70,11 @@ export default function TeamSettings() {
 
       const membershipsItems =
         typeof data === "object" && data !== null && "memberships" in data
-          ? (data as { memberships: { data?: OrgMembership[] } }).memberships?.data ?? []
+          ? ((data as { memberships: { data?: OrgMembership[] } }).memberships?.data ?? [])
           : [];
       const invitationsItems =
         typeof data === "object" && data !== null && "invitations" in data
-          ? (data as { invitations: { data?: OrgInvitation[] } }).invitations?.data ?? []
+          ? ((data as { invitations: { data?: OrgInvitation[] } }).invitations?.data ?? [])
           : [];
 
       setMemberships(membershipsItems);
@@ -146,76 +151,278 @@ export default function TeamSettings() {
 
   if (!clerkEnabled) {
     return (
-      <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Settings</p>
-        <h1 className="mt-2 text-lg font-semibold text-slate-900">Team</h1>
-        <p className="mt-2 text-sm text-slate-600">Clerk yapılandırılmadığı için takım yönetimi devre dışı.</p>
+      <div
+        className="glass-card"
+        style={{
+          maxWidth: "800px",
+          margin: "0 auto",
+          padding: "48px",
+          borderRadius: "24px",
+          textAlign: "center",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <div
+          style={{
+            width: "80px",
+            height: "80px",
+            margin: "0 auto 24px",
+            background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+            borderRadius: "24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+        </div>
+        <div className="premium-badge" style={{ marginBottom: "16px", justifyContent: "center" }}>
+          <span>Settings</span>
+        </div>
+        <h1 style={{ fontSize: "32px", fontWeight: 800, color: "#0f172a", marginBottom: "12px" }}>
+          Team Management Disabled
+        </h1>
+        <p style={{ fontSize: "15px", color: "#64748b", maxWidth: "500px", margin: "0 auto" }}>
+          Clerk yapılandırılmadığı için takım yönetimi devre dışı.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <header>
-        <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600">Settings</p>
-        <h1 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">Team</h1>
-        <p className="mt-2 text-sm text-slate-600">Üye davet edin, rollerini yönetin.</p>
+    <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      {/* Modern Header */}
+      <header
+        className="glass-card"
+        style={{
+          padding: "48px 40px",
+          borderRadius: "24px",
+          background:
+            "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)",
+          border: "1px solid rgba(16, 185, 129, 0.1)",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <div className="premium-badge" style={{ marginBottom: "20px" }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Settings</span>
+        </div>
+        <h1
+          className="gradient-text"
+          style={{
+            fontSize: "48px",
+            fontWeight: 900,
+            marginBottom: "12px",
+            letterSpacing: "-0.03em",
+          }}
+        >
+          Team
+        </h1>
+        <p style={{ fontSize: "16px", color: "#64748b", fontWeight: 500 }}>
+          Üye davet edin, rollerini yönetin.
+        </p>
       </header>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
-        <div className="flex items-center justify-between gap-3">
+      {/* Organization Switcher Card */}
+      <div
+        className="glass-card card-hover"
+        style={{
+          padding: "32px",
+          borderRadius: "20px",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards",
+        }}
+      >
+        <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-sm font-semibold text-slate-900">Active Organization</div>
-            <div className="mt-1 text-xs text-slate-500">Takım işlemleri için bir organizasyon seçin.</div>
+            <div
+              style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", marginBottom: "6px" }}
+            >
+              Active Organization
+            </div>
+            <div style={{ fontSize: "13px", color: "#64748b" }}>
+              Takım işlemleri için bir organizasyon seçin.
+            </div>
           </div>
           <OrganizationSwitcher />
         </div>
       </div>
 
       {error ? (
-        <div className="rounded-2xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800">
-          {error}
+        <div
+          className="glass-card"
+          style={{
+            padding: "20px 24px",
+            borderRadius: "16px",
+            background:
+              "linear-gradient(135deg, rgba(251, 146, 60, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%)",
+            border: "1px solid rgba(251, 146, 60, 0.2)",
+            animation: "fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#f97316"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <span style={{ fontSize: "14px", fontWeight: 600, color: "#ea580c" }}>{error}</span>
+          </div>
         </div>
       ) : null}
 
       {info ? (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-          {info}
+        <div
+          className="glass-card"
+          style={{
+            padding: "20px 24px",
+            borderRadius: "16px",
+            background:
+              "linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%)",
+            border: "1px solid rgba(16, 185, 129, 0.2)",
+            animation: "fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#10b981"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span style={{ fontSize: "14px", fontWeight: 600, color: "#059669" }}>{info}</span>
+          </div>
         </div>
       ) : null}
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-        <div className="flex items-center justify-between">
+      <section
+        className="glass-card card-hover"
+        style={{
+          padding: "40px",
+          borderRadius: "24px",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards",
+        }}
+      >
+        <div className="flex items-center justify-between" style={{ marginBottom: "32px" }}>
           <div>
-            <h2 className="text-base font-semibold text-slate-900">Invite member</h2>
-            <p className="mt-1 text-sm text-slate-500">E-mail ile davet gönderin.</p>
+            <h2
+              style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "8px" }}
+            >
+              Invite Member
+            </h2>
+            <p style={{ fontSize: "14px", color: "#64748b" }}>E-mail ile davet gönderin.</p>
           </div>
           <button
             type="button"
             disabled={loading}
             onClick={() => void invite()}
-            className="inline-flex h-10 items-center rounded-xl bg-emerald-600 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 disabled:opacity-50"
+            className="btn-gradient"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              height: "44px",
+              padding: "0 24px",
+              fontSize: "14px",
+              fontWeight: 700,
+            }}
           >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
             Invite Member
           </button>
         </div>
 
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-slate-700">E-mail</label>
+            <label
+              style={{
+                display: "block",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#475569",
+                marginBottom: "8px",
+              }}
+            >
+              E-mail
+            </label>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="email@example.com"
-              className="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2 text-slate-900 shadow-sm outline-none focus:ring-2 focus:ring-emerald-500"
+              className="input-focus"
+              style={{
+                width: "100%",
+                padding: "12px 16px",
+                borderRadius: "12px",
+                border: "1px solid rgba(226, 232, 240, 0.8)",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#0f172a",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700">Rol</label>
+            <label
+              style={{
+                display: "block",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#475569",
+                marginBottom: "8px",
+              }}
+            >
+              Rol
+            </label>
             <select
               value={inviteRole}
               onChange={(e) => setInviteRole(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none focus:ring-2 focus:ring-emerald-500"
+              className="input-focus"
+              style={{
+                width: "100%",
+                padding: "12px 16px",
+                borderRadius: "12px",
+                border: "1px solid rgba(226, 232, 240, 0.8)",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#0f172a",
+                backgroundColor: "#fff",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              }}
             >
               {ROLE_OPTIONS.map((r) => (
                 <option key={r.value} value={r.value}>
@@ -227,36 +434,106 @@ export default function TeamSettings() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-        <div className="flex items-center justify-between">
+      <section
+        className="glass-card card-hover"
+        style={{
+          padding: "40px",
+          borderRadius: "24px",
+          animation: "fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards",
+        }}
+      >
+        <div className="flex items-center justify-between" style={{ marginBottom: "32px" }}>
           <div>
-            <h2 className="text-base font-semibold text-slate-900">Members</h2>
-            <p className="mt-1 text-sm text-slate-500">Mevcut üyeler ve rolleri.</p>
+            <h2
+              style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "8px" }}
+            >
+              Members
+            </h2>
+            <p style={{ fontSize: "14px", color: "#64748b" }}>Mevcut üyeler ve rolleri.</p>
           </div>
           <button
             type="button"
             disabled={loading}
             onClick={() => void refresh()}
-            className="inline-flex h-9 items-center rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 disabled:opacity-50"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              height: "40px",
+              padding: "0 20px",
+              borderRadius: "12px",
+              border: "1px solid rgba(226, 232, 240, 0.8)",
+              backgroundColor: "#fff",
+              fontSize: "14px",
+              fontWeight: 600,
+              color: "#475569",
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#f8fafc";
+              e.currentTarget.style.borderColor = "#cbd5e1";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "#fff";
+              e.currentTarget.style.borderColor = "rgba(226, 232, 240, 0.8)";
+            }}
           >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
             Refresh
           </button>
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200">
+        <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200/60">
           <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-600">
+            <thead style={{ backgroundColor: "#f8fafc" }}>
               <tr>
-                <th className="px-4 py-3">User</th>
-                <th className="px-4 py-3">Role</th>
-                <th className="px-4 py-3" />
+                <th
+                  style={{
+                    padding: "16px 20px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#64748b",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  User
+                </th>
+                <th
+                  style={{
+                    padding: "16px 20px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#64748b",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  Role
+                </th>
+                <th style={{ padding: "16px 20px" }} />
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
               {memberships.map((m) => {
                 const userId = m.user_id ?? "";
                 const name =
-                  [m.public_user_data?.first_name, m.public_user_data?.last_name].filter(Boolean).join(" ") ||
+                  [m.public_user_data?.first_name, m.public_user_data?.last_name]
+                    .filter(Boolean)
+                    .join(" ") ||
                   m.public_user_data?.identifier ||
                   userId;
 
@@ -264,7 +541,9 @@ export default function TeamSettings() {
                   <tr key={userId} className="hover:bg-slate-50">
                     <td className="px-4 py-3">
                       <div className="font-semibold text-slate-900">{name}</div>
-                      <div className="text-xs text-slate-500">{m.public_user_data?.identifier ?? ""}</div>
+                      <div className="text-xs text-slate-500">
+                        {m.public_user_data?.identifier ?? ""}
+                      </div>
                     </td>
                     <td className="px-4 py-3">
                       <select
