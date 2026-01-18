@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#059669"/>
+  <g transform="translate(64, 64)">
+    <!-- Leaf Icon -->
+    <path d="M192 64c-64 0-128 64-128 128s64 128 128 128c21 0 43-5 64-16 0-48 16-96 48-128-32-16-64-48-64-80 0-21 21-32 43-32h16c-21 0-37 0-59 0z" fill="#ffffff" opacity="0.9"/>
+    <circle cx="192" cy="192" r="96" fill="none" stroke="#ffffff" stroke-width="16"/>
+    <!-- CO2 Text -->
+    <text x="192" y="216" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="#ffffff" text-anchor="middle">CO₂</text>
+  </g>
+</svg>

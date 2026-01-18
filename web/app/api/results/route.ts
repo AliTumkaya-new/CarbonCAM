@@ -75,16 +75,11 @@ export async function GET() {
 
 // POST endpoint for saving AI photo analysis results
 export async function POST(req: Request) {
-  if (!isClerkConfigured()) {
-    return NextResponse.json({ detail: "Auth not configured" }, { status: 401 });
-  }
-
+  console.log("POST /api/results called");
+  
   try {
-    const { userId } = await auth();
-    if (!userId) return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
-
-    const companyId = await getOrCreateCompanyId(userId);
     const body = await req.json();
+    console.log("Request body:", body);
 
     const {
       machine_name,
@@ -101,8 +96,29 @@ export async function POST(req: Request) {
 
     // Validate required fields
     if (!machine_name || total_energy_kwh === undefined || total_carbon_kg === undefined) {
+      console.log("Missing required fields");
       return NextResponse.json({ detail: "Missing required fields" }, { status: 400 });
     }
+
+    // Check if Clerk is configured
+    if (!isClerkConfigured()) {
+      console.log("Clerk not configured, returning success without saving");
+      return NextResponse.json({
+        ok: true,
+        calculation_id: null,
+        message: "Calculation completed (not saved - auth not configured)",
+      });
+    }
+
+    const { userId } = await auth();
+    if (!userId) {
+      console.log("User not authenticated");
+      return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
+    }
+
+    console.log("User authenticated:", userId);
+    const companyId = await getOrCreateCompanyId(userId);
+    console.log("Company ID:", companyId);
 
     // Insert into calculations table
     const result = await sql`
@@ -125,6 +141,8 @@ export async function POST(req: Request) {
       RETURNING id
     `;
 
+    console.log("Insert result:", result.rows);
+
     return NextResponse.json({
       ok: true,
       calculation_id: result.rows[0]?.id,
@@ -132,7 +150,10 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("POST /api/results error:", error);
-    return NextResponse.json({ detail: "Database error" }, { status: 500 });
+    return NextResponse.json({ 
+      detail: "Database error", 
+      error: error instanceof Error ? error.message : "Unknown error" 
+    }, { status: 500 });
   }
 }
 
