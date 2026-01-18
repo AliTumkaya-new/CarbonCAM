@@ -23,7 +23,7 @@ const isPublicRoute = createRouteMatcher(
   clerkConfigured
     ? [
         "/",
-        "/api/webhooks(.*)",
+        "/api(.*)",
         "/sign-in(.*)",
         "/sign-up(.*)",
         "/features(.*)",

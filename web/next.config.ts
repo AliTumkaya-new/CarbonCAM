@@ -30,9 +30,7 @@ let withNextIntl: NextConfigPlugin = (config) => config;
 try {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const mod = require("next-intl/plugin");
-  const createNextIntlPlugin = (mod?.default ?? mod) as (
-    requestConfig: string
-  ) => NextConfigPlugin;
+  const createNextIntlPlugin = (mod?.default ?? mod) as (requestConfig: string) => NextConfigPlugin;
   withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 } catch {
   console.warn("[next.config] next-intl plugin disabled");

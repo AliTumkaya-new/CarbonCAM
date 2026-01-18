@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { Inter, Maven_Pro } from "next/font/google";
-import CrispChat, { CrispChatWithClerk } from "./crisp-chat";
+import { CrispChatWithClerk } from "./crisp-chat";
 import "./globals.css";
 import SentryUserContext from "./sentry-user-context";
 
@@ -99,14 +99,6 @@ export default async function RootLayout({
   const locale = await getLocale();
   const messages = await getMessages();
 
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  const clerkEnabled =
-    typeof publishableKey === "string" &&
-    publishableKey.startsWith("pk_") &&
-    publishableKey.length >= 20 &&
-    !publishableKey.includes("XXXX") &&
-    !publishableKey.includes("xxxxxxxx");
-
   const clerkLocalization = locale === "de" ? deDE : locale === "en" ? enUS : trTR;
 
   return (
@@ -115,28 +107,19 @@ export default async function RootLayout({
         className={`${inter.variable} ${mavenPro.variable} font-sans antialiased overflow-x-hidden`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {clerkEnabled ? (
-            <ClerkProvider
-              publishableKey={publishableKey}
-              localization={clerkLocalization}
-              signInUrl="/sign-in"
-              signUpUrl="/sign-up"
-              signInFallbackRedirectUrl="/dashboard"
-              signUpFallbackRedirectUrl="/dashboard"
-            >
-              <SentryUserContext />
-              <SignedIn>
-                <CrispChatWithClerk websiteId={process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID} />
-              </SignedIn>
-              {children}
-            </ClerkProvider>
-          ) : (
-            <>
-              {/* Development mode: No Clerk, no Sentry user context */}
-              <CrispChat />
-              {children}
-            </>
-          )}
+          <ClerkProvider
+            localization={clerkLocalization}
+            signInUrl="/sign-in"
+            signUpUrl="/sign-up"
+            signInFallbackRedirectUrl="/dashboard"
+            signUpFallbackRedirectUrl="/dashboard"
+          >
+            <SentryUserContext />
+            <SignedIn>
+              <CrispChatWithClerk websiteId={process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID} />
+            </SignedIn>
+            {children}
+          </ClerkProvider>
         </NextIntlClientProvider>
       </body>
     </html>
