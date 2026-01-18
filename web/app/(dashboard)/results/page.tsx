@@ -31,9 +31,33 @@ type Summary = {
   totalEnergy: number;
 };
 
+type MonthlyStats = {
+  currentMonth: { carbon: number; energy: number; count: number };
+  previousMonth: { carbon: number; energy: number; count: number };
+  trends: { carbon: number; energy: number; count: number };
+};
+
+// Icons
+const TrendUpIcon = () => (
+  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+  </svg>
+);
+
+const TrendDownIcon = () => (
+  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
+  </svg>
+);
+
 export default function Page() {
   const [calculations, setCalculations] = useState<Calculation[]>([]);
   const [summary, setSummary] = useState<Summary>({ total: 0, totalCarbon: 0, totalEnergy: 0 });
+  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
+    currentMonth: { carbon: 0, energy: 0, count: 0 },
+    previousMonth: { carbon: 0, energy: 0, count: 0 },
+    trends: { carbon: 0, energy: 0, count: 0 }
+  });
   const [loading, setLoading] = useState(true);
 
   const fetchResults = useCallback(async () => {
@@ -42,12 +66,30 @@ export default function Page() {
       const data = await res.json();
       setCalculations(data.calculations || []);
       setSummary(data.summary || { total: 0, totalCarbon: 0, totalEnergy: 0 });
+      setMonthlyStats(data.monthlyStats || {
+        currentMonth: { carbon: 0, energy: 0, count: 0 },
+        previousMonth: { carbon: 0, energy: 0, count: 0 },
+        trends: { carbon: 0, energy: 0, count: 0 }
+      });
     } catch (error) {
       console.error("Failed to fetch results:", error);
     } finally {
       setLoading(false);
     }
   }, []);
+
+  // Format trend display
+  const formatTrend = (value: number) => {
+    if (value === 0) return "0%";
+    return value > 0 ? `+${value}%` : `${value}%`;
+  };
+
+  // For carbon/energy, lower is better (negative = good)
+  const isTrendPositive = (value: number, lowerIsBetter: boolean = false) => {
+    if (value === 0) return true;
+    if (lowerIsBetter) return value <= 0;
+    return value >= 0;
+  };
 
   useEffect(() => {
     void fetchResults();
@@ -137,11 +179,11 @@ export default function Page() {
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
-        <Card>
+        <Card className="border-emerald-100 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 dark:border-emerald-800/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Toplam Hesaplama</CardTitle>
             <svg
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-emerald-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -156,15 +198,27 @@ export default function Page() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{summary.total}</div>
-            <p className="text-xs text-muted-foreground">işlem kaydedildi</p>
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-xs text-muted-foreground">işlem kaydedildi</p>
+              {monthlyStats.trends.count !== 0 && (
+                <span className={`flex items-center gap-1 text-xs font-medium ${
+                  isTrendPositive(monthlyStats.trends.count, false) 
+                    ? "text-emerald-600" 
+                    : "text-red-500"
+                }`}>
+                  {monthlyStats.trends.count > 0 ? <TrendUpIcon /> : <TrendDownIcon />}
+                  {formatTrend(monthlyStats.trends.count)} bu ay
+                </span>
+              )}
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-amber-100 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 dark:border-amber-800/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Toplam Enerji</CardTitle>
             <svg
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-amber-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -179,15 +233,27 @@ export default function Page() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{summary.totalEnergy.toFixed(2)} kWh</div>
-            <p className="text-xs text-muted-foreground">enerji tüketildi</p>
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-xs text-muted-foreground">enerji tüketildi</p>
+              {monthlyStats.trends.energy !== 0 && (
+                <span className={`flex items-center gap-1 text-xs font-medium ${
+                  isTrendPositive(monthlyStats.trends.energy, true) 
+                    ? "text-emerald-600" 
+                    : "text-red-500"
+                }`}>
+                  {monthlyStats.trends.energy < 0 ? <TrendDownIcon /> : <TrendUpIcon />}
+                  {formatTrend(monthlyStats.trends.energy)} bu ay
+                </span>
+              )}
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 dark:border-blue-800/30">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Toplam Karbon</CardTitle>
             <svg
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-blue-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -204,7 +270,19 @@ export default function Page() {
             <div className="text-2xl font-bold text-emerald-600">
               {summary.totalCarbon.toFixed(2)} kg
             </div>
-            <p className="text-xs text-muted-foreground">CO₂ emisyonu</p>
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-xs text-muted-foreground">CO₂ emisyonu</p>
+              {monthlyStats.trends.carbon !== 0 && (
+                <span className={`flex items-center gap-1 text-xs font-medium ${
+                  isTrendPositive(monthlyStats.trends.carbon, true) 
+                    ? "text-emerald-600" 
+                    : "text-red-500"
+                }`}>
+                  {monthlyStats.trends.carbon < 0 ? <TrendDownIcon /> : <TrendUpIcon />}
+                  {formatTrend(monthlyStats.trends.carbon)} bu ay
+                </span>
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>
