@@ -1419,6 +1419,278 @@ const BRAND_DATABASE: Record<
       },
     ],
   },
+  // EDM - Electrical Discharge Machining
+  edm_machine: {
+    brands: [
+      { name: "Sodick", models: [{ name: "AG60L", power_kw: 8 }, { name: "ALC600G", power_kw: 12 }, { name: "VL600Q", power_kw: 15 }] },
+      { name: "Makino", models: [{ name: "EDAF3", power_kw: 10 }, { name: "U6", power_kw: 15 }, { name: "EDBV8", power_kw: 18 }] },
+      { name: "Mitsubishi", models: [{ name: "MV1200R", power_kw: 12 }, { name: "EA12V", power_kw: 15 }, { name: "SV12P", power_kw: 10 }] },
+      { name: "GF Machining (Charmilles)", models: [{ name: "CUT 200", power_kw: 8 }, { name: "CUT 400", power_kw: 12 }, { name: "FORM 350", power_kw: 15 }] },
+      { name: "FANUC", models: [{ name: "Robocut α-C400iC", power_kw: 8 }, { name: "Robocut α-C600iC", power_kw: 10 }] },
+      { name: "Other", models: [{ name: "Wire EDM (Small)", power_kw: 8 }, { name: "Wire EDM (Large)", power_kw: 15 }, { name: "Sinker EDM", power_kw: 12 }] },
+    ],
+  },
+  // Punch Press / Turret Punch
+  punch_press: {
+    brands: [
+      { name: "Trumpf", models: [{ name: "TruPunch 1000", power_kw: 18 }, { name: "TruPunch 3000", power_kw: 30 }, { name: "TruPunch 5000", power_kw: 45 }] },
+      { name: "Amada", models: [{ name: "EM 2510NT", power_kw: 22 }, { name: "EMK 3612", power_kw: 30 }, { name: "AE 2510NT", power_kw: 25 }] },
+      { name: "Prima Power", models: [{ name: "Punch Genius", power_kw: 28 }, { name: "Shear Genius", power_kw: 35 }] },
+      { name: "Murata", models: [{ name: "M2044TG", power_kw: 22 }, { name: "M2548TG", power_kw: 30 }] },
+      { name: "Other", models: [{ name: "CNC Turret Punch (Small)", power_kw: 18 }, { name: "CNC Turret Punch (Large)", power_kw: 35 }] },
+    ],
+  },
+  // Shearing Machine
+  shear_machine: {
+    brands: [
+      { name: "Amada", models: [{ name: "DCT 3065", power_kw: 15 }, { name: "GPX 630", power_kw: 22 }] },
+      { name: "LVD", models: [{ name: "MVS 6/31", power_kw: 18 }, { name: "MVS 10/40", power_kw: 30 }] },
+      { name: "Bystronic", models: [{ name: "Varicut", power_kw: 22 }] },
+      { name: "Durma", models: [{ name: "MS 3006", power_kw: 15 }, { name: "MS 4016", power_kw: 22 }] },
+      { name: "Other", models: [{ name: "Hydraulic Shear (Small)", power_kw: 11 }, { name: "Hydraulic Shear (Large)", power_kw: 30 }] },
+    ],
+  },
+  // Waterjet Cutter
+  waterjet_cutter: {
+    brands: [
+      { name: "Flow", models: [{ name: "Mach 100", power_kw: 30 }, { name: "Mach 500", power_kw: 50 }, { name: "Mach 700", power_kw: 75 }] },
+      { name: "OMAX", models: [{ name: "GlobalMAX 1530", power_kw: 30 }, { name: "MAXIEM 1515", power_kw: 45 }, { name: "ProtoMAX", power_kw: 5 }] },
+      { name: "KMT Waterjet", models: [{ name: "Streamline SL-V 50", power_kw: 37 }, { name: "Streamline SL-V 100", power_kw: 75 }] },
+      { name: "Bystronic", models: [{ name: "ByJet Flex", power_kw: 45 }, { name: "ByJet Classic", power_kw: 55 }] },
+      { name: "Other", models: [{ name: "Waterjet (Small)", power_kw: 30 }, { name: "Waterjet (Large)", power_kw: 75 }] },
+    ],
+  },
+  // Plasma Cutter
+  plasma_cutter: {
+    brands: [
+      { name: "Hypertherm", models: [{ name: "XPR170", power_kw: 50 }, { name: "XPR300", power_kw: 90 }, { name: "HPR260XD", power_kw: 75 }] },
+      { name: "Lincoln Electric", models: [{ name: "Spirit 150", power_kw: 45 }, { name: "Spirit 275", power_kw: 80 }] },
+      { name: "ESAB", models: [{ name: "Cutmaster 100", power_kw: 30 }, { name: "Cutmaster 120", power_kw: 35 }] },
+      { name: "Thermal Dynamics", models: [{ name: "Ultra-Cut 100", power_kw: 30 }, { name: "Ultra-Cut 300", power_kw: 85 }] },
+      { name: "Other", models: [{ name: "CNC Plasma (Small)", power_kw: 30 }, { name: "CNC Plasma (Large)", power_kw: 90 }] },
+    ],
+  },
+  // Industrial Oven / Furnace
+  industrial_oven: {
+    brands: [
+      { name: "Despatch", models: [{ name: "LCC Series", power_kw: 15 }, { name: "LAC Series", power_kw: 25 }, { name: "LFD Series", power_kw: 50 }] },
+      { name: "Blue M", models: [{ name: "DC-256", power_kw: 12 }, { name: "OV-560", power_kw: 20 }] },
+      { name: "Grieve", models: [{ name: "NB-350", power_kw: 18 }, { name: "TB-550", power_kw: 35 }] },
+      { name: "Wisconsin Oven", models: [{ name: "SWN Series", power_kw: 30 }, { name: "SPC Series", power_kw: 50 }] },
+      { name: "Nabertherm", models: [{ name: "N 41/H", power_kw: 8 }, { name: "N 500/85HA", power_kw: 45 }] },
+      { name: "Carbolite Gero", models: [{ name: "CWF 1200", power_kw: 6 }, { name: "HTF 1700", power_kw: 12 }] },
+      { name: "Other", models: [{ name: "Batch Oven", power_kw: 25 }, { name: "Continuous Oven", power_kw: 50 }, { name: "Heat Treat Furnace", power_kw: 100 }] },
+    ],
+  },
+  // Paint Booth / Spray Booth
+  paint_booth: {
+    brands: [
+      { name: "Nordson", models: [{ name: "Trilogy", power_kw: 22 }, { name: "Encore HD", power_kw: 15 }] },
+      { name: "Graco", models: [{ name: "ProBell", power_kw: 18 }, { name: "AirPro", power_kw: 8 }] },
+      { name: "Wagner", models: [{ name: "SuperCenter", power_kw: 25 }, { name: "PowTwin", power_kw: 12 }] },
+      { name: "Global Finishing Solutions", models: [{ name: "Ultra XD", power_kw: 55 }, { name: "Performer", power_kw: 37 }] },
+      { name: "Other", models: [{ name: "Spray Booth (Small)", power_kw: 15 }, { name: "Spray Booth (Industrial)", power_kw: 45 }] },
+    ],
+  },
+  // Packaging Machine
+  packaging_machine: {
+    brands: [
+      { name: "Bosch Packaging", models: [{ name: "CUK", power_kw: 8 }, { name: "SVK", power_kw: 12 }] },
+      { name: "Krones", models: [{ name: "Contiform", power_kw: 55 }, { name: "Modulfill", power_kw: 25 }] },
+      { name: "Sidel", models: [{ name: "SBO Universal", power_kw: 45 }, { name: "Matrix", power_kw: 30 }] },
+      { name: "MULTIVAC", models: [{ name: "R 245", power_kw: 12 }, { name: "R 535", power_kw: 22 }] },
+      { name: "IMA", models: [{ name: "C2000", power_kw: 18 }, { name: "Comprima", power_kw: 25 }] },
+      { name: "Other", models: [{ name: "Form-Fill-Seal", power_kw: 15 }, { name: "Shrink Wrap", power_kw: 8 }, { name: "Carton Former", power_kw: 12 }] },
+    ],
+  },
+  // Textile Machine
+  textile_machine: {
+    brands: [
+      { name: "Karl Mayer", models: [{ name: "HKS 3-M", power_kw: 15 }, { name: "RD 7/2-12", power_kw: 22 }] },
+      { name: "Rieter", models: [{ name: "R 70", power_kw: 35 }, { name: "G 38", power_kw: 45 }] },
+      { name: "Toyota Industries", models: [{ name: "JAT810", power_kw: 4 }, { name: "JAT910", power_kw: 5.5 }] },
+      { name: "Picanol", models: [{ name: "OptiMax", power_kw: 5 }, { name: "TerryMax", power_kw: 6 }] },
+      { name: "Other", models: [{ name: "Loom (Air Jet)", power_kw: 5 }, { name: "Spinning Machine", power_kw: 35 }, { name: "Knitting Machine", power_kw: 15 }] },
+    ],
+  },
+  // Food Processing
+  food_processing: {
+    brands: [
+      { name: "JBT", models: [{ name: "DSI Waterjet", power_kw: 25 }, { name: "Stein Fryer", power_kw: 120 }] },
+      { name: "Marel", models: [{ name: "I-Cut 122", power_kw: 8 }, { name: "SensorX", power_kw: 5 }] },
+      { name: "GEA", models: [{ name: "CutMaster", power_kw: 45 }, { name: "PowerPak", power_kw: 35 }] },
+      { name: "Bühler", models: [{ name: "PolyOne", power_kw: 75 }, { name: "Aeroglide", power_kw: 150 }] },
+      { name: "Tetra Pak", models: [{ name: "A3/Flex", power_kw: 18 }, { name: "E3/Speed", power_kw: 22 }] },
+      { name: "Other", models: [{ name: "Mixer/Blender", power_kw: 15 }, { name: "Fryer", power_kw: 80 }, { name: "Pasteurizer", power_kw: 50 }] },
+    ],
+  },
+  // Pharmaceutical Equipment
+  pharmaceutical: {
+    brands: [
+      { name: "IMA", models: [{ name: "Zanasi 40F", power_kw: 8 }, { name: "Comprima 600", power_kw: 25 }] },
+      { name: "Bosch Pharma", models: [{ name: "GKF 2500", power_kw: 12 }, { name: "FXS Syringe", power_kw: 18 }] },
+      { name: "Romaco", models: [{ name: "Macofar", power_kw: 10 }, { name: "Kilian", power_kw: 15 }] },
+      { name: "Korsch", models: [{ name: "XL 400", power_kw: 12 }, { name: "XT 600", power_kw: 18 }] },
+      { name: "Fette Compacting", models: [{ name: "1200i", power_kw: 15 }, { name: "2200i", power_kw: 22 }] },
+      { name: "Other", models: [{ name: "Tablet Press", power_kw: 15 }, { name: "Capsule Filler", power_kw: 10 }, { name: "Blister Pack", power_kw: 8 }] },
+    ],
+  },
+  // Semiconductor Equipment
+  semiconductor: {
+    brands: [
+      { name: "ASML", models: [{ name: "TWINSCAN NXT:2000i", power_kw: 120 }, { name: "TWINSCAN NXE:3400C", power_kw: 150 }] },
+      { name: "Applied Materials", models: [{ name: "Centura", power_kw: 80 }, { name: "Producer", power_kw: 100 }] },
+      { name: "Lam Research", models: [{ name: "Kiyo", power_kw: 75 }, { name: "Vector", power_kw: 90 }] },
+      { name: "Tokyo Electron", models: [{ name: "Telius", power_kw: 85 }, { name: "CLEAN TRACK", power_kw: 50 }] },
+      { name: "Other", models: [{ name: "Lithography", power_kw: 120 }, { name: "Etcher", power_kw: 80 }, { name: "CVD System", power_kw: 90 }] },
+    ],
+  },
+  // CNC Router / Wood CNC
+  cnc_router: {
+    brands: [
+      { name: "Biesse", models: [{ name: "Rover A", power_kw: 15 }, { name: "Rover B", power_kw: 22 }, { name: "Rover K", power_kw: 12 }] },
+      { name: "Homag", models: [{ name: "CENTATEQ N-210", power_kw: 18 }, { name: "CENTATEQ P-310", power_kw: 25 }] },
+      { name: "SCM Group", models: [{ name: "Accord 25 FX", power_kw: 15 }, { name: "Morbidelli M100", power_kw: 18 }] },
+      { name: "Laguna Tools", models: [{ name: "SmartShop II", power_kw: 7.5 }, { name: "IQ Pro", power_kw: 11 }] },
+      { name: "ShopBot", models: [{ name: "PRSalpha", power_kw: 4 }, { name: "Desktop", power_kw: 1.5 }] },
+      { name: "Other", models: [{ name: "Wood CNC (Small)", power_kw: 5 }, { name: "Wood CNC (Industrial)", power_kw: 22 }] },
+    ],
+  },
+  // Hydraulic Press
+  hydraulic_press: {
+    brands: [
+      { name: "Schuler", models: [{ name: "MSD 200", power_kw: 55 }, { name: "MSC 2000", power_kw: 250 }] },
+      { name: "Komatsu", models: [{ name: "H1F80", power_kw: 30 }, { name: "H2W200", power_kw: 75 }] },
+      { name: "Aida", models: [{ name: "NC1-800", power_kw: 45 }, { name: "DSF-N2-2000", power_kw: 150 }] },
+      { name: "Beckwood", models: [{ name: "Triform", power_kw: 55 }, { name: "Custom", power_kw: 110 }] },
+      { name: "Other", models: [{ name: "C-Frame Press", power_kw: 30 }, { name: "H-Frame Press", power_kw: 75 }, { name: "4-Post Press", power_kw: 110 }] },
+    ],
+  },
+  // Sandblaster / Shot Blaster
+  sandblaster: {
+    brands: [
+      { name: "Clemco", models: [{ name: "Model 2452", power_kw: 11 }, { name: "Model 6040", power_kw: 22 }] },
+      { name: "Wheelabrator", models: [{ name: "Super II", power_kw: 37 }, { name: "Tumblast", power_kw: 55 }] },
+      { name: "Rosler", models: [{ name: "RHBD", power_kw: 15 }, { name: "RMBC", power_kw: 30 }] },
+      { name: "Empire", models: [{ name: "Pro-Finish", power_kw: 7.5 }, { name: "Blast Cabinet", power_kw: 4 }] },
+      { name: "Other", models: [{ name: "Cabinet Blaster", power_kw: 5 }, { name: "Room Blaster", power_kw: 30 }, { name: "Automated Blaster", power_kw: 55 }] },
+    ],
+  },
+  // Extruder (Plastic/Metal)
+  extruder: {
+    brands: [
+      { name: "KraussMaffei", models: [{ name: "ZE BluePower", power_kw: 90 }, { name: "ZE UTXi", power_kw: 150 }] },
+      { name: "Coperion", models: [{ name: "ZSK Mc18", power_kw: 75 }, { name: "ZSK 45", power_kw: 110 }] },
+      { name: "Davis-Standard", models: [{ name: "HPE-H", power_kw: 55 }, { name: "dsi-MAX", power_kw: 90 }] },
+      { name: "Leistritz", models: [{ name: "ZSE 27", power_kw: 30 }, { name: "ZSE 50", power_kw: 75 }] },
+      { name: "Other", models: [{ name: "Single Screw", power_kw: 45 }, { name: "Twin Screw", power_kw: 90 }, { name: "Aluminum Extruder", power_kw: 500 }] },
+    ],
+  },
+  // Wire/Cable Machine
+  wire_cable_machine: {
+    brands: [
+      { name: "Niehoff", models: [{ name: "MSM 85", power_kw: 250 }, { name: "MMH 106", power_kw: 400 }] },
+      { name: "Maillefer", models: [{ name: "Extrusion Line", power_kw: 150 }, { name: "CV Line", power_kw: 300 }] },
+      { name: "Rosendahl", models: [{ name: "RD 90", power_kw: 200 }, { name: "Nextrom", power_kw: 350 }] },
+      { name: "Other", models: [{ name: "Wire Drawing", power_kw: 150 }, { name: "Stranding", power_kw: 75 }, { name: "Cable Jacketing", power_kw: 200 }] },
+    ],
+  },
+  // Die Casting
+  die_casting: {
+    brands: [
+      { name: "Bühler", models: [{ name: "Carat 160", power_kw: 90 }, { name: "Carat 560", power_kw: 250 }] },
+      { name: "Frech", models: [{ name: "DAK 450", power_kw: 75 }, { name: "DAK 920", power_kw: 150 }] },
+      { name: "Idra", models: [{ name: "OL 560", power_kw: 120 }, { name: "OL 1600", power_kw: 300 }] },
+      { name: "LK Machinery", models: [{ name: "DCC 280", power_kw: 55 }, { name: "DCC 800", power_kw: 150 }] },
+      { name: "Other", models: [{ name: "Cold Chamber (Small)", power_kw: 75 }, { name: "Cold Chamber (Large)", power_kw: 250 }, { name: "Hot Chamber", power_kw: 45 }] },
+    ],
+  },
+  // Forging Equipment
+  forging: {
+    brands: [
+      { name: "SMS Group", models: [{ name: "Radial Forge", power_kw: 500 }, { name: "Open Die Press", power_kw: 1000 }] },
+      { name: "Schuler", models: [{ name: "Forging Press 2500", power_kw: 400 }, { name: "Isothermal", power_kw: 600 }] },
+      { name: "Lasco", models: [{ name: "SPR 500", power_kw: 250 }, { name: "KP 2000", power_kw: 550 }] },
+      { name: "Other", models: [{ name: "Drop Hammer", power_kw: 150 }, { name: "Forging Press", power_kw: 400 }, { name: "Ring Rolling", power_kw: 300 }] },
+    ],
+  },
+  // Rolling Mill
+  rolling_mill: {
+    brands: [
+      { name: "SMS Group", models: [{ name: "X-Roll", power_kw: 2000 }, { name: "CVC Plus", power_kw: 3500 }] },
+      { name: "Primetals", models: [{ name: "Arvedi ESP", power_kw: 5000 }, { name: "iBox", power_kw: 1500 }] },
+      { name: "Danieli", models: [{ name: "QSP-DUE", power_kw: 4000 }, { name: "MIDA", power_kw: 2500 }] },
+      { name: "Other", models: [{ name: "Hot Rolling Mill", power_kw: 3000 }, { name: "Cold Rolling Mill", power_kw: 2000 }, { name: "Section Mill", power_kw: 1500 }] },
+    ],
+  },
+  // Printing / Label Machine
+  printing_machine: {
+    brands: [
+      { name: "Heidelberg", models: [{ name: "Speedmaster XL 106", power_kw: 85 }, { name: "Speedmaster CX 102", power_kw: 55 }] },
+      { name: "Koenig & Bauer", models: [{ name: "Rapida 106", power_kw: 75 }, { name: "RotaJET", power_kw: 120 }] },
+      { name: "Komori", models: [{ name: "Lithrone G40", power_kw: 65 }, { name: "Impremia IS29", power_kw: 45 }] },
+      { name: "HP Indigo", models: [{ name: "12000", power_kw: 35 }, { name: "100K", power_kw: 75 }] },
+      { name: "Other", models: [{ name: "Offset Press", power_kw: 55 }, { name: "Digital Press", power_kw: 35 }, { name: "Flexo Press", power_kw: 45 }] },
+    ],
+  },
+  // Paper/Pulp Machine  
+  paper_machine: {
+    brands: [
+      { name: "Valmet", models: [{ name: "OptiConcept M", power_kw: 15000 }, { name: "Advantage DCT", power_kw: 8000 }] },
+      { name: "Voith", models: [{ name: "XcelLine", power_kw: 12000 }, { name: "BlueLine", power_kw: 5000 }] },
+      { name: "ANDRITZ", models: [{ name: "PrimeLineTEX", power_kw: 10000 }, { name: "PrimePress", power_kw: 3000 }] },
+      { name: "Other", models: [{ name: "Paper Machine (Small)", power_kw: 3000 }, { name: "Paper Machine (Large)", power_kw: 15000 }] },
+    ],
+  },
+  // Centrifuge / Separator
+  centrifuge: {
+    brands: [
+      { name: "Alfa Laval", models: [{ name: "CLARA 500", power_kw: 45 }, { name: "ALDEC G3", power_kw: 90 }] },
+      { name: "GEA", models: [{ name: "Westfalia", power_kw: 55 }, { name: "CFE 500", power_kw: 75 }] },
+      { name: "Flottweg", models: [{ name: "Z Series", power_kw: 45 }, { name: "Decanter", power_kw: 110 }] },
+      { name: "Other", models: [{ name: "Disc Centrifuge", power_kw: 45 }, { name: "Decanter", power_kw: 90 }] },
+    ],
+  },
+  // Air Handling Unit / HVAC
+  hvac_equipment: {
+    brands: [
+      { name: "Carrier", models: [{ name: "AquaEdge 19DV", power_kw: 350 }, { name: "AquaForce 30XV", power_kw: 550 }] },
+      { name: "Trane", models: [{ name: "CenTraVac", power_kw: 450 }, { name: "RTAC", power_kw: 250 }] },
+      { name: "Daikin", models: [{ name: "Magnitude", power_kw: 400 }, { name: "Pathfinder", power_kw: 300 }] },
+      { name: "Johnson Controls (York)", models: [{ name: "YZ Chiller", power_kw: 550 }, { name: "YK Centrifugal", power_kw: 800 }] },
+      { name: "Other", models: [{ name: "Chiller (Small)", power_kw: 100 }, { name: "Chiller (Large)", power_kw: 500 }, { name: "AHU", power_kw: 30 }] },
+    ],
+  },
+  // Crane / Hoist
+  crane: {
+    brands: [
+      { name: "Konecranes", models: [{ name: "CXT", power_kw: 15 }, { name: "Agilon", power_kw: 5 }] },
+      { name: "Demag", models: [{ name: "DR-Pro", power_kw: 22 }, { name: "V-type", power_kw: 55 }] },
+      { name: "Liebherr", models: [{ name: "LTM 1100", power_kw: 350 }, { name: "LTM 1500", power_kw: 500 }] },
+      { name: "ZPMC", models: [{ name: "RTG", power_kw: 450 }, { name: "STS", power_kw: 2000 }] },
+      { name: "Other", models: [{ name: "Overhead Crane", power_kw: 30 }, { name: "Gantry Crane", power_kw: 150 }, { name: "Mobile Crane", power_kw: 350 }] },
+    ],
+  },
+  // Generator / Power Equipment
+  generator: {
+    brands: [
+      { name: "Caterpillar", models: [{ name: "C15", power_kw: 500 }, { name: "C32", power_kw: 1000 }, { name: "C175-16", power_kw: 4000 }] },
+      { name: "Cummins", models: [{ name: "QSK60", power_kw: 2000 }, { name: "QSK95", power_kw: 3500 }] },
+      { name: "MTU", models: [{ name: "12V4000", power_kw: 1800 }, { name: "16V4000", power_kw: 2500 }] },
+      { name: "Kohler", models: [{ name: "KD Series", power_kw: 800 }, { name: "4000 Series", power_kw: 3250 }] },
+      { name: "Other", models: [{ name: "Diesel Generator (Small)", power_kw: 100 }, { name: "Diesel Generator (Large)", power_kw: 2000 }] },
+    ],
+  },
+  // Test & Measurement Equipment
+  test_equipment: {
+    brands: [
+      { name: "Instron", models: [{ name: "5900 Series", power_kw: 5 }, { name: "8800 Series", power_kw: 15 }] },
+      { name: "MTS", models: [{ name: "Criterion", power_kw: 8 }, { name: "Landmark", power_kw: 45 }] },
+      { name: "ZwickRoell", models: [{ name: "Z250", power_kw: 5 }, { name: "Amsler", power_kw: 30 }] },
+      { name: "Carl Zeiss", models: [{ name: "Contura", power_kw: 3 }, { name: "PRISMO", power_kw: 5 }] },
+      { name: "Other", models: [{ name: "CMM", power_kw: 5 }, { name: "UTM", power_kw: 15 }, { name: "Hardness Tester", power_kw: 2 }] },
+    ],
+  },
 };
 
 // Machine options
@@ -1550,24 +1822,35 @@ export default function DashboardTabs() {
           .filter(Boolean)
           .join(" ") || file.analysis.machine_type;
 
-      // Save to Results using dedicated endpoint
+      // Save to Results using dedicated endpoint - with better error handling
       try {
-        await fetch("/api/results", {
+        const savePayload = {
+          machine_name: machineName,
+          machine_type: file.analysis.machine_key,
+          brand: file.selectedBrand || null,
+          model: file.selectedModel || null,
+          power_kw: file.customPowerKw || file.specifications?.operating_power_kw || 0,
+          operating_hours: parseFloat(file.operatingHours) || 0,
+          standby_hours: parseFloat(file.standbyHours || "0") || 0,
+          total_energy_kwh: data.energy.total_energy_kwh,
+          total_carbon_kg: data.carbon.total_carbon_kg,
+          source: "ai_photo_analysis",
+        };
+        
+        console.log("Saving to results:", savePayload);
+        
+        const saveResponse = await fetch("/api/results", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            machine_name: machineName,
-            machine_type: file.analysis.machine_key,
-            brand: file.selectedBrand || null,
-            model: file.selectedModel || null,
-            power_kw: file.customPowerKw || file.specifications?.operating_power_kw || 0,
-            operating_hours: parseFloat(file.operatingHours) || 0,
-            standby_hours: parseFloat(file.standbyHours || "0") || 0,
-            total_energy_kwh: data.energy.total_energy_kwh,
-            total_carbon_kg: data.carbon.total_carbon_kg,
-            source: "ai_photo_analysis",
-          }),
+          body: JSON.stringify(savePayload),
         });
+        
+        const saveResult = await saveResponse.json();
+        console.log("Save result:", saveResult);
+        
+        if (!saveResponse.ok) {
+          console.error("Failed to save:", saveResult);
+        }
       } catch (saveErr) {
         console.error("Failed to save to history:", saveErr);
       }
