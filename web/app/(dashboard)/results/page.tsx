@@ -40,13 +40,21 @@ type MonthlyStats = {
 // Icons
 const TrendUpIcon = () => (
   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
+    />
   </svg>
 );
 
 const TrendDownIcon = () => (
   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
+    />
   </svg>
 );
 
@@ -56,7 +64,7 @@ export default function Page() {
   const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
     currentMonth: { carbon: 0, energy: 0, count: 0 },
     previousMonth: { carbon: 0, energy: 0, count: 0 },
-    trends: { carbon: 0, energy: 0, count: 0 }
+    trends: { carbon: 0, energy: 0, count: 0 },
   });
   const [loading, setLoading] = useState(true);
 
@@ -66,11 +74,13 @@ export default function Page() {
       const data = await res.json();
       setCalculations(data.calculations || []);
       setSummary(data.summary || { total: 0, totalCarbon: 0, totalEnergy: 0 });
-      setMonthlyStats(data.monthlyStats || {
-        currentMonth: { carbon: 0, energy: 0, count: 0 },
-        previousMonth: { carbon: 0, energy: 0, count: 0 },
-        trends: { carbon: 0, energy: 0, count: 0 }
-      });
+      setMonthlyStats(
+        data.monthlyStats || {
+          currentMonth: { carbon: 0, energy: 0, count: 0 },
+          previousMonth: { carbon: 0, energy: 0, count: 0 },
+          trends: { carbon: 0, energy: 0, count: 0 },
+        }
+      );
     } catch (error) {
       console.error("Failed to fetch results:", error);
     } finally {
@@ -201,11 +211,13 @@ export default function Page() {
             <div className="flex items-center gap-2 mt-1">
               <p className="text-xs text-muted-foreground">işlem kaydedildi</p>
               {monthlyStats.trends.count !== 0 && (
-                <span className={`flex items-center gap-1 text-xs font-medium ${
-                  isTrendPositive(monthlyStats.trends.count, false) 
-                    ? "text-emerald-600" 
-                    : "text-red-500"
-                }`}>
+                <span
+                  className={`flex items-center gap-1 text-xs font-medium ${
+                    isTrendPositive(monthlyStats.trends.count, false)
+                      ? "text-emerald-600"
+                      : "text-red-500"
+                  }`}
+                >
                   {monthlyStats.trends.count > 0 ? <TrendUpIcon /> : <TrendDownIcon />}
                   {formatTrend(monthlyStats.trends.count)} bu ay
                 </span>
@@ -236,11 +248,13 @@ export default function Page() {
             <div className="flex items-center gap-2 mt-1">
               <p className="text-xs text-muted-foreground">enerji tüketildi</p>
               {monthlyStats.trends.energy !== 0 && (
-                <span className={`flex items-center gap-1 text-xs font-medium ${
-                  isTrendPositive(monthlyStats.trends.energy, true) 
-                    ? "text-emerald-600" 
-                    : "text-red-500"
-                }`}>
+                <span
+                  className={`flex items-center gap-1 text-xs font-medium ${
+                    isTrendPositive(monthlyStats.trends.energy, true)
+                      ? "text-emerald-600"
+                      : "text-red-500"
+                  }`}
+                >
                   {monthlyStats.trends.energy < 0 ? <TrendDownIcon /> : <TrendUpIcon />}
                   {formatTrend(monthlyStats.trends.energy)} bu ay
                 </span>
@@ -273,11 +287,13 @@ export default function Page() {
             <div className="flex items-center gap-2 mt-1">
               <p className="text-xs text-muted-foreground">CO₂ emisyonu</p>
               {monthlyStats.trends.carbon !== 0 && (
-                <span className={`flex items-center gap-1 text-xs font-medium ${
-                  isTrendPositive(monthlyStats.trends.carbon, true) 
-                    ? "text-emerald-600" 
-                    : "text-red-500"
-                }`}>
+                <span
+                  className={`flex items-center gap-1 text-xs font-medium ${
+                    isTrendPositive(monthlyStats.trends.carbon, true)
+                      ? "text-emerald-600"
+                      : "text-red-500"
+                  }`}
+                >
                   {monthlyStats.trends.carbon < 0 ? <TrendDownIcon /> : <TrendUpIcon />}
                   {formatTrend(monthlyStats.trends.carbon)} bu ay
                 </span>

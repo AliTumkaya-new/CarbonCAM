@@ -25,8 +25,8 @@ export async function GET() {
       monthlyStats: {
         currentMonth: { carbon: 0, energy: 0, count: 0 },
         previousMonth: { carbon: 0, energy: 0, count: 0 },
-        trends: { carbon: 0, energy: 0, count: 0 }
-      }
+        trends: { carbon: 0, energy: 0, count: 0 },
+      },
     });
   }
 
@@ -95,7 +95,7 @@ export async function GET() {
     const trends = {
       carbon: calculateTrend(parseFloat(currentMonth.carbon), parseFloat(previousMonth.carbon)),
       energy: calculateTrend(parseFloat(currentMonth.energy), parseFloat(previousMonth.energy)),
-      count: calculateTrend(parseInt(currentMonth.count), parseInt(previousMonth.count))
+      count: calculateTrend(parseInt(currentMonth.count), parseInt(previousMonth.count)),
     };
 
     return NextResponse.json({
@@ -109,15 +109,15 @@ export async function GET() {
         currentMonth: {
           carbon: parseFloat(currentMonth.carbon) || 0,
           energy: parseFloat(currentMonth.energy) || 0,
-          count: parseInt(currentMonth.count) || 0
+          count: parseInt(currentMonth.count) || 0,
         },
         previousMonth: {
           carbon: parseFloat(previousMonth.carbon) || 0,
           energy: parseFloat(previousMonth.energy) || 0,
-          count: parseInt(previousMonth.count) || 0
+          count: parseInt(previousMonth.count) || 0,
         },
-        trends
-      }
+        trends,
+      },
     });
   } catch (error) {
     console.error("GET /api/results error:", error);
@@ -127,8 +127,8 @@ export async function GET() {
       monthlyStats: {
         currentMonth: { carbon: 0, energy: 0, count: 0 },
         previousMonth: { carbon: 0, energy: 0, count: 0 },
-        trends: { carbon: 0, energy: 0, count: 0 }
-      }
+        trends: { carbon: 0, energy: 0, count: 0 },
+      },
     });
   }
 }
