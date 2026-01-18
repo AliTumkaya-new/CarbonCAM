@@ -22,6 +22,11 @@ export async function GET() {
     return NextResponse.json({
       calculations: [],
       summary: { total: 0, totalCarbon: 0, totalEnergy: 0 },
+      monthlyStats: {
+        currentMonth: { carbon: 0, energy: 0, count: 0 },
+        previousMonth: { carbon: 0, energy: 0, count: 0 },
+        trends: { carbon: 0, energy: 0, count: 0 }
+      }
     });
   }
 
@@ -44,7 +49,7 @@ export async function GET() {
       LIMIT 100
     `;
 
-    // Get summary
+    // Get all-time summary
     const summaryResult = await sql`
       SELECT 
         COUNT(*) as total,
@@ -54,7 +59,44 @@ export async function GET() {
       WHERE company_id = ${companyId}
     `;
 
+    // Get current month stats
+    const currentMonthResult = await sql`
+      SELECT 
+        COUNT(*) as count,
+        COALESCE(SUM(total_carbon_kg), 0) as carbon,
+        COALESCE(SUM(total_energy_kwh), 0) as energy
+      FROM calculations
+      WHERE company_id = ${companyId}
+        AND created_at >= date_trunc('month', CURRENT_DATE)
+    `;
+
+    // Get previous month stats
+    const previousMonthResult = await sql`
+      SELECT 
+        COUNT(*) as count,
+        COALESCE(SUM(total_carbon_kg), 0) as carbon,
+        COALESCE(SUM(total_energy_kwh), 0) as energy
+      FROM calculations
+      WHERE company_id = ${companyId}
+        AND created_at >= date_trunc('month', CURRENT_DATE - interval '1 month')
+        AND created_at < date_trunc('month', CURRENT_DATE)
+    `;
+
     const summary = summaryResult.rows[0] || { total: 0, total_carbon: 0, total_energy: 0 };
+    const currentMonth = currentMonthResult.rows[0] || { count: 0, carbon: 0, energy: 0 };
+    const previousMonth = previousMonthResult.rows[0] || { count: 0, carbon: 0, energy: 0 };
+
+    // Calculate trends (percentage change)
+    const calculateTrend = (current: number, previous: number): number => {
+      if (previous === 0) return current > 0 ? 100 : 0;
+      return Math.round(((current - previous) / previous) * 100);
+    };
+
+    const trends = {
+      carbon: calculateTrend(parseFloat(currentMonth.carbon), parseFloat(previousMonth.carbon)),
+      energy: calculateTrend(parseFloat(currentMonth.energy), parseFloat(previousMonth.energy)),
+      count: calculateTrend(parseInt(currentMonth.count), parseInt(previousMonth.count))
+    };
 
     return NextResponse.json({
       calculations: result.rows,
@@ -63,12 +105,30 @@ export async function GET() {
         totalCarbon: parseFloat(summary.total_carbon) || 0,
         totalEnergy: parseFloat(summary.total_energy) || 0,
       },
+      monthlyStats: {
+        currentMonth: {
+          carbon: parseFloat(currentMonth.carbon) || 0,
+          energy: parseFloat(currentMonth.energy) || 0,
+          count: parseInt(currentMonth.count) || 0
+        },
+        previousMonth: {
+          carbon: parseFloat(previousMonth.carbon) || 0,
+          energy: parseFloat(previousMonth.energy) || 0,
+          count: parseInt(previousMonth.count) || 0
+        },
+        trends
+      }
     });
   } catch (error) {
     console.error("GET /api/results error:", error);
     return NextResponse.json({
       calculations: [],
       summary: { total: 0, totalCarbon: 0, totalEnergy: 0 },
+      monthlyStats: {
+        currentMonth: { carbon: 0, energy: 0, count: 0 },
+        previousMonth: { carbon: 0, energy: 0, count: 0 },
+        trends: { carbon: 0, energy: 0, count: 0 }
+      }
     });
   }
 }

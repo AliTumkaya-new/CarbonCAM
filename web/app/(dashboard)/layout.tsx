@@ -133,11 +133,23 @@ type NavItem = {
   badge?: string;
 };
 
+type MonthlyStats = {
+  currentMonth: { carbon: number; energy: number; count: number };
+  previousMonth: { carbon: number; energy: number; count: number };
+  trends: { carbon: number; energy: number; count: number };
+};
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
+    currentMonth: { carbon: 0, energy: 0, count: 0 },
+    previousMonth: { carbon: 0, energy: 0, count: 0 },
+    trends: { carbon: 0, energy: 0, count: 0 }
+  });
+  const [statsLoading, setStatsLoading] = useState(true);
 
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
   const clerkEnabled =
@@ -147,12 +159,37 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     !publishableKey.includes("XXXX") &&
     !publishableKey.includes("xxxxxxxx");
 
+  // Fetch monthly stats for sidebar
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch("/api/results", { cache: "no-store" });
+        const data = await res.json();
+        if (data.monthlyStats) {
+          setMonthlyStats(data.monthlyStats);
+        }
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      } finally {
+        setStatsLoading(false);
+      }
+    }
+    fetchStats();
+  }, []);
+
   // Check if settings submenu should be open
   useEffect(() => {
     if (pathname.startsWith("/settings")) {
       setSettingsOpen(true);
     }
   }, [pathname]);
+
+  // Format number helper
+  const formatNumber = (num: number, decimals: number = 1) => {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(decimals)}M`;
+    if (num >= 1000) return `${(num / 1000).toFixed(decimals)}K`;
+    return num.toFixed(decimals);
+  };
 
   const mainNavItems: NavItem[] = [
     {
@@ -300,7 +337,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <LeafIcon />
                 <span className="text-xs font-medium">Carbon</span>
               </div>
-              <p className="text-lg font-bold text-gray-900 dark:text-white">--</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">
+                {statsLoading ? "--" : formatNumber(monthlyStats.currentMonth.carbon)}
+              </p>
               <p className="text-[10px] text-gray-500 dark:text-gray-400">kg CO₂ this month</p>
             </div>
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 rounded-xl p-3 border border-amber-100 dark:border-amber-800/30">
@@ -308,7 +347,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <BoltIcon />
                 <span className="text-xs font-medium">Energy</span>
               </div>
-              <p className="text-lg font-bold text-gray-900 dark:text-white">--</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">
+                {statsLoading ? "--" : formatNumber(monthlyStats.currentMonth.energy)}
+              </p>
               <p className="text-[10px] text-gray-500 dark:text-gray-400">kWh this month</p>
             </div>
           </div>

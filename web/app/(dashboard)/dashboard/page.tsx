@@ -16,6 +16,12 @@ const TrendDownIcon = () => (
   </svg>
 );
 
+const NeutralIcon = () => (
+  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+  </svg>
+);
+
 const LeafIcon = () => (
   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 01-5.276 3.67m0 0a9 9 0 01-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
@@ -52,9 +58,19 @@ type Summary = {
   totalEnergy: number;
 };
 
+type MonthlyStats = {
+  currentMonth: { carbon: number; energy: number; count: number };
+  previousMonth: { carbon: number; energy: number; count: number };
+  trends: { carbon: number; energy: number; count: number };
+};
+
 export default function Page() {
   const [summary, setSummary] = useState<Summary>({ total: 0, totalCarbon: 0, totalEnergy: 0 });
-  const [recentCount, setRecentCount] = useState(0);
+  const [monthlyStats, setMonthlyStats] = useState<MonthlyStats>({
+    currentMonth: { carbon: 0, energy: 0, count: 0 },
+    previousMonth: { carbon: 0, energy: 0, count: 0 },
+    trends: { carbon: 0, energy: 0, count: 0 }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -63,7 +79,11 @@ export default function Page() {
         const res = await fetch("/api/results", { cache: "no-store" });
         const data = await res.json();
         setSummary(data.summary || { total: 0, totalCarbon: 0, totalEnergy: 0 });
-        setRecentCount(data.calculations?.length || 0);
+        setMonthlyStats(data.monthlyStats || {
+          currentMonth: { carbon: 0, energy: 0, count: 0 },
+          previousMonth: { carbon: 0, energy: 0, count: 0 },
+          trends: { carbon: 0, energy: 0, count: 0 }
+        });
       } catch (error) {
         console.error("Failed to fetch summary:", error);
       } finally {
@@ -73,24 +93,55 @@ export default function Page() {
     fetchSummary();
   }, []);
 
+  // Format trend display
+  const formatTrend = (value: number) => {
+    if (value === 0) return "0%";
+    return value > 0 ? `+${value}%` : `${value}%`;
+  };
+
+  // Get trend icon based on value and whether lower is better
+  const getTrendIcon = (value: number, lowerIsBetter: boolean = false) => {
+    if (value === 0) return <NeutralIcon />;
+    if (lowerIsBetter) {
+      return value < 0 ? <TrendDownIcon /> : <TrendUpIcon />;
+    }
+    return value > 0 ? <TrendUpIcon /> : <TrendDownIcon />;
+  };
+
+  // Get if trend is positive (good)
+  const isTrendPositive = (value: number, lowerIsBetter: boolean = false) => {
+    if (value === 0) return true;
+    if (lowerIsBetter) return value <= 0;
+    return value >= 0;
+  };
+
+  // Format number with appropriate suffix
+  const formatNumber = (num: number, decimals: number = 2) => {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
+    return num.toFixed(decimals);
+  };
+
   const stats = [
     {
       label: "Total Carbon",
-      value: loading ? "--" : `${summary.totalCarbon.toFixed(2)} kg`,
-      subtext: "CO₂ emissions",
+      value: loading ? "--" : `${formatNumber(summary.totalCarbon)} kg`,
+      subtext: "CO₂ emissions (all time)",
       icon: <LeafIcon />,
       color: "emerald",
-      trend: "+12%",
-      trendUp: false,
+      trend: formatTrend(monthlyStats.trends.carbon),
+      trendValue: monthlyStats.trends.carbon,
+      lowerIsBetter: true, // For carbon, lower is better
     },
     {
       label: "Total Energy",
-      value: loading ? "--" : `${summary.totalEnergy.toFixed(2)} kWh`,
-      subtext: "Energy consumed",
+      value: loading ? "--" : `${formatNumber(summary.totalEnergy)} kWh`,
+      subtext: "Energy consumed (all time)",
       icon: <BoltIcon />,
       color: "amber",
-      trend: "+8%",
-      trendUp: true,
+      trend: formatTrend(monthlyStats.trends.energy),
+      trendValue: monthlyStats.trends.energy,
+      lowerIsBetter: true, // For energy, lower is better
     },
     {
       label: "Calculations",
@@ -98,17 +149,19 @@ export default function Page() {
       subtext: "Total analyses",
       icon: <ChartIcon />,
       color: "blue",
-      trend: "+24%",
-      trendUp: true,
+      trend: formatTrend(monthlyStats.trends.count),
+      trendValue: monthlyStats.trends.count,
+      lowerIsBetter: false,
     },
     {
-      label: "Recent Activity",
-      value: loading ? "--" : recentCount.toString(),
-      subtext: "This month",
+      label: "This Month",
+      value: loading ? "--" : monthlyStats.currentMonth.count.toString(),
+      subtext: `${formatNumber(monthlyStats.currentMonth.carbon, 1)} kg CO₂`,
       icon: <ClockIcon />,
       color: "purple",
-      trend: "+5%",
-      trendUp: true,
+      trend: formatTrend(monthlyStats.trends.count),
+      trendValue: monthlyStats.trends.count,
+      lowerIsBetter: false,
     },
   ];
 
@@ -117,25 +170,33 @@ export default function Page() {
       bg: "bg-emerald-50 dark:bg-emerald-950/30",
       border: "border-emerald-100 dark:border-emerald-800/30",
       icon: "text-emerald-600 dark:text-emerald-400",
-      trend: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/50",
+      trendPositive: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/50",
+      trendNegative: "text-red-600 bg-red-100 dark:bg-red-900/50",
+      trendNeutral: "text-gray-600 bg-gray-100 dark:bg-gray-700/50",
     },
     amber: {
       bg: "bg-amber-50 dark:bg-amber-950/30",
       border: "border-amber-100 dark:border-amber-800/30",
       icon: "text-amber-600 dark:text-amber-400",
-      trend: "text-amber-600 bg-amber-100 dark:bg-amber-900/50",
+      trendPositive: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/50",
+      trendNegative: "text-red-600 bg-red-100 dark:bg-red-900/50",
+      trendNeutral: "text-gray-600 bg-gray-100 dark:bg-gray-700/50",
     },
     blue: {
       bg: "bg-blue-50 dark:bg-blue-950/30",
       border: "border-blue-100 dark:border-blue-800/30",
       icon: "text-blue-600 dark:text-blue-400",
-      trend: "text-blue-600 bg-blue-100 dark:bg-blue-900/50",
+      trendPositive: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/50",
+      trendNegative: "text-red-600 bg-red-100 dark:bg-red-900/50",
+      trendNeutral: "text-gray-600 bg-gray-100 dark:bg-gray-700/50",
     },
     purple: {
       bg: "bg-purple-50 dark:bg-purple-950/30",
       border: "border-purple-100 dark:border-purple-800/30",
       icon: "text-purple-600 dark:text-purple-400",
-      trend: "text-purple-600 bg-purple-100 dark:bg-purple-900/50",
+      trendPositive: "text-emerald-600 bg-emerald-100 dark:bg-emerald-900/50",
+      trendNegative: "text-red-600 bg-red-100 dark:bg-red-900/50",
+      trendNeutral: "text-gray-600 bg-gray-100 dark:bg-gray-700/50",
     },
   };
 
@@ -161,6 +222,13 @@ export default function Page() {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {stats.map((stat) => {
           const colors = colorClasses[stat.color as keyof typeof colorClasses];
+          const isPositive = isTrendPositive(stat.trendValue, stat.lowerIsBetter);
+          const trendClass = stat.trendValue === 0 
+            ? colors.trendNeutral 
+            : isPositive 
+              ? colors.trendPositive 
+              : colors.trendNegative;
+          
           return (
             <div
               key={stat.label}
@@ -170,8 +238,8 @@ export default function Page() {
                 <div className={`p-2 rounded-xl ${colors.bg}`}>
                   <span className={colors.icon}>{stat.icon}</span>
                 </div>
-                <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${colors.trend}`}>
-                  {stat.trendUp ? <TrendUpIcon /> : <TrendDownIcon />}
+                <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${trendClass}`}>
+                  {getTrendIcon(stat.trendValue, stat.lowerIsBetter)}
                   {stat.trend}
                 </div>
               </div>
