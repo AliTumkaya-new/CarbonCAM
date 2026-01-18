@@ -73,6 +73,69 @@ export async function GET() {
   }
 }
 
+// POST endpoint for saving AI photo analysis results
+export async function POST(req: Request) {
+  if (!isClerkConfigured()) {
+    return NextResponse.json({ detail: "Auth not configured" }, { status: 401 });
+  }
+
+  try {
+    const { userId } = await auth();
+    if (!userId) return NextResponse.json({ detail: "Unauthorized" }, { status: 401 });
+
+    const companyId = await getOrCreateCompanyId(userId);
+    const body = await req.json();
+
+    const {
+      machine_name,
+      machine_type,
+      brand,
+      model,
+      power_kw,
+      operating_hours,
+      standby_hours,
+      total_energy_kwh,
+      total_carbon_kg,
+      source = "ai_photo_analysis",
+    } = body;
+
+    // Validate required fields
+    if (!machine_name || total_energy_kwh === undefined || total_carbon_kg === undefined) {
+      return NextResponse.json({ detail: "Missing required fields" }, { status: 400 });
+    }
+
+    // Insert into calculations table
+    const result = await sql`
+      INSERT INTO calculations (
+        company_id, user_id, machine_name, material_name,
+        initial_weight_kg, final_weight_kg, process_time_minutes,
+        total_energy_kwh, total_carbon_kg, carbon_intensity
+      )
+      VALUES (
+        ${companyId}, ${userId}, 
+        ${machine_name},
+        ${source === "ai_photo_analysis" ? "AI Photo Analysis" : "Manual Entry"},
+        ${power_kw || 0}, 
+        ${operating_hours || 0}, 
+        ${standby_hours || 0},
+        ${total_energy_kwh}, 
+        ${total_carbon_kg}, 
+        ${0.44}
+      )
+      RETURNING id
+    `;
+
+    return NextResponse.json({
+      ok: true,
+      calculation_id: result.rows[0]?.id,
+      message: "Calculation saved successfully",
+    });
+  } catch (error) {
+    console.error("POST /api/results error:", error);
+    return NextResponse.json({ detail: "Database error" }, { status: 500 });
+  }
+}
+
 export async function DELETE(req: Request) {
   if (!isClerkConfigured()) {
     return NextResponse.json({ detail: "Auth not configured" }, { status: 401 });

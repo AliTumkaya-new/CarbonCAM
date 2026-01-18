@@ -148,7 +148,7 @@ function isClerkConfigured() {
 // Models to try in order (fallback chain)
 const GEMINI_MODELS = [
   "gemini-2.5-flash",
-  "gemini-2.0-flash", 
+  "gemini-2.0-flash",
   "gemini-2.5-flash-lite",
   "gemini-3-flash-preview",
 ];
@@ -202,7 +202,7 @@ Valid machine_type values: cnc_machine, lathe, milling_machine, drill_press, wel
 
     const data = await response.json();
     const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
+
     if (!content) {
       return { success: false, error: "No content in response" };
     }
@@ -239,7 +239,8 @@ async function analyzeImageWithGemini(
     return {
       machine_key: "unknown",
       confidence: 0.5,
-      description: "Gemini API key not configured. Please add GEMINI_API_KEY to environment variables.",
+      description:
+        "Gemini API key not configured. Please add GEMINI_API_KEY to environment variables.",
       additional_info: "Manual machine selection required.",
     };
   }
@@ -248,7 +249,7 @@ async function analyzeImageWithGemini(
   for (const model of GEMINI_MODELS) {
     console.log(`Trying model: ${model}`);
     const result = await tryGeminiModel(model, apiKey, base64Image, mimeType);
-    
+
     if (result.success && result.result) {
       console.log(`Success with model: ${model}`);
       return {

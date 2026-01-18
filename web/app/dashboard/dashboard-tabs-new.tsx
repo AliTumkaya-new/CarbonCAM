@@ -139,512 +139,1284 @@ type UploadedFile = {
 
 // Comprehensive Brand Database with accurate power specifications from datasheets
 // Includes major global manufacturers for industrial machinery
-const BRAND_DATABASE: Record<string, { brands: { name: string; models: { name: string; power_kw: number }[] }[] }> = {
+const BRAND_DATABASE: Record<
+  string,
+  { brands: { name: string; models: { name: string; power_kw: number }[] }[] }
+> = {
   cnc_machine: {
     brands: [
-      { name: "Mazak", models: [
-        { name: "VTC-800/30SR", power_kw: 30 }, { name: "Quick Turn 250MY", power_kw: 18.5 }, { name: "Integrex i-200S", power_kw: 30 },
-        { name: "VCN-530C", power_kw: 22 }, { name: "Variaxis i-700", power_kw: 37 }, { name: "HCN-5000", power_kw: 37 },
-        { name: "Quick Turn 200MSY", power_kw: 15 }, { name: "Integrex e-420H", power_kw: 30 }, { name: "OPTIPLEX 3015 DDL", power_kw: 45 }
-      ]},
-      { name: "DMG Mori", models: [
-        { name: "DMU 50", power_kw: 25 }, { name: "NLX 2500/700", power_kw: 22 }, { name: "CTX beta 800 TC", power_kw: 20 },
-        { name: "DMC 850V", power_kw: 28 }, { name: "NTX 1000", power_kw: 22 }, { name: "CMX 600V", power_kw: 18.5 },
-        { name: "DMU 80 eVo", power_kw: 35 }, { name: "CLX 450", power_kw: 14 }, { name: "NLX 4000", power_kw: 37 }
-      ]},
-      { name: "Haas", models: [
-        { name: "VF-2", power_kw: 22.4 }, { name: "ST-10", power_kw: 11.2 }, { name: "UMC-750", power_kw: 22.4 },
-        { name: "VF-3", power_kw: 22.4 }, { name: "ST-20", power_kw: 14.9 }, { name: "VF-4", power_kw: 22.4 },
-        { name: "TM-1", power_kw: 5.6 }, { name: "ST-25", power_kw: 22.4 }, { name: "VF-5/40", power_kw: 22.4 },
-        { name: "EC-400", power_kw: 22.4 }, { name: "ST-30", power_kw: 22.4 }, { name: "VF-6/40", power_kw: 22.4 }
-      ]},
-      { name: "Doosan", models: [
-        { name: "DNM 500", power_kw: 18.5 }, { name: "Puma 2600SY", power_kw: 22 }, { name: "NHP 5000", power_kw: 30 },
-        { name: "DVF 5000", power_kw: 25 }, { name: "Lynx 2100", power_kw: 15 }, { name: "Puma 3100", power_kw: 26 },
-        { name: "DNM 650", power_kw: 22 }, { name: "NHP 6300", power_kw: 35 }, { name: "Puma TT1800SY", power_kw: 18.5 }
-      ]},
-      { name: "Okuma", models: [
-        { name: "Genos M560-V", power_kw: 22 }, { name: "LB3000 EX II", power_kw: 18.5 }, { name: "MULTUS U3000", power_kw: 22 },
-        { name: "MB-56VA", power_kw: 30 }, { name: "LU3000 EX", power_kw: 22 }, { name: "MA-600HII", power_kw: 37 },
-        { name: "GENOS L3000-e", power_kw: 22 }, { name: "MU-5000V", power_kw: 22 }
-      ]},
-      { name: "Makino", models: [
-        { name: "PS95", power_kw: 22 }, { name: "a51nx", power_kw: 22 }, { name: "D500", power_kw: 30 },
-        { name: "F5", power_kw: 22 }, { name: "a61nx", power_kw: 30 }, { name: "V33i", power_kw: 15 },
-        { name: "a81nx", power_kw: 37 }, { name: "F3", power_kw: 18.5 }
-      ]},
-      { name: "Fanuc", models: [
-        { name: "Robodrill α-D21MiB5", power_kw: 11 }, { name: "Robodrill α-D21LiB5", power_kw: 11 },
-        { name: "Robocut α-C400iC", power_kw: 8 }, { name: "Robocut α-C600iC", power_kw: 10 }
-      ]},
-      { name: "Hardinge", models: [
-        { name: "GS 150", power_kw: 11 }, { name: "GS 200", power_kw: 15 }, { name: "T-42", power_kw: 11 },
-        { name: "T-51", power_kw: 15 }, { name: "Quest 6/42", power_kw: 11 }
-      ]},
-      { name: "Brother", models: [
-        { name: "Speedio M140X2", power_kw: 7.5 }, { name: "Speedio S700X1", power_kw: 11 },
-        { name: "Speedio R650X1", power_kw: 11 }, { name: "TC-32B QT", power_kw: 7.5 }
-      ]},
-      { name: "Hurco", models: [
-        { name: "VMX42i", power_kw: 18.5 }, { name: "VM10i", power_kw: 11 }, { name: "VMX60i", power_kw: 22 },
-        { name: "TM8i", power_kw: 11 }, { name: "VMX84", power_kw: 30 }
-      ]},
-      { name: "Hyundai WIA", models: [
-        { name: "F500", power_kw: 18.5 }, { name: "L2000SY", power_kw: 15 }, { name: "KF5600", power_kw: 22 },
-        { name: "LM1800TTSY", power_kw: 18.5 }, { name: "HS5000", power_kw: 26 }
-      ]},
-      { name: "Citizen", models: [
-        { name: "Cincom L20", power_kw: 3.7 }, { name: "Cincom D25", power_kw: 5.5 }, { name: "Miyano BNE-51SY", power_kw: 11 }
-      ]},
-      { name: "Star", models: [
-        { name: "SR-20R", power_kw: 3.7 }, { name: "SR-32JII", power_kw: 5.5 }, { name: "SV-38R", power_kw: 7.5 }
-      ]},
-      { name: "Nakamura-Tome", models: [
-        { name: "SC-300", power_kw: 15 }, { name: "WT-300", power_kw: 22 }, { name: "AS-200", power_kw: 18.5 }
-      ]},
-      { name: "SMEC (Samsung)", models: [
-        { name: "SL 2500", power_kw: 15 }, { name: "PL 2000", power_kw: 18.5 }, { name: "SL 3500", power_kw: 22 }
-      ]},
-      { name: "Spinner", models: [
-        { name: "VC750", power_kw: 15 }, { name: "TC600", power_kw: 18.5 }, { name: "U5-1520", power_kw: 26 }
-      ]},
-      { name: "Chiron", models: [
-        { name: "FZ12 FX", power_kw: 20 }, { name: "FZ15 FX", power_kw: 24 }, { name: "DZ15 W", power_kw: 28 }
-      ]},
-      { name: "GF Machining (AgieCharmilles)", models: [
-        { name: "Mikron MILL P 500", power_kw: 20 }, { name: "Mikron HSM 500", power_kw: 18 }
-      ]},
-      { name: "Hermle", models: [
-        { name: "C 12", power_kw: 10 }, { name: "C 22", power_kw: 16 }, { name: "C 42", power_kw: 25 },
-        { name: "C 52", power_kw: 35 }, { name: "C 250", power_kw: 18 }
-      ]},
-      { name: "Matsuura", models: [
-        { name: "MX-520", power_kw: 15 }, { name: "MAM72-35V", power_kw: 22 }, { name: "H.Plus-405", power_kw: 30 }
-      ]},
-      { name: "Kitamura", models: [
-        { name: "Mycenter-3Xi", power_kw: 15 }, { name: "HX400iG", power_kw: 22 }, { name: "Medcenter5", power_kw: 7.5 }
-      ]},
-      { name: "Other", models: [{ name: "Generic CNC (Small)", power_kw: 10 }, { name: "Generic CNC (Medium)", power_kw: 18 }, { name: "Generic CNC (Large)", power_kw: 30 }] },
+      {
+        name: "Mazak",
+        models: [
+          { name: "VTC-800/30SR", power_kw: 30 },
+          { name: "Quick Turn 250MY", power_kw: 18.5 },
+          { name: "Integrex i-200S", power_kw: 30 },
+          { name: "VCN-530C", power_kw: 22 },
+          { name: "Variaxis i-700", power_kw: 37 },
+          { name: "HCN-5000", power_kw: 37 },
+          { name: "Quick Turn 200MSY", power_kw: 15 },
+          { name: "Integrex e-420H", power_kw: 30 },
+          { name: "OPTIPLEX 3015 DDL", power_kw: 45 },
+        ],
+      },
+      {
+        name: "DMG Mori",
+        models: [
+          { name: "DMU 50", power_kw: 25 },
+          { name: "NLX 2500/700", power_kw: 22 },
+          { name: "CTX beta 800 TC", power_kw: 20 },
+          { name: "DMC 850V", power_kw: 28 },
+          { name: "NTX 1000", power_kw: 22 },
+          { name: "CMX 600V", power_kw: 18.5 },
+          { name: "DMU 80 eVo", power_kw: 35 },
+          { name: "CLX 450", power_kw: 14 },
+          { name: "NLX 4000", power_kw: 37 },
+        ],
+      },
+      {
+        name: "Haas",
+        models: [
+          { name: "VF-2", power_kw: 22.4 },
+          { name: "ST-10", power_kw: 11.2 },
+          { name: "UMC-750", power_kw: 22.4 },
+          { name: "VF-3", power_kw: 22.4 },
+          { name: "ST-20", power_kw: 14.9 },
+          { name: "VF-4", power_kw: 22.4 },
+          { name: "TM-1", power_kw: 5.6 },
+          { name: "ST-25", power_kw: 22.4 },
+          { name: "VF-5/40", power_kw: 22.4 },
+          { name: "EC-400", power_kw: 22.4 },
+          { name: "ST-30", power_kw: 22.4 },
+          { name: "VF-6/40", power_kw: 22.4 },
+        ],
+      },
+      {
+        name: "Doosan",
+        models: [
+          { name: "DNM 500", power_kw: 18.5 },
+          { name: "Puma 2600SY", power_kw: 22 },
+          { name: "NHP 5000", power_kw: 30 },
+          { name: "DVF 5000", power_kw: 25 },
+          { name: "Lynx 2100", power_kw: 15 },
+          { name: "Puma 3100", power_kw: 26 },
+          { name: "DNM 650", power_kw: 22 },
+          { name: "NHP 6300", power_kw: 35 },
+          { name: "Puma TT1800SY", power_kw: 18.5 },
+        ],
+      },
+      {
+        name: "Okuma",
+        models: [
+          { name: "Genos M560-V", power_kw: 22 },
+          { name: "LB3000 EX II", power_kw: 18.5 },
+          { name: "MULTUS U3000", power_kw: 22 },
+          { name: "MB-56VA", power_kw: 30 },
+          { name: "LU3000 EX", power_kw: 22 },
+          { name: "MA-600HII", power_kw: 37 },
+          { name: "GENOS L3000-e", power_kw: 22 },
+          { name: "MU-5000V", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Makino",
+        models: [
+          { name: "PS95", power_kw: 22 },
+          { name: "a51nx", power_kw: 22 },
+          { name: "D500", power_kw: 30 },
+          { name: "F5", power_kw: 22 },
+          { name: "a61nx", power_kw: 30 },
+          { name: "V33i", power_kw: 15 },
+          { name: "a81nx", power_kw: 37 },
+          { name: "F3", power_kw: 18.5 },
+        ],
+      },
+      {
+        name: "Fanuc",
+        models: [
+          { name: "Robodrill α-D21MiB5", power_kw: 11 },
+          { name: "Robodrill α-D21LiB5", power_kw: 11 },
+          { name: "Robocut α-C400iC", power_kw: 8 },
+          { name: "Robocut α-C600iC", power_kw: 10 },
+        ],
+      },
+      {
+        name: "Hardinge",
+        models: [
+          { name: "GS 150", power_kw: 11 },
+          { name: "GS 200", power_kw: 15 },
+          { name: "T-42", power_kw: 11 },
+          { name: "T-51", power_kw: 15 },
+          { name: "Quest 6/42", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Brother",
+        models: [
+          { name: "Speedio M140X2", power_kw: 7.5 },
+          { name: "Speedio S700X1", power_kw: 11 },
+          { name: "Speedio R650X1", power_kw: 11 },
+          { name: "TC-32B QT", power_kw: 7.5 },
+        ],
+      },
+      {
+        name: "Hurco",
+        models: [
+          { name: "VMX42i", power_kw: 18.5 },
+          { name: "VM10i", power_kw: 11 },
+          { name: "VMX60i", power_kw: 22 },
+          { name: "TM8i", power_kw: 11 },
+          { name: "VMX84", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Hyundai WIA",
+        models: [
+          { name: "F500", power_kw: 18.5 },
+          { name: "L2000SY", power_kw: 15 },
+          { name: "KF5600", power_kw: 22 },
+          { name: "LM1800TTSY", power_kw: 18.5 },
+          { name: "HS5000", power_kw: 26 },
+        ],
+      },
+      {
+        name: "Citizen",
+        models: [
+          { name: "Cincom L20", power_kw: 3.7 },
+          { name: "Cincom D25", power_kw: 5.5 },
+          { name: "Miyano BNE-51SY", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Star",
+        models: [
+          { name: "SR-20R", power_kw: 3.7 },
+          { name: "SR-32JII", power_kw: 5.5 },
+          { name: "SV-38R", power_kw: 7.5 },
+        ],
+      },
+      {
+        name: "Nakamura-Tome",
+        models: [
+          { name: "SC-300", power_kw: 15 },
+          { name: "WT-300", power_kw: 22 },
+          { name: "AS-200", power_kw: 18.5 },
+        ],
+      },
+      {
+        name: "SMEC (Samsung)",
+        models: [
+          { name: "SL 2500", power_kw: 15 },
+          { name: "PL 2000", power_kw: 18.5 },
+          { name: "SL 3500", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Spinner",
+        models: [
+          { name: "VC750", power_kw: 15 },
+          { name: "TC600", power_kw: 18.5 },
+          { name: "U5-1520", power_kw: 26 },
+        ],
+      },
+      {
+        name: "Chiron",
+        models: [
+          { name: "FZ12 FX", power_kw: 20 },
+          { name: "FZ15 FX", power_kw: 24 },
+          { name: "DZ15 W", power_kw: 28 },
+        ],
+      },
+      {
+        name: "GF Machining (AgieCharmilles)",
+        models: [
+          { name: "Mikron MILL P 500", power_kw: 20 },
+          { name: "Mikron HSM 500", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Hermle",
+        models: [
+          { name: "C 12", power_kw: 10 },
+          { name: "C 22", power_kw: 16 },
+          { name: "C 42", power_kw: 25 },
+          { name: "C 52", power_kw: 35 },
+          { name: "C 250", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Matsuura",
+        models: [
+          { name: "MX-520", power_kw: 15 },
+          { name: "MAM72-35V", power_kw: 22 },
+          { name: "H.Plus-405", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Kitamura",
+        models: [
+          { name: "Mycenter-3Xi", power_kw: 15 },
+          { name: "HX400iG", power_kw: 22 },
+          { name: "Medcenter5", power_kw: 7.5 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Generic CNC (Small)", power_kw: 10 },
+          { name: "Generic CNC (Medium)", power_kw: 18 },
+          { name: "Generic CNC (Large)", power_kw: 30 },
+        ],
+      },
     ],
   },
   lathe: {
     brands: [
-      { name: "Mazak", models: [
-        { name: "Quick Turn 200MY", power_kw: 15 }, { name: "Quick Turn 350MY", power_kw: 22 },
-        { name: "QT Compact 300MY", power_kw: 18.5 }, { name: "Quick Turn 450", power_kw: 30 }
-      ]},
-      { name: "Haas", models: [
-        { name: "ST-10Y", power_kw: 11.2 }, { name: "ST-20Y", power_kw: 14.9 }, { name: "ST-30Y", power_kw: 22.4 },
-        { name: "ST-35", power_kw: 22.4 }, { name: "ST-40", power_kw: 29.8 }, { name: "DS-30Y", power_kw: 22.4 }
-      ]},
-      { name: "Doosan", models: [
-        { name: "Lynx 220LY", power_kw: 15 }, { name: "Puma 2100SY", power_kw: 18.5 }, { name: "Puma 2600SY", power_kw: 22 },
-        { name: "Puma 4100", power_kw: 30 }, { name: "Lynx 300", power_kw: 18.5 }
-      ]},
-      { name: "Okuma", models: [
-        { name: "LB3000 EX II MY", power_kw: 18.5 }, { name: "GENOS L2000-e", power_kw: 15 },
-        { name: "LU3000 EX 2SC", power_kw: 22 }, { name: "LB4000 EX II", power_kw: 30 }
-      ]},
-      { name: "DMG Mori", models: [
-        { name: "NLX 1500/500", power_kw: 11 }, { name: "NLX 2000/500", power_kw: 18.5 },
-        { name: "CLX 350", power_kw: 10 }, { name: "CTX alpha 500", power_kw: 22 }
-      ]},
-      { name: "Mori Seiki (Legacy)", models: [
-        { name: "NL2500", power_kw: 22 }, { name: "CL2000", power_kw: 15 }, { name: "SL-25", power_kw: 11 }
-      ]},
-      { name: "Emco", models: [
-        { name: "MAXXTURN 45", power_kw: 12 }, { name: "MAXXTURN 65", power_kw: 21 }, { name: "HYPERTURN 45", power_kw: 18 }
-      ]},
-      { name: "Takisawa", models: [
-        { name: "EX-310", power_kw: 15 }, { name: "TS-4000YS", power_kw: 18.5 }, { name: "LA-250", power_kw: 11 }
-      ]},
-      { name: "Hwacheon", models: [
-        { name: "Hi-TECH 200B", power_kw: 15 }, { name: "Hi-TECH 450", power_kw: 22 }, { name: "CUTEX-180A", power_kw: 11 }
-      ]},
-      { name: "Goodway", models: [
-        { name: "GLS-2000", power_kw: 15 }, { name: "GLS-2600", power_kw: 18.5 }, { name: "SW-32", power_kw: 7.5 }
-      ]},
-      { name: "Colchester", models: [
-        { name: "Tornado T8", power_kw: 15 }, { name: "Alpha 1400", power_kw: 5.5 }, { name: "Magnum 660", power_kw: 11 }
-      ]},
-      { name: "Hardinge", models: [
-        { name: "T-42", power_kw: 11 }, { name: "T-51", power_kw: 15 }, { name: "Elite 42", power_kw: 7.5 }
-      ]},
-      { name: "Other", models: [{ name: "Manual Lathe (Small)", power_kw: 3 }, { name: "Manual Lathe (Medium)", power_kw: 7.5 }, { name: "CNC Lathe (Generic)", power_kw: 15 }] },
+      {
+        name: "Mazak",
+        models: [
+          { name: "Quick Turn 200MY", power_kw: 15 },
+          { name: "Quick Turn 350MY", power_kw: 22 },
+          { name: "QT Compact 300MY", power_kw: 18.5 },
+          { name: "Quick Turn 450", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Haas",
+        models: [
+          { name: "ST-10Y", power_kw: 11.2 },
+          { name: "ST-20Y", power_kw: 14.9 },
+          { name: "ST-30Y", power_kw: 22.4 },
+          { name: "ST-35", power_kw: 22.4 },
+          { name: "ST-40", power_kw: 29.8 },
+          { name: "DS-30Y", power_kw: 22.4 },
+        ],
+      },
+      {
+        name: "Doosan",
+        models: [
+          { name: "Lynx 220LY", power_kw: 15 },
+          { name: "Puma 2100SY", power_kw: 18.5 },
+          { name: "Puma 2600SY", power_kw: 22 },
+          { name: "Puma 4100", power_kw: 30 },
+          { name: "Lynx 300", power_kw: 18.5 },
+        ],
+      },
+      {
+        name: "Okuma",
+        models: [
+          { name: "LB3000 EX II MY", power_kw: 18.5 },
+          { name: "GENOS L2000-e", power_kw: 15 },
+          { name: "LU3000 EX 2SC", power_kw: 22 },
+          { name: "LB4000 EX II", power_kw: 30 },
+        ],
+      },
+      {
+        name: "DMG Mori",
+        models: [
+          { name: "NLX 1500/500", power_kw: 11 },
+          { name: "NLX 2000/500", power_kw: 18.5 },
+          { name: "CLX 350", power_kw: 10 },
+          { name: "CTX alpha 500", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Mori Seiki (Legacy)",
+        models: [
+          { name: "NL2500", power_kw: 22 },
+          { name: "CL2000", power_kw: 15 },
+          { name: "SL-25", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Emco",
+        models: [
+          { name: "MAXXTURN 45", power_kw: 12 },
+          { name: "MAXXTURN 65", power_kw: 21 },
+          { name: "HYPERTURN 45", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Takisawa",
+        models: [
+          { name: "EX-310", power_kw: 15 },
+          { name: "TS-4000YS", power_kw: 18.5 },
+          { name: "LA-250", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Hwacheon",
+        models: [
+          { name: "Hi-TECH 200B", power_kw: 15 },
+          { name: "Hi-TECH 450", power_kw: 22 },
+          { name: "CUTEX-180A", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Goodway",
+        models: [
+          { name: "GLS-2000", power_kw: 15 },
+          { name: "GLS-2600", power_kw: 18.5 },
+          { name: "SW-32", power_kw: 7.5 },
+        ],
+      },
+      {
+        name: "Colchester",
+        models: [
+          { name: "Tornado T8", power_kw: 15 },
+          { name: "Alpha 1400", power_kw: 5.5 },
+          { name: "Magnum 660", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Hardinge",
+        models: [
+          { name: "T-42", power_kw: 11 },
+          { name: "T-51", power_kw: 15 },
+          { name: "Elite 42", power_kw: 7.5 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Manual Lathe (Small)", power_kw: 3 },
+          { name: "Manual Lathe (Medium)", power_kw: 7.5 },
+          { name: "CNC Lathe (Generic)", power_kw: 15 },
+        ],
+      },
     ],
   },
   milling_machine: {
     brands: [
-      { name: "DMG Mori", models: [
-        { name: "DMC 650V", power_kw: 25 }, { name: "DMU 65 monoBLOCK", power_kw: 28 }, { name: "DMF 260", power_kw: 35 },
-        { name: "DMC 1150V", power_kw: 35 }, { name: "CMX 50U", power_kw: 15 }
-      ]},
-      { name: "Mazak", models: [
-        { name: "VCN-530C", power_kw: 22 }, { name: "VTC-300C", power_kw: 22 }, { name: "VTC-800/30SR", power_kw: 30 }
-      ]},
-      { name: "Bridgeport", models: [
-        { name: "Series I Standard", power_kw: 2.2 }, { name: "Series II Special", power_kw: 3 },
-        { name: "VMC 600/22", power_kw: 11 }, { name: "XR 1000", power_kw: 15 }
-      ]},
-      { name: "Haas", models: [
-        { name: "TM-1", power_kw: 5.6 }, { name: "TM-2", power_kw: 7.5 }, { name: "Mini Mill", power_kw: 7.5 },
-        { name: "Super Mini Mill", power_kw: 11 }
-      ]},
-      { name: "Deckel Maho (DMG)", models: [
-        { name: "DMC 63V", power_kw: 18 }, { name: "DMC 100V", power_kw: 25 }, { name: "DMU 50", power_kw: 18 }
-      ]},
-      { name: "Cincinnati", models: [
-        { name: "Milacron 750", power_kw: 18.5 }, { name: "Arrow 500", power_kw: 11 }
-      ]},
-      { name: "Hurco", models: [
-        { name: "VM10i", power_kw: 11 }, { name: "VMX42i", power_kw: 18.5 }, { name: "VMX60i", power_kw: 22 }
-      ]},
-      { name: "Fadal", models: [
-        { name: "VMC 4020", power_kw: 11 }, { name: "VMC 6030", power_kw: 15 }
-      ]},
-      { name: "XYZ", models: [
-        { name: "XYZ 750 HD", power_kw: 11 }, { name: "XYZ 1000 HD", power_kw: 15 }
-      ]},
-      { name: "Other", models: [{ name: "Knee Mill (Manual)", power_kw: 2.2 }, { name: "Bed Mill (Manual)", power_kw: 5.5 }, { name: "VMC (Generic)", power_kw: 15 }] },
+      {
+        name: "DMG Mori",
+        models: [
+          { name: "DMC 650V", power_kw: 25 },
+          { name: "DMU 65 monoBLOCK", power_kw: 28 },
+          { name: "DMF 260", power_kw: 35 },
+          { name: "DMC 1150V", power_kw: 35 },
+          { name: "CMX 50U", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Mazak",
+        models: [
+          { name: "VCN-530C", power_kw: 22 },
+          { name: "VTC-300C", power_kw: 22 },
+          { name: "VTC-800/30SR", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Bridgeport",
+        models: [
+          { name: "Series I Standard", power_kw: 2.2 },
+          { name: "Series II Special", power_kw: 3 },
+          { name: "VMC 600/22", power_kw: 11 },
+          { name: "XR 1000", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Haas",
+        models: [
+          { name: "TM-1", power_kw: 5.6 },
+          { name: "TM-2", power_kw: 7.5 },
+          { name: "Mini Mill", power_kw: 7.5 },
+          { name: "Super Mini Mill", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Deckel Maho (DMG)",
+        models: [
+          { name: "DMC 63V", power_kw: 18 },
+          { name: "DMC 100V", power_kw: 25 },
+          { name: "DMU 50", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Cincinnati",
+        models: [
+          { name: "Milacron 750", power_kw: 18.5 },
+          { name: "Arrow 500", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Hurco",
+        models: [
+          { name: "VM10i", power_kw: 11 },
+          { name: "VMX42i", power_kw: 18.5 },
+          { name: "VMX60i", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Fadal",
+        models: [
+          { name: "VMC 4020", power_kw: 11 },
+          { name: "VMC 6030", power_kw: 15 },
+        ],
+      },
+      {
+        name: "XYZ",
+        models: [
+          { name: "XYZ 750 HD", power_kw: 11 },
+          { name: "XYZ 1000 HD", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Knee Mill (Manual)", power_kw: 2.2 },
+          { name: "Bed Mill (Manual)", power_kw: 5.5 },
+          { name: "VMC (Generic)", power_kw: 15 },
+        ],
+      },
     ],
   },
   drill_press: {
     brands: [
-      { name: "Clausing", models: [{ name: "2286", power_kw: 1.5 }, { name: "2277", power_kw: 1.1 }] },
-      { name: "Jet", models: [{ name: "J-2550", power_kw: 2.2 }, { name: "J-2530", power_kw: 1.5 }, { name: "GHD-20", power_kw: 1.1 }] },
-      { name: "Wilton", models: [{ name: "A5816", power_kw: 1.1 }, { name: "2550", power_kw: 2.2 }] },
-      { name: "Powermatic", models: [{ name: "PM2800B", power_kw: 1.1 }, { name: "2800B", power_kw: 1.5 }] },
-      { name: "Alzmetall", models: [{ name: "AB 40 SV", power_kw: 3 }, { name: "ABOMAT 35", power_kw: 2.2 }] },
-      { name: "Strands", models: [{ name: "S32-L", power_kw: 1.5 }, { name: "S40-L", power_kw: 2.2 }] },
-      { name: "Meddings", models: [{ name: "S55", power_kw: 2.2 }, { name: "LF2", power_kw: 1.5 }] },
-      { name: "Other", models: [{ name: "Bench Drill Press", power_kw: 0.5 }, { name: "Floor Drill Press", power_kw: 1.5 }, { name: "Radial Drill", power_kw: 3 }] },
+      {
+        name: "Clausing",
+        models: [
+          { name: "2286", power_kw: 1.5 },
+          { name: "2277", power_kw: 1.1 },
+        ],
+      },
+      {
+        name: "Jet",
+        models: [
+          { name: "J-2550", power_kw: 2.2 },
+          { name: "J-2530", power_kw: 1.5 },
+          { name: "GHD-20", power_kw: 1.1 },
+        ],
+      },
+      {
+        name: "Wilton",
+        models: [
+          { name: "A5816", power_kw: 1.1 },
+          { name: "2550", power_kw: 2.2 },
+        ],
+      },
+      {
+        name: "Powermatic",
+        models: [
+          { name: "PM2800B", power_kw: 1.1 },
+          { name: "2800B", power_kw: 1.5 },
+        ],
+      },
+      {
+        name: "Alzmetall",
+        models: [
+          { name: "AB 40 SV", power_kw: 3 },
+          { name: "ABOMAT 35", power_kw: 2.2 },
+        ],
+      },
+      {
+        name: "Strands",
+        models: [
+          { name: "S32-L", power_kw: 1.5 },
+          { name: "S40-L", power_kw: 2.2 },
+        ],
+      },
+      {
+        name: "Meddings",
+        models: [
+          { name: "S55", power_kw: 2.2 },
+          { name: "LF2", power_kw: 1.5 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Bench Drill Press", power_kw: 0.5 },
+          { name: "Floor Drill Press", power_kw: 1.5 },
+          { name: "Radial Drill", power_kw: 3 },
+        ],
+      },
     ],
   },
   "3d_printer": {
     brands: [
-      { name: "Stratasys", models: [
-        { name: "F170", power_kw: 1.2 }, { name: "F270", power_kw: 1.4 }, { name: "F370", power_kw: 1.5 },
-        { name: "Fortus 380mc", power_kw: 3 }, { name: "Fortus 450mc", power_kw: 3.6 }, { name: "F900", power_kw: 7 },
-        { name: "J35 Pro", power_kw: 1.5 }, { name: "J55 Prime", power_kw: 1.7 }, { name: "J850 Prime", power_kw: 3 }
-      ]},
-      { name: "EOS", models: [
-        { name: "M 100", power_kw: 2.4 }, { name: "M 290", power_kw: 8.5 }, { name: "M 300-4", power_kw: 14 },
-        { name: "M 400-4", power_kw: 28 }, { name: "P 396", power_kw: 10 }, { name: "P 500", power_kw: 11.5 }
-      ]},
-      { name: "3D Systems", models: [
-        { name: "ProJet MJP 2500", power_kw: 1.5 }, { name: "ProX SLS 6100", power_kw: 6 },
-        { name: "DMP Flex 350", power_kw: 10 }, { name: "Figure 4 Standalone", power_kw: 0.5 }
-      ]},
-      { name: "HP", models: [
-        { name: "Jet Fusion 580", power_kw: 6 }, { name: "Jet Fusion 4200", power_kw: 12 },
-        { name: "Jet Fusion 5200", power_kw: 15 }, { name: "Metal Jet S100", power_kw: 18 }
-      ]},
-      { name: "SLM Solutions", models: [
-        { name: "SLM 125", power_kw: 3.5 }, { name: "SLM 280", power_kw: 7 }, { name: "SLM 500", power_kw: 10 },
-        { name: "NXG XII 600", power_kw: 35 }
-      ]},
-      { name: "Trumpf", models: [
-        { name: "TruPrint 1000", power_kw: 4 }, { name: "TruPrint 3000", power_kw: 8 }, { name: "TruPrint 5000", power_kw: 12 }
-      ]},
-      { name: "Renishaw", models: [
-        { name: "RenAM 500Q", power_kw: 10 }, { name: "RenAM 500S", power_kw: 7 }
-      ]},
-      { name: "Markforged", models: [
-        { name: "X7", power_kw: 0.6 }, { name: "Metal X", power_kw: 1.5 }, { name: "FX20", power_kw: 2 }
-      ]},
-      { name: "Ultimaker", models: [
-        { name: "S3", power_kw: 0.35 }, { name: "S5", power_kw: 0.5 }, { name: "S7", power_kw: 0.6 }, { name: "Factor 4", power_kw: 0.8 }
-      ]},
-      { name: "Formlabs", models: [
-        { name: "Form 3", power_kw: 0.25 }, { name: "Form 3L", power_kw: 0.35 }, { name: "Fuse 1+", power_kw: 1.5 }
-      ]},
-      { name: "Prusa", models: [
-        { name: "MK4", power_kw: 0.25 }, { name: "MK4S", power_kw: 0.28 }, { name: "XL", power_kw: 0.5 }, { name: "Mini+", power_kw: 0.16 }
-      ]},
-      { name: "Bambu Lab", models: [
-        { name: "P1S", power_kw: 0.35 }, { name: "X1C", power_kw: 0.35 }, { name: "A1", power_kw: 0.2 }
-      ]},
-      { name: "Creality", models: [
-        { name: "Ender 3 S1", power_kw: 0.27 }, { name: "Ender 5 S1", power_kw: 0.35 }, { name: "CR-10 Smart", power_kw: 0.4 },
-        { name: "K1 Max", power_kw: 0.35 }, { name: "Sermoon V1 Pro", power_kw: 0.35 }
-      ]},
-      { name: "Anycubic", models: [
-        { name: "Kobra 2", power_kw: 0.4 }, { name: "Photon M5s", power_kw: 0.1 }
-      ]},
-      { name: "Other", models: [{ name: "Desktop FDM", power_kw: 0.3 }, { name: "Industrial FDM", power_kw: 2 }, { name: "Metal DMLS", power_kw: 8 }] },
+      {
+        name: "Stratasys",
+        models: [
+          { name: "F170", power_kw: 1.2 },
+          { name: "F270", power_kw: 1.4 },
+          { name: "F370", power_kw: 1.5 },
+          { name: "Fortus 380mc", power_kw: 3 },
+          { name: "Fortus 450mc", power_kw: 3.6 },
+          { name: "F900", power_kw: 7 },
+          { name: "J35 Pro", power_kw: 1.5 },
+          { name: "J55 Prime", power_kw: 1.7 },
+          { name: "J850 Prime", power_kw: 3 },
+        ],
+      },
+      {
+        name: "EOS",
+        models: [
+          { name: "M 100", power_kw: 2.4 },
+          { name: "M 290", power_kw: 8.5 },
+          { name: "M 300-4", power_kw: 14 },
+          { name: "M 400-4", power_kw: 28 },
+          { name: "P 396", power_kw: 10 },
+          { name: "P 500", power_kw: 11.5 },
+        ],
+      },
+      {
+        name: "3D Systems",
+        models: [
+          { name: "ProJet MJP 2500", power_kw: 1.5 },
+          { name: "ProX SLS 6100", power_kw: 6 },
+          { name: "DMP Flex 350", power_kw: 10 },
+          { name: "Figure 4 Standalone", power_kw: 0.5 },
+        ],
+      },
+      {
+        name: "HP",
+        models: [
+          { name: "Jet Fusion 580", power_kw: 6 },
+          { name: "Jet Fusion 4200", power_kw: 12 },
+          { name: "Jet Fusion 5200", power_kw: 15 },
+          { name: "Metal Jet S100", power_kw: 18 },
+        ],
+      },
+      {
+        name: "SLM Solutions",
+        models: [
+          { name: "SLM 125", power_kw: 3.5 },
+          { name: "SLM 280", power_kw: 7 },
+          { name: "SLM 500", power_kw: 10 },
+          { name: "NXG XII 600", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Trumpf",
+        models: [
+          { name: "TruPrint 1000", power_kw: 4 },
+          { name: "TruPrint 3000", power_kw: 8 },
+          { name: "TruPrint 5000", power_kw: 12 },
+        ],
+      },
+      {
+        name: "Renishaw",
+        models: [
+          { name: "RenAM 500Q", power_kw: 10 },
+          { name: "RenAM 500S", power_kw: 7 },
+        ],
+      },
+      {
+        name: "Markforged",
+        models: [
+          { name: "X7", power_kw: 0.6 },
+          { name: "Metal X", power_kw: 1.5 },
+          { name: "FX20", power_kw: 2 },
+        ],
+      },
+      {
+        name: "Ultimaker",
+        models: [
+          { name: "S3", power_kw: 0.35 },
+          { name: "S5", power_kw: 0.5 },
+          { name: "S7", power_kw: 0.6 },
+          { name: "Factor 4", power_kw: 0.8 },
+        ],
+      },
+      {
+        name: "Formlabs",
+        models: [
+          { name: "Form 3", power_kw: 0.25 },
+          { name: "Form 3L", power_kw: 0.35 },
+          { name: "Fuse 1+", power_kw: 1.5 },
+        ],
+      },
+      {
+        name: "Prusa",
+        models: [
+          { name: "MK4", power_kw: 0.25 },
+          { name: "MK4S", power_kw: 0.28 },
+          { name: "XL", power_kw: 0.5 },
+          { name: "Mini+", power_kw: 0.16 },
+        ],
+      },
+      {
+        name: "Bambu Lab",
+        models: [
+          { name: "P1S", power_kw: 0.35 },
+          { name: "X1C", power_kw: 0.35 },
+          { name: "A1", power_kw: 0.2 },
+        ],
+      },
+      {
+        name: "Creality",
+        models: [
+          { name: "Ender 3 S1", power_kw: 0.27 },
+          { name: "Ender 5 S1", power_kw: 0.35 },
+          { name: "CR-10 Smart", power_kw: 0.4 },
+          { name: "K1 Max", power_kw: 0.35 },
+          { name: "Sermoon V1 Pro", power_kw: 0.35 },
+        ],
+      },
+      {
+        name: "Anycubic",
+        models: [
+          { name: "Kobra 2", power_kw: 0.4 },
+          { name: "Photon M5s", power_kw: 0.1 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Desktop FDM", power_kw: 0.3 },
+          { name: "Industrial FDM", power_kw: 2 },
+          { name: "Metal DMLS", power_kw: 8 },
+        ],
+      },
     ],
   },
   welding_machine: {
     brands: [
-      { name: "Lincoln Electric", models: [
-        { name: "Power MIG 210 MP", power_kw: 5.3 }, { name: "Power MIG 256", power_kw: 9.8 },
-        { name: "Power MIG 360MP", power_kw: 13.5 }, { name: "Invertec V350 Pro", power_kw: 12.5 },
-        { name: "Precision TIG 375", power_kw: 14 }, { name: "Flextec 650X", power_kw: 27 }
-      ]},
-      { name: "Miller", models: [
-        { name: "Multimatic 220", power_kw: 8 }, { name: "Millermatic 252", power_kw: 10.5 },
-        { name: "Millermatic 350P", power_kw: 13 }, { name: "Dynasty 280 DX", power_kw: 10 },
-        { name: "Dynasty 400", power_kw: 14.3 }, { name: "Deltaweld 452", power_kw: 19 }
-      ]},
-      { name: "Fronius", models: [
-        { name: "TransSteel 2200", power_kw: 8.5 }, { name: "TransSteel 3500", power_kw: 13 },
-        { name: "TPS 320i", power_kw: 11 }, { name: "TPS 400i", power_kw: 14 }, { name: "TPS 600i", power_kw: 23 }
-      ]},
-      { name: "ESAB", models: [
-        { name: "Rebel EMP 205ic", power_kw: 7.4 }, { name: "Warrior 500i", power_kw: 18 },
-        { name: "Origo MIG 4004i", power_kw: 13 }, { name: "Caddy Tig 2200i", power_kw: 8 }
-      ]},
-      { name: "Kemppi", models: [
-        { name: "FastMig X 350", power_kw: 12 }, { name: "FastMig X 450", power_kw: 16 },
-        { name: "MasterTig 335ACDC", power_kw: 12 }, { name: "X8 MIG Welder", power_kw: 14 }
-      ]},
-      { name: "Hypertherm", models: [
-        { name: "Powermax45 XP", power_kw: 6.6 }, { name: "Powermax65", power_kw: 9.7 },
-        { name: "Powermax85", power_kw: 11.5 }, { name: "Powermax125", power_kw: 18 }
-      ]},
-      { name: "Thermal Dynamics", models: [
-        { name: "Cutmaster 52", power_kw: 7.5 }, { name: "Cutmaster 82", power_kw: 11 }
-      ]},
-      { name: "Victor", models: [
-        { name: "Fabricator 211i", power_kw: 7.5 }, { name: "Renegade ES 300i", power_kw: 11 }
-      ]},
-      { name: "Hobart", models: [
-        { name: "Handler 210MVP", power_kw: 7 }, { name: "Ironman 240", power_kw: 9.8 }
-      ]},
-      { name: "Other", models: [{ name: "Stick Welder (Small)", power_kw: 4 }, { name: "MIG/MAG Welder", power_kw: 8 }, { name: "TIG Welder", power_kw: 10 }] },
+      {
+        name: "Lincoln Electric",
+        models: [
+          { name: "Power MIG 210 MP", power_kw: 5.3 },
+          { name: "Power MIG 256", power_kw: 9.8 },
+          { name: "Power MIG 360MP", power_kw: 13.5 },
+          { name: "Invertec V350 Pro", power_kw: 12.5 },
+          { name: "Precision TIG 375", power_kw: 14 },
+          { name: "Flextec 650X", power_kw: 27 },
+        ],
+      },
+      {
+        name: "Miller",
+        models: [
+          { name: "Multimatic 220", power_kw: 8 },
+          { name: "Millermatic 252", power_kw: 10.5 },
+          { name: "Millermatic 350P", power_kw: 13 },
+          { name: "Dynasty 280 DX", power_kw: 10 },
+          { name: "Dynasty 400", power_kw: 14.3 },
+          { name: "Deltaweld 452", power_kw: 19 },
+        ],
+      },
+      {
+        name: "Fronius",
+        models: [
+          { name: "TransSteel 2200", power_kw: 8.5 },
+          { name: "TransSteel 3500", power_kw: 13 },
+          { name: "TPS 320i", power_kw: 11 },
+          { name: "TPS 400i", power_kw: 14 },
+          { name: "TPS 600i", power_kw: 23 },
+        ],
+      },
+      {
+        name: "ESAB",
+        models: [
+          { name: "Rebel EMP 205ic", power_kw: 7.4 },
+          { name: "Warrior 500i", power_kw: 18 },
+          { name: "Origo MIG 4004i", power_kw: 13 },
+          { name: "Caddy Tig 2200i", power_kw: 8 },
+        ],
+      },
+      {
+        name: "Kemppi",
+        models: [
+          { name: "FastMig X 350", power_kw: 12 },
+          { name: "FastMig X 450", power_kw: 16 },
+          { name: "MasterTig 335ACDC", power_kw: 12 },
+          { name: "X8 MIG Welder", power_kw: 14 },
+        ],
+      },
+      {
+        name: "Hypertherm",
+        models: [
+          { name: "Powermax45 XP", power_kw: 6.6 },
+          { name: "Powermax65", power_kw: 9.7 },
+          { name: "Powermax85", power_kw: 11.5 },
+          { name: "Powermax125", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Thermal Dynamics",
+        models: [
+          { name: "Cutmaster 52", power_kw: 7.5 },
+          { name: "Cutmaster 82", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Victor",
+        models: [
+          { name: "Fabricator 211i", power_kw: 7.5 },
+          { name: "Renegade ES 300i", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Hobart",
+        models: [
+          { name: "Handler 210MVP", power_kw: 7 },
+          { name: "Ironman 240", power_kw: 9.8 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Stick Welder (Small)", power_kw: 4 },
+          { name: "MIG/MAG Welder", power_kw: 8 },
+          { name: "TIG Welder", power_kw: 10 },
+        ],
+      },
     ],
   },
   laser_cutter: {
     brands: [
-      { name: "Trumpf", models: [
-        { name: "TruLaser 1030 fiber", power_kw: 18 }, { name: "TruLaser 3030 fiber", power_kw: 36 },
-        { name: "TruLaser 5030 fiber", power_kw: 48 }, { name: "TruLaser 5040 fiber", power_kw: 60 },
-        { name: "TruLaser Cell 3000", power_kw: 25 }, { name: "TruMark 5020", power_kw: 0.5 }
-      ]},
-      { name: "Bystronic", models: [
-        { name: "ByStar Fiber 3015", power_kw: 32 }, { name: "ByStar Fiber 4020", power_kw: 40 },
-        { name: "ByStar Fiber 6225", power_kw: 55 }, { name: "ByJet Classic", power_kw: 25 }
-      ]},
-      { name: "Amada", models: [
-        { name: "ENSIS 3015 AJ", power_kw: 30 }, { name: "ENSIS 6225 AJ", power_kw: 45 },
-        { name: "LC-3015 F1 NT", power_kw: 25 }, { name: "LCG 3015 AJ", power_kw: 35 }
-      ]},
-      { name: "Mazak Optonics", models: [
-        { name: "OPTIPLEX 3015 DDL", power_kw: 45 }, { name: "OPTIPLEX NEXUS 3015", power_kw: 35 },
-        { name: "STX 48", power_kw: 30 }
-      ]},
-      { name: "Prima Power", models: [
-        { name: "Platino Fiber", power_kw: 32 }, { name: "Laser Genius+", power_kw: 40 },
-        { name: "Laser Next", power_kw: 35 }
-      ]},
-      { name: "Salvagnini", models: [
-        { name: "L3", power_kw: 30 }, { name: "L5", power_kw: 40 }
-      ]},
-      { name: "BLM Group", models: [
-        { name: "LT7", power_kw: 28 }, { name: "LT8.20", power_kw: 35 }
-      ]},
-      { name: "Han's Laser", models: [
-        { name: "G3015F", power_kw: 25 }, { name: "G4020F", power_kw: 35 }
-      ]},
-      { name: "Bodor", models: [
-        { name: "i5", power_kw: 20 }, { name: "i7", power_kw: 28 }, { name: "P3015", power_kw: 30 }
-      ]},
-      { name: "IPG Photonics", models: [
-        { name: "LaserCube", power_kw: 8 }, { name: "Genesis", power_kw: 15 }
-      ]},
-      { name: "Epilog", models: [
-        { name: "Fusion Pro 48", power_kw: 1.2 }, { name: "Fusion M2 32", power_kw: 0.75 }
-      ]},
-      { name: "Trotec", models: [
-        { name: "Speedy 400", power_kw: 1.5 }, { name: "SP3000", power_kw: 3 }
-      ]},
-      { name: "Other", models: [{ name: "CO2 Laser (Small)", power_kw: 5 }, { name: "Fiber Laser (Medium)", power_kw: 25 }, { name: "Fiber Laser (Large)", power_kw: 45 }] },
+      {
+        name: "Trumpf",
+        models: [
+          { name: "TruLaser 1030 fiber", power_kw: 18 },
+          { name: "TruLaser 3030 fiber", power_kw: 36 },
+          { name: "TruLaser 5030 fiber", power_kw: 48 },
+          { name: "TruLaser 5040 fiber", power_kw: 60 },
+          { name: "TruLaser Cell 3000", power_kw: 25 },
+          { name: "TruMark 5020", power_kw: 0.5 },
+        ],
+      },
+      {
+        name: "Bystronic",
+        models: [
+          { name: "ByStar Fiber 3015", power_kw: 32 },
+          { name: "ByStar Fiber 4020", power_kw: 40 },
+          { name: "ByStar Fiber 6225", power_kw: 55 },
+          { name: "ByJet Classic", power_kw: 25 },
+        ],
+      },
+      {
+        name: "Amada",
+        models: [
+          { name: "ENSIS 3015 AJ", power_kw: 30 },
+          { name: "ENSIS 6225 AJ", power_kw: 45 },
+          { name: "LC-3015 F1 NT", power_kw: 25 },
+          { name: "LCG 3015 AJ", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Mazak Optonics",
+        models: [
+          { name: "OPTIPLEX 3015 DDL", power_kw: 45 },
+          { name: "OPTIPLEX NEXUS 3015", power_kw: 35 },
+          { name: "STX 48", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Prima Power",
+        models: [
+          { name: "Platino Fiber", power_kw: 32 },
+          { name: "Laser Genius+", power_kw: 40 },
+          { name: "Laser Next", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Salvagnini",
+        models: [
+          { name: "L3", power_kw: 30 },
+          { name: "L5", power_kw: 40 },
+        ],
+      },
+      {
+        name: "BLM Group",
+        models: [
+          { name: "LT7", power_kw: 28 },
+          { name: "LT8.20", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Han's Laser",
+        models: [
+          { name: "G3015F", power_kw: 25 },
+          { name: "G4020F", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Bodor",
+        models: [
+          { name: "i5", power_kw: 20 },
+          { name: "i7", power_kw: 28 },
+          { name: "P3015", power_kw: 30 },
+        ],
+      },
+      {
+        name: "IPG Photonics",
+        models: [
+          { name: "LaserCube", power_kw: 8 },
+          { name: "Genesis", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Epilog",
+        models: [
+          { name: "Fusion Pro 48", power_kw: 1.2 },
+          { name: "Fusion M2 32", power_kw: 0.75 },
+        ],
+      },
+      {
+        name: "Trotec",
+        models: [
+          { name: "Speedy 400", power_kw: 1.5 },
+          { name: "SP3000", power_kw: 3 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "CO2 Laser (Small)", power_kw: 5 },
+          { name: "Fiber Laser (Medium)", power_kw: 25 },
+          { name: "Fiber Laser (Large)", power_kw: 45 },
+        ],
+      },
     ],
   },
   injection_molding: {
     brands: [
-      { name: "Arburg", models: [
-        { name: "Allrounder 270 S", power_kw: 11 }, { name: "Allrounder 470 E", power_kw: 25 },
-        { name: "Allrounder 570 A", power_kw: 35 }, { name: "Allrounder 820 H", power_kw: 55 }
-      ]},
-      { name: "Engel", models: [
-        { name: "Victory 120", power_kw: 18 }, { name: "Victory 330", power_kw: 40 },
-        { name: "e-mac 100", power_kw: 12 }, { name: "duo 500", power_kw: 60 }
-      ]},
-      { name: "KraussMaffei", models: [
-        { name: "CX 50", power_kw: 12 }, { name: "CX 160", power_kw: 28 }, { name: "GX 550", power_kw: 55 }
-      ]},
-      { name: "Sumitomo Demag", models: [
-        { name: "IntElect 100", power_kw: 15 }, { name: "IntElect 220", power_kw: 30 }, { name: "El-Exis SP 200", power_kw: 35 }
-      ]},
-      { name: "Husky", models: [
-        { name: "HyPET 225", power_kw: 55 }, { name: "HyPET 400", power_kw: 80 }
-      ]},
-      { name: "Nissei", models: [
-        { name: "NEX50", power_kw: 11 }, { name: "NEX140", power_kw: 25 }, { name: "NEX280", power_kw: 40 }
-      ]},
-      { name: "Toshiba", models: [
-        { name: "EC100SX", power_kw: 15 }, { name: "EC180SX", power_kw: 28 }
-      ]},
-      { name: "JSW", models: [
-        { name: "J100AD", power_kw: 18 }, { name: "J220AD", power_kw: 35 }
-      ]},
-      { name: "Haitian", models: [
-        { name: "MA900", power_kw: 12 }, { name: "MA1600", power_kw: 22 }, { name: "MA2500", power_kw: 35 }
-      ]},
-      { name: "Other", models: [{ name: "Small (< 100 ton)", power_kw: 15 }, { name: "Medium (100-300 ton)", power_kw: 35 }, { name: "Large (> 300 ton)", power_kw: 60 }] },
+      {
+        name: "Arburg",
+        models: [
+          { name: "Allrounder 270 S", power_kw: 11 },
+          { name: "Allrounder 470 E", power_kw: 25 },
+          { name: "Allrounder 570 A", power_kw: 35 },
+          { name: "Allrounder 820 H", power_kw: 55 },
+        ],
+      },
+      {
+        name: "Engel",
+        models: [
+          { name: "Victory 120", power_kw: 18 },
+          { name: "Victory 330", power_kw: 40 },
+          { name: "e-mac 100", power_kw: 12 },
+          { name: "duo 500", power_kw: 60 },
+        ],
+      },
+      {
+        name: "KraussMaffei",
+        models: [
+          { name: "CX 50", power_kw: 12 },
+          { name: "CX 160", power_kw: 28 },
+          { name: "GX 550", power_kw: 55 },
+        ],
+      },
+      {
+        name: "Sumitomo Demag",
+        models: [
+          { name: "IntElect 100", power_kw: 15 },
+          { name: "IntElect 220", power_kw: 30 },
+          { name: "El-Exis SP 200", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Husky",
+        models: [
+          { name: "HyPET 225", power_kw: 55 },
+          { name: "HyPET 400", power_kw: 80 },
+        ],
+      },
+      {
+        name: "Nissei",
+        models: [
+          { name: "NEX50", power_kw: 11 },
+          { name: "NEX140", power_kw: 25 },
+          { name: "NEX280", power_kw: 40 },
+        ],
+      },
+      {
+        name: "Toshiba",
+        models: [
+          { name: "EC100SX", power_kw: 15 },
+          { name: "EC180SX", power_kw: 28 },
+        ],
+      },
+      {
+        name: "JSW",
+        models: [
+          { name: "J100AD", power_kw: 18 },
+          { name: "J220AD", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Haitian",
+        models: [
+          { name: "MA900", power_kw: 12 },
+          { name: "MA1600", power_kw: 22 },
+          { name: "MA2500", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Small (< 100 ton)", power_kw: 15 },
+          { name: "Medium (100-300 ton)", power_kw: 35 },
+          { name: "Large (> 300 ton)", power_kw: 60 },
+        ],
+      },
     ],
   },
   grinding_machine: {
     brands: [
-      { name: "Studer", models: [
-        { name: "S21", power_kw: 7.5 }, { name: "S31", power_kw: 11 }, { name: "S41", power_kw: 15 }
-      ]},
-      { name: "Kellenberger", models: [
-        { name: "Kel-Vera", power_kw: 11 }, { name: "Kel-Vista", power_kw: 15 }
-      ]},
-      { name: "Junker", models: [
-        { name: "Jumat", power_kw: 15 }, { name: "Quickpoint", power_kw: 22 }
-      ]},
-      { name: "Okuma", models: [
-        { name: "GI-20N II", power_kw: 11 }, { name: "GP-47N", power_kw: 15 }
-      ]},
-      { name: "Toyoda", models: [
-        { name: "GL4Pi-50", power_kw: 11 }, { name: "GE4Pi-100", power_kw: 18.5 }
-      ]},
-      { name: "Blohm", models: [
-        { name: "Profimat MT 408", power_kw: 15 }, { name: "Planomat HP 408", power_kw: 18 }
-      ]},
-      { name: "Jones & Shipman", models: [
-        { name: "Easy 1000", power_kw: 5.5 }, { name: "Ultramat 1000", power_kw: 11 }
-      ]},
-      { name: "Other", models: [{ name: "Surface Grinder", power_kw: 5.5 }, { name: "Cylindrical Grinder", power_kw: 11 }, { name: "Centerless Grinder", power_kw: 15 }] },
+      {
+        name: "Studer",
+        models: [
+          { name: "S21", power_kw: 7.5 },
+          { name: "S31", power_kw: 11 },
+          { name: "S41", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Kellenberger",
+        models: [
+          { name: "Kel-Vera", power_kw: 11 },
+          { name: "Kel-Vista", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Junker",
+        models: [
+          { name: "Jumat", power_kw: 15 },
+          { name: "Quickpoint", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Okuma",
+        models: [
+          { name: "GI-20N II", power_kw: 11 },
+          { name: "GP-47N", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Toyoda",
+        models: [
+          { name: "GL4Pi-50", power_kw: 11 },
+          { name: "GE4Pi-100", power_kw: 18.5 },
+        ],
+      },
+      {
+        name: "Blohm",
+        models: [
+          { name: "Profimat MT 408", power_kw: 15 },
+          { name: "Planomat HP 408", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Jones & Shipman",
+        models: [
+          { name: "Easy 1000", power_kw: 5.5 },
+          { name: "Ultramat 1000", power_kw: 11 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Surface Grinder", power_kw: 5.5 },
+          { name: "Cylindrical Grinder", power_kw: 11 },
+          { name: "Centerless Grinder", power_kw: 15 },
+        ],
+      },
     ],
   },
   press_brake: {
     brands: [
-      { name: "Trumpf", models: [
-        { name: "TruBend 3100", power_kw: 15 }, { name: "TruBend 5130", power_kw: 22 },
-        { name: "TruBend 7036", power_kw: 8 }, { name: "TruBend 8320", power_kw: 35 }
-      ]},
-      { name: "Amada", models: [
-        { name: "HG 1003", power_kw: 18 }, { name: "HG 1303", power_kw: 22 },
-        { name: "HG 2204", power_kw: 30 }, { name: "EG 6013", power_kw: 15 }
-      ]},
-      { name: "Bystronic", models: [
-        { name: "Xpert 40", power_kw: 8 }, { name: "Xpert 80", power_kw: 15 }, { name: "Xpert 150", power_kw: 25 }
-      ]},
-      { name: "LVD", models: [
-        { name: "PPEB 80/25", power_kw: 15 }, { name: "PPEB 170/40", power_kw: 30 }
-      ]},
-      { name: "Salvagnini", models: [
-        { name: "B3 AU", power_kw: 25 }, { name: "B3 Panel Bender", power_kw: 18 }
-      ]},
-      { name: "Cincinnati", models: [
-        { name: "Proform+ 90", power_kw: 15 }, { name: "Maxform 175", power_kw: 28 }
-      ]},
-      { name: "Durma", models: [
-        { name: "AD-S 30100", power_kw: 15 }, { name: "AD-S 40175", power_kw: 22 }
-      ]},
-      { name: "Other", models: [{ name: "Small (< 100 ton)", power_kw: 11 }, { name: "Medium (100-200 ton)", power_kw: 22 }, { name: "Large (> 200 ton)", power_kw: 35 }] },
+      {
+        name: "Trumpf",
+        models: [
+          { name: "TruBend 3100", power_kw: 15 },
+          { name: "TruBend 5130", power_kw: 22 },
+          { name: "TruBend 7036", power_kw: 8 },
+          { name: "TruBend 8320", power_kw: 35 },
+        ],
+      },
+      {
+        name: "Amada",
+        models: [
+          { name: "HG 1003", power_kw: 18 },
+          { name: "HG 1303", power_kw: 22 },
+          { name: "HG 2204", power_kw: 30 },
+          { name: "EG 6013", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Bystronic",
+        models: [
+          { name: "Xpert 40", power_kw: 8 },
+          { name: "Xpert 80", power_kw: 15 },
+          { name: "Xpert 150", power_kw: 25 },
+        ],
+      },
+      {
+        name: "LVD",
+        models: [
+          { name: "PPEB 80/25", power_kw: 15 },
+          { name: "PPEB 170/40", power_kw: 30 },
+        ],
+      },
+      {
+        name: "Salvagnini",
+        models: [
+          { name: "B3 AU", power_kw: 25 },
+          { name: "B3 Panel Bender", power_kw: 18 },
+        ],
+      },
+      {
+        name: "Cincinnati",
+        models: [
+          { name: "Proform+ 90", power_kw: 15 },
+          { name: "Maxform 175", power_kw: 28 },
+        ],
+      },
+      {
+        name: "Durma",
+        models: [
+          { name: "AD-S 30100", power_kw: 15 },
+          { name: "AD-S 40175", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Small (< 100 ton)", power_kw: 11 },
+          { name: "Medium (100-200 ton)", power_kw: 22 },
+          { name: "Large (> 200 ton)", power_kw: 35 },
+        ],
+      },
     ],
   },
   compressor: {
     brands: [
-      { name: "Atlas Copco", models: [
-        { name: "GA 7", power_kw: 7.5 }, { name: "GA 15", power_kw: 15 }, { name: "GA 30", power_kw: 30 },
-        { name: "GA 55", power_kw: 55 }, { name: "GA 90", power_kw: 90 }, { name: "ZT 22", power_kw: 22 }
-      ]},
-      { name: "Ingersoll Rand", models: [
-        { name: "R7.5i", power_kw: 7.5 }, { name: "R15i", power_kw: 15 }, { name: "R37i", power_kw: 37 },
-        { name: "R75i", power_kw: 75 }, { name: "Nirvana 37", power_kw: 37 }
-      ]},
-      { name: "Kaeser", models: [
-        { name: "SK 15", power_kw: 11 }, { name: "ASD 40", power_kw: 22 }, { name: "CSD 75", power_kw: 55 },
-        { name: "ESD 441", power_kw: 250 }
-      ]},
-      { name: "CompAir", models: [
-        { name: "L07", power_kw: 7.5 }, { name: "L22", power_kw: 22 }, { name: "L45", power_kw: 45 }
-      ]},
-      { name: "Boge", models: [
-        { name: "C 7", power_kw: 5.5 }, { name: "C 15", power_kw: 11 }, { name: "S 31-3", power_kw: 22 }
-      ]},
-      { name: "Quincy", models: [
-        { name: "QGS 7.5", power_kw: 5.5 }, { name: "QGS 15", power_kw: 11 }, { name: "QGS 30", power_kw: 22 }
-      ]},
-      { name: "Other", models: [{ name: "Small Piston", power_kw: 3 }, { name: "Rotary Screw (Small)", power_kw: 11 }, { name: "Rotary Screw (Large)", power_kw: 55 }] },
+      {
+        name: "Atlas Copco",
+        models: [
+          { name: "GA 7", power_kw: 7.5 },
+          { name: "GA 15", power_kw: 15 },
+          { name: "GA 30", power_kw: 30 },
+          { name: "GA 55", power_kw: 55 },
+          { name: "GA 90", power_kw: 90 },
+          { name: "ZT 22", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Ingersoll Rand",
+        models: [
+          { name: "R7.5i", power_kw: 7.5 },
+          { name: "R15i", power_kw: 15 },
+          { name: "R37i", power_kw: 37 },
+          { name: "R75i", power_kw: 75 },
+          { name: "Nirvana 37", power_kw: 37 },
+        ],
+      },
+      {
+        name: "Kaeser",
+        models: [
+          { name: "SK 15", power_kw: 11 },
+          { name: "ASD 40", power_kw: 22 },
+          { name: "CSD 75", power_kw: 55 },
+          { name: "ESD 441", power_kw: 250 },
+        ],
+      },
+      {
+        name: "CompAir",
+        models: [
+          { name: "L07", power_kw: 7.5 },
+          { name: "L22", power_kw: 22 },
+          { name: "L45", power_kw: 45 },
+        ],
+      },
+      {
+        name: "Boge",
+        models: [
+          { name: "C 7", power_kw: 5.5 },
+          { name: "C 15", power_kw: 11 },
+          { name: "S 31-3", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Quincy",
+        models: [
+          { name: "QGS 7.5", power_kw: 5.5 },
+          { name: "QGS 15", power_kw: 11 },
+          { name: "QGS 30", power_kw: 22 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Small Piston", power_kw: 3 },
+          { name: "Rotary Screw (Small)", power_kw: 11 },
+          { name: "Rotary Screw (Large)", power_kw: 55 },
+        ],
+      },
     ],
   },
   conveyor: {
     brands: [
-      { name: "Dorner", models: [
-        { name: "2200 Series", power_kw: 0.37 }, { name: "3200 Series", power_kw: 0.75 }, { name: "FlexMove", power_kw: 1.5 }
-      ]},
-      { name: "Hytrol", models: [
-        { name: "TA", power_kw: 0.37 }, { name: "E24", power_kw: 0.75 }, { name: "ProSort 400", power_kw: 3 }
-      ]},
-      { name: "Interroll", models: [
-        { name: "Portec", power_kw: 0.55 }, { name: "MCP", power_kw: 1.1 }
-      ]},
-      { name: "Bosch Rexroth", models: [
-        { name: "VarioFlow S", power_kw: 0.5 }, { name: "TS 5", power_kw: 1 }
-      ]},
-      { name: "FlexLink", models: [
-        { name: "X45", power_kw: 0.4 }, { name: "X85", power_kw: 0.75 }
-      ]},
-      { name: "Other", models: [{ name: "Belt Conveyor (Light)", power_kw: 0.5 }, { name: "Belt Conveyor (Heavy)", power_kw: 3 }, { name: "Roller Conveyor", power_kw: 1.5 }] },
+      {
+        name: "Dorner",
+        models: [
+          { name: "2200 Series", power_kw: 0.37 },
+          { name: "3200 Series", power_kw: 0.75 },
+          { name: "FlexMove", power_kw: 1.5 },
+        ],
+      },
+      {
+        name: "Hytrol",
+        models: [
+          { name: "TA", power_kw: 0.37 },
+          { name: "E24", power_kw: 0.75 },
+          { name: "ProSort 400", power_kw: 3 },
+        ],
+      },
+      {
+        name: "Interroll",
+        models: [
+          { name: "Portec", power_kw: 0.55 },
+          { name: "MCP", power_kw: 1.1 },
+        ],
+      },
+      {
+        name: "Bosch Rexroth",
+        models: [
+          { name: "VarioFlow S", power_kw: 0.5 },
+          { name: "TS 5", power_kw: 1 },
+        ],
+      },
+      {
+        name: "FlexLink",
+        models: [
+          { name: "X45", power_kw: 0.4 },
+          { name: "X85", power_kw: 0.75 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Belt Conveyor (Light)", power_kw: 0.5 },
+          { name: "Belt Conveyor (Heavy)", power_kw: 3 },
+          { name: "Roller Conveyor", power_kw: 1.5 },
+        ],
+      },
     ],
   },
   robot_arm: {
     brands: [
-      { name: "FANUC", models: [
-        { name: "LR Mate 200iD", power_kw: 0.8 }, { name: "M-10iA", power_kw: 1.5 }, { name: "M-20iA", power_kw: 3 },
-        { name: "R-1000iA", power_kw: 6 }, { name: "R-2000iC", power_kw: 8 }, { name: "M-2000iA", power_kw: 25 }
-      ]},
-      { name: "KUKA", models: [
-        { name: "KR 3 AGILUS", power_kw: 0.6 }, { name: "KR 6 R900", power_kw: 2.5 }, { name: "KR 16 R2010", power_kw: 3.5 },
-        { name: "KR 120 R2500", power_kw: 6 }, { name: "KR 210 R3100", power_kw: 9 }, { name: "KR 1000 titan", power_kw: 30 }
-      ]},
-      { name: "ABB", models: [
-        { name: "IRB 120", power_kw: 0.6 }, { name: "IRB 1200", power_kw: 2 }, { name: "IRB 2600", power_kw: 4 },
-        { name: "IRB 4600", power_kw: 5.5 }, { name: "IRB 6700", power_kw: 7 }, { name: "IRB 8700", power_kw: 15 }
-      ]},
-      { name: "Yaskawa Motoman", models: [
-        { name: "GP7", power_kw: 1.5 }, { name: "GP25", power_kw: 3 }, { name: "GP50", power_kw: 4.5 },
-        { name: "GP180", power_kw: 8 }, { name: "GP400", power_kw: 15 }
-      ]},
-      { name: "Universal Robots", models: [
-        { name: "UR3e", power_kw: 0.2 }, { name: "UR5e", power_kw: 0.35 }, { name: "UR10e", power_kw: 0.5 },
-        { name: "UR16e", power_kw: 0.6 }, { name: "UR20", power_kw: 0.75 }, { name: "UR30", power_kw: 0.9 }
-      ]},
-      { name: "Doosan Robotics", models: [
-        { name: "M0609", power_kw: 0.25 }, { name: "M1013", power_kw: 0.4 }, { name: "H2515", power_kw: 0.75 }
-      ]},
-      { name: "Kawasaki", models: [
-        { name: "RS007L", power_kw: 1.2 }, { name: "RS020N", power_kw: 2.5 }, { name: "RS080N", power_kw: 5 }
-      ]},
-      { name: "Staubli", models: [
-        { name: "TX2-40", power_kw: 0.9 }, { name: "TX2-60", power_kw: 1.5 }, { name: "TX2-90", power_kw: 2.5 }
-      ]},
-      { name: "Epson", models: [
-        { name: "VT6L", power_kw: 0.3 }, { name: "C8", power_kw: 0.8 }
-      ]},
-      { name: "Techman (TM Robot)", models: [
-        { name: "TM5", power_kw: 0.3 }, { name: "TM12", power_kw: 0.5 }, { name: "TM14", power_kw: 0.55 }
-      ]},
-      { name: "OMRON (Adept)", models: [
-        { name: "i4L", power_kw: 0.3 }, { name: "TM Series", power_kw: 0.5 }
-      ]},
-      { name: "Other", models: [{ name: "Cobot (Small)", power_kw: 0.3 }, { name: "Industrial (Medium)", power_kw: 4 }, { name: "Industrial (Large)", power_kw: 10 }] },
+      {
+        name: "FANUC",
+        models: [
+          { name: "LR Mate 200iD", power_kw: 0.8 },
+          { name: "M-10iA", power_kw: 1.5 },
+          { name: "M-20iA", power_kw: 3 },
+          { name: "R-1000iA", power_kw: 6 },
+          { name: "R-2000iC", power_kw: 8 },
+          { name: "M-2000iA", power_kw: 25 },
+        ],
+      },
+      {
+        name: "KUKA",
+        models: [
+          { name: "KR 3 AGILUS", power_kw: 0.6 },
+          { name: "KR 6 R900", power_kw: 2.5 },
+          { name: "KR 16 R2010", power_kw: 3.5 },
+          { name: "KR 120 R2500", power_kw: 6 },
+          { name: "KR 210 R3100", power_kw: 9 },
+          { name: "KR 1000 titan", power_kw: 30 },
+        ],
+      },
+      {
+        name: "ABB",
+        models: [
+          { name: "IRB 120", power_kw: 0.6 },
+          { name: "IRB 1200", power_kw: 2 },
+          { name: "IRB 2600", power_kw: 4 },
+          { name: "IRB 4600", power_kw: 5.5 },
+          { name: "IRB 6700", power_kw: 7 },
+          { name: "IRB 8700", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Yaskawa Motoman",
+        models: [
+          { name: "GP7", power_kw: 1.5 },
+          { name: "GP25", power_kw: 3 },
+          { name: "GP50", power_kw: 4.5 },
+          { name: "GP180", power_kw: 8 },
+          { name: "GP400", power_kw: 15 },
+        ],
+      },
+      {
+        name: "Universal Robots",
+        models: [
+          { name: "UR3e", power_kw: 0.2 },
+          { name: "UR5e", power_kw: 0.35 },
+          { name: "UR10e", power_kw: 0.5 },
+          { name: "UR16e", power_kw: 0.6 },
+          { name: "UR20", power_kw: 0.75 },
+          { name: "UR30", power_kw: 0.9 },
+        ],
+      },
+      {
+        name: "Doosan Robotics",
+        models: [
+          { name: "M0609", power_kw: 0.25 },
+          { name: "M1013", power_kw: 0.4 },
+          { name: "H2515", power_kw: 0.75 },
+        ],
+      },
+      {
+        name: "Kawasaki",
+        models: [
+          { name: "RS007L", power_kw: 1.2 },
+          { name: "RS020N", power_kw: 2.5 },
+          { name: "RS080N", power_kw: 5 },
+        ],
+      },
+      {
+        name: "Staubli",
+        models: [
+          { name: "TX2-40", power_kw: 0.9 },
+          { name: "TX2-60", power_kw: 1.5 },
+          { name: "TX2-90", power_kw: 2.5 },
+        ],
+      },
+      {
+        name: "Epson",
+        models: [
+          { name: "VT6L", power_kw: 0.3 },
+          { name: "C8", power_kw: 0.8 },
+        ],
+      },
+      {
+        name: "Techman (TM Robot)",
+        models: [
+          { name: "TM5", power_kw: 0.3 },
+          { name: "TM12", power_kw: 0.5 },
+          { name: "TM14", power_kw: 0.55 },
+        ],
+      },
+      {
+        name: "OMRON (Adept)",
+        models: [
+          { name: "i4L", power_kw: 0.3 },
+          { name: "TM Series", power_kw: 0.5 },
+        ],
+      },
+      {
+        name: "Other",
+        models: [
+          { name: "Cobot (Small)", power_kw: 0.3 },
+          { name: "Industrial (Medium)", power_kw: 4 },
+          { name: "Industrial (Large)", power_kw: 10 },
+        ],
+      },
     ],
   },
   unknown: {
     brands: [
-      { name: "Other", models: [
-        { name: "Light Industrial Equipment", power_kw: 3 },
-        { name: "Medium Industrial Equipment", power_kw: 10 },
-        { name: "Heavy Industrial Equipment", power_kw: 25 }
-      ]}
+      {
+        name: "Other",
+        models: [
+          { name: "Light Industrial Equipment", power_kw: 3 },
+          { name: "Medium Industrial Equipment", power_kw: 10 },
+          { name: "Heavy Industrial Equipment", power_kw: 25 },
+        ],
+      },
     ],
   },
 };
@@ -768,22 +1540,32 @@ export default function DashboardTabs() {
 
       const data = await response.json();
 
-      // Save to Results/History
+      // Build machine name with brand/model if selected
+      const machineName =
+        [
+          file.selectedBrand,
+          file.selectedModel,
+          !file.selectedBrand && !file.selectedModel ? file.analysis.machine_type : null,
+        ]
+          .filter(Boolean)
+          .join(" ") || file.analysis.machine_type;
+
+      // Save to Results using dedicated endpoint
       try {
-        await fetch("/api/calculate", {
+        await fetch("/api/results", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            machine_id: file.analysis.machine_key,
-            material_id: "photo_analysis",
-            initial_weight_kg: file.customPowerKw || file.specifications?.operating_power_kw || 0,
-            final_weight_kg: parseFloat(file.operatingHours) || 0,
-            time_min: parseFloat(file.standbyHours || "0") || 0,
-            // Additional metadata
-            source: "ai_photo_analysis",
-            machine_name: `${file.selectedBrand || ""} ${file.selectedModel || file.analysis.machine_type}`.trim(),
-            total_carbon_kg: data.carbon.total_carbon_kg,
+            machine_name: machineName,
+            machine_type: file.analysis.machine_key,
+            brand: file.selectedBrand || null,
+            model: file.selectedModel || null,
+            power_kw: file.customPowerKw || file.specifications?.operating_power_kw || 0,
+            operating_hours: parseFloat(file.operatingHours) || 0,
+            standby_hours: parseFloat(file.standbyHours || "0") || 0,
             total_energy_kwh: data.energy.total_energy_kwh,
+            total_carbon_kg: data.carbon.total_carbon_kg,
+            source: "ai_photo_analysis",
           }),
         });
       } catch (saveErr) {
@@ -1375,7 +2157,9 @@ export default function DashboardTabs() {
                                     </p>
                                     <div className="grid gap-3 sm:grid-cols-2">
                                       <div className="space-y-1">
-                                        <label className="text-xs text-muted-foreground">Brand</label>
+                                        <label className="text-xs text-muted-foreground">
+                                          Brand
+                                        </label>
                                         <select
                                           value={file.selectedBrand || ""}
                                           onChange={(e) => {
@@ -1383,7 +2167,12 @@ export default function DashboardTabs() {
                                             setUploadedFiles((prev) =>
                                               prev.map((f) =>
                                                 f.id === file.id
-                                                  ? { ...f, selectedBrand: brand, selectedModel: "", customPowerKw: undefined }
+                                                  ? {
+                                                      ...f,
+                                                      selectedBrand: brand,
+                                                      selectedModel: "",
+                                                      customPowerKw: undefined,
+                                                    }
                                                   : f
                                               )
                                             );
@@ -1391,23 +2180,37 @@ export default function DashboardTabs() {
                                           className="flex h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
                                         >
                                           <option value="">-- Select Brand --</option>
-                                          {BRAND_DATABASE[file.analysis.machine_key]?.brands.map((b) => (
-                                            <option key={b.name} value={b.name}>{b.name}</option>
-                                          ))}
+                                          {BRAND_DATABASE[file.analysis.machine_key]?.brands.map(
+                                            (b) => (
+                                              <option key={b.name} value={b.name}>
+                                                {b.name}
+                                              </option>
+                                            )
+                                          )}
                                         </select>
                                       </div>
                                       <div className="space-y-1">
-                                        <label className="text-xs text-muted-foreground">Model</label>
+                                        <label className="text-xs text-muted-foreground">
+                                          Model
+                                        </label>
                                         <select
                                           value={file.selectedModel || ""}
                                           onChange={(e) => {
                                             const modelName = e.target.value;
-                                            const brand = BRAND_DATABASE[file.analysis!.machine_key]?.brands.find(b => b.name === file.selectedBrand);
-                                            const model = brand?.models.find(m => m.name === modelName);
+                                            const brand = BRAND_DATABASE[
+                                              file.analysis!.machine_key
+                                            ]?.brands.find((b) => b.name === file.selectedBrand);
+                                            const model = brand?.models.find(
+                                              (m) => m.name === modelName
+                                            );
                                             setUploadedFiles((prev) =>
                                               prev.map((f) =>
                                                 f.id === file.id
-                                                  ? { ...f, selectedModel: modelName, customPowerKw: model?.power_kw }
+                                                  ? {
+                                                      ...f,
+                                                      selectedModel: modelName,
+                                                      customPowerKw: model?.power_kw,
+                                                    }
                                                   : f
                                               )
                                             );
@@ -1416,11 +2219,14 @@ export default function DashboardTabs() {
                                           className="flex h-10 w-full rounded-lg border border-input bg-background px-3 text-sm disabled:opacity-50"
                                         >
                                           <option value="">-- Select Model --</option>
-                                          {file.selectedBrand && BRAND_DATABASE[file.analysis.machine_key]?.brands
-                                            .find(b => b.name === file.selectedBrand)?.models
-                                            .map((m) => (
-                                              <option key={m.name} value={m.name}>{m.name} ({m.power_kw} kW)</option>
-                                            ))}
+                                          {file.selectedBrand &&
+                                            BRAND_DATABASE[file.analysis.machine_key]?.brands
+                                              .find((b) => b.name === file.selectedBrand)
+                                              ?.models.map((m) => (
+                                                <option key={m.name} value={m.name}>
+                                                  {m.name} ({m.power_kw} kW)
+                                                </option>
+                                              ))}
                                         </select>
                                       </div>
                                     </div>
@@ -1439,7 +2245,11 @@ export default function DashboardTabs() {
                                             setUploadedFiles((prev) =>
                                               prev.map((f) =>
                                                 f.id === file.id
-                                                  ? { ...f, customPowerKw: parseFloat(e.target.value) || undefined }
+                                                  ? {
+                                                      ...f,
+                                                      customPowerKw:
+                                                        parseFloat(e.target.value) || undefined,
+                                                    }
                                                   : f
                                               )
                                             )
@@ -1458,7 +2268,8 @@ export default function DashboardTabs() {
                                   <div className="rounded-lg bg-muted/50 p-3">
                                     <p className="text-xs text-muted-foreground">Operating Power</p>
                                     <p className="text-lg font-semibold text-foreground">
-                                      {file.customPowerKw || file.specifications.operating_power_kw} kW
+                                      {file.customPowerKw || file.specifications.operating_power_kw}{" "}
+                                      kW
                                       {file.customPowerKw && (
                                         <span className="ml-2 text-xs text-primary">(custom)</span>
                                       )}
