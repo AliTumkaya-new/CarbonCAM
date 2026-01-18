@@ -76,7 +76,7 @@ export async function GET() {
 // POST endpoint for saving AI photo analysis results
 export async function POST(req: Request) {
   console.log("POST /api/results called");
-  
+
   try {
     const body = await req.json();
     console.log("Request body:", body);
@@ -150,10 +150,13 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("POST /api/results error:", error);
-    return NextResponse.json({ 
-      detail: "Database error", 
-      error: error instanceof Error ? error.message : "Unknown error" 
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        detail: "Database error",
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
   }
 }
 
