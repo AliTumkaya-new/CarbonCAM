@@ -1,0 +1,61 @@
+# Docker ignore file for CarbonCAM
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Environment files
+.env*
+!.env.example
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.pytest_cache/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# CI/CD
+.github/
+
+# Database
+*.db
+*.sqlite
+
+# Temporary files
+tmp/
+temp/
+.tmp/

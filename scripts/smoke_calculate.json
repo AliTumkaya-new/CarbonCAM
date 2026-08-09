@@ -1,0 +1,9 @@
+{
+  "machine_id": "cnc_1",
+  "material_id": "mat_6061",
+  "initial_weight": 10.0,
+  "final_weight": 9.2,
+  "time_min": 30,
+  "tariff_type": "Single",
+  "currency": "TRY"
+}

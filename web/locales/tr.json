@@ -1,0 +1,158 @@
+{
+  "actions": {
+    "calculate": "Hesapla",
+    "downloadReport": "Raporu İndir",
+    "getStarted": "Ücretsiz Başlayın",
+    "signIn": "Giriş Yap",
+    "signUp": "Kayıt"
+  },
+  "terms": {
+    "carbonFootprint": "Karbon Ayak İzi"
+  },
+  "optimization": {
+    "title": "Mühendislik Önerileri",
+    "idleHigh": "Öneri: Operasyon süresince boşta bekleme süresi {idlePct}. Parça yükleme/boşaltma otomasyonunu gözden geçirin.",
+    "aluminumFeedRate": "İpucu: Kesme hızını (Feed Rate) {increasePct} artırarak enerji verimliliğini yükseltebilirsiniz, Alüminyum yüksek hıza uygundur."
+  },
+  "language": {
+    "label": "Dil",
+    "tr": "Türkçe",
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "landing": {
+    "hero": {
+      "tagline": "CarbonCAM",
+      "title": "CNC talaşlı imalatta enerji ve CO₂ hesabını",
+      "titleHighlight": " fizik tabanlı",
+      "titleEnd": " yapın.",
+      "subtitle": "Excel tahminlerinden çıkın. CarbonCAM, işleme süresi, malzeme ve tezgâh parametreleriyle kWh ve kgCO2 sonuçlarını tutarlı bir şekilde üretir — raporlamaya hazır.",
+      "logosTitle": "Teams modernizing machining footprint reporting"
+    },
+    "features": {
+      "output": "Output",
+      "outputValue": "kWh + kgCO2",
+      "scope": "Scope",
+      "scopeValue": "Parça / operasyon",
+      "purpose": "Purpose",
+      "purposeValue": "Raporlama & teklif"
+    },
+    "problem": {
+      "tag": "Problem",
+      "title": "Karbon hesabı \"varsayımlar\" üstünde kalıyor",
+      "point1": "Farklı ekipler farklı katsayılar kullanıyor; sonuçlar tutarsız.",
+      "point2": "Boşta tüketim göz ardı ediliyor; gerçek kWh kaçıyor.",
+      "point3": "Rapor üretimi manuel; müşteri/denetim talepleri gecikiyor."
+    },
+    "solution": {
+      "tag": "Solution",
+      "title": "Tezgâh + malzeme + süre ile standartlaşmış sonuç",
+      "point1": "Parametre bazlı model: malzeme ve makine profilleri.",
+      "point2": "Enerji kırılımı: processing + idle.",
+      "point3": "Uygulanabilir çıktı: teklif/rapor süreçlerine girecek format."
+    },
+    "whatYouGet": {
+      "tag": "What you get",
+      "title": "Kurumsal iş akışına uygun",
+      "subtitle": "Minimum veri girişiyle, tekrar üretilebilir ve savunulabilir sonuçlar.",
+      "feature1Title": "Standard inputs",
+      "feature1Desc": "Makine, malzeme, süre. Hepsi kayıt altında.",
+      "feature2Title": "Breakdowns",
+      "feature2Desc": "Enerji ve CO₂'yi bileşenlerine ayırın.",
+      "feature3Title": "Reporting-ready",
+      "feature3Desc": "Süreçlerinize entegre edilebilir çıktı yapısı."
+    },
+    "footer": {
+      "copyright": "© CarbonCAM. All rights reserved."
+    }
+  }
+  ,
+  "dashboard": {
+    "tabs": {
+      "dashboard": "Dashboard",
+      "developer": "Geliştirici"
+    },
+    "balance": {
+      "label": "Bakiye",
+      "unit": "hak",
+      "empty": "—"
+    },
+    "quickCalculator": {
+      "tag": "Hızlı Hesaplayıcı",
+      "title": "CarbonCAM - Industrial Footprint Calculator",
+      "subtitle": "CNC talaşlı imalat için enerji (kWh) ve karbon (kgCO2) hesabı.",
+      "machineParameters": {
+        "title": "Makine Parametreleri",
+        "subtitle": "Girdileri girin ve ayak izini hesaplayın."
+      },
+      "sections": {
+        "equipmentDetails": "Equipment Details",
+        "processParameters": "Process Parameters"
+      },
+      "labels": {
+        "machine": "Makine Seçimi",
+        "material": "Malzeme Seçimi",
+        "initialWeight": "Parça Başlangıç Ağırlığı",
+        "finalWeight": "Bitiş Ağırlığı",
+        "tariffType": "Tarife Tipi",
+        "currency": "Para Birimi",
+        "operationStart": "İşlem Başlangıç Saati",
+        "operationEnd": "İşlem Bitiş Saati",
+        "time": "İşlem Süresi",
+        "toolDiameter": "Tool Diameter"
+      },
+      "tariff": {
+        "single": "Tek zamanlı (Single)",
+        "multi": "Üç zamanlı (Multi)"
+      },
+      "tooltips": {
+        "machine": "Machine standby power is auto-fetched.",
+        "material": "Material specific energy value is auto-fetched.",
+        "initialWeight": "Initial part weight before machining.",
+        "finalWeight": "Final part weight after machining.",
+        "time": "Total machining time (including idle).",
+        "toolDiameter": "Optional parameter (not used in current model)."
+      },
+      "resultPreview": {
+        "title": "Sonuç Önizleme",
+        "subtitle": "Hesaplama çıktıları burada gösterilir.",
+        "noDataCta": "No data generated yet. Run a calculation to see the analysis."
+      },
+      "emptyState": {
+        "title": "Sonuçları görmek için hesaplama yapın",
+        "subtitle": "Sol panelden parametreleri doldurup “Calculate Footprint” butonuna basın."
+      },
+      "errors": {
+        "invalidNumber": "Lütfen tüm sayısal alanlara geçerli değer girin.",
+        "calculateFailed": "Hesaplama başarısız."
+      }
+    },
+    "batch": {
+      "tag": "Toplu İşlem",
+      "title": "Toplu Hesaplama (Excel)",
+      "subtitle": "Template.xlsx dosyasını indirip doldurun, drag & drop ile yükleyin. Sonuçları Excel olarak alın.",
+      "downloadTemplate": "Template.xlsx indir",
+      "uploadAndCalculate": "Yükle ve Hesapla",
+      "selected": "Seçili: {filename}",
+      "dropzone": {
+        "title": "Excel dosyasını sürükleyip bırakın",
+        "columns": ".xlsx formatı, sütunlar: Weight_In, Weight_Out, Time, Machine_ID, Material_ID",
+        "or": "veya",
+        "chooseFile": "Dosya seç"
+      },
+      "status": {
+        "fileSelected": "{filename} seçildi",
+        "downloadingTemplate": "Şablon indiriliyor...",
+        "templateDownloaded": "Şablon indirildi",
+        "uploading": "Yükleniyor ve hesaplanıyor...",
+        "processing": "İşleniyor...",
+        "resultsDownloaded": "Sonuçlar indirildi"
+      },
+      "errors": {
+        "selectFile": "Lütfen bir Excel dosyası seçin.",
+        "templateDownloadFailed": "Şablon indirilemedi",
+        "batchFailed": "Toplu hesaplama başarısız"
+      }
+    }
+  }
+}

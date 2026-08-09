@@ -1,0 +1,31 @@
+{
+  "name": "carboncam-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=web",
+    "lint": "npm run lint --workspace=web",
+    "start": "npm run start --workspace=web"
+  },
+  "dependencies": {
+    "next": "16.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@parcel/watcher-linux-x64-glibc": "^2.5.1",
+    "@rollup/rollup-linux-x64-gnu": "^4.62.2",
+    "@sentry/cli-linux-x64": "^2.58.6",
+    "@swc/core-linux-x64-gnu": "^1.15.8",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.1.18",
+    "@unrs/resolver-binding-linux-x64-gnu": "^1.11.1",
+    "lightningcss-linux-x64-gnu": "^1.30.2"
+  }
+}
