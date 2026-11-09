@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import type { Article, ArticleCategory } from "../articles";
 import AdSlot from "../../../../components/ad-slot";
 
@@ -15,6 +16,48 @@ export default function ArticleContent({
   relatedArticles,
   categoryColors,
 }: ArticleContentProps) {
+  const locale = useLocale();
+  const turkish = locale === "tr";
+  const copy = turkish
+    ? {
+        home: "Ana Sayfa",
+        centre: "Bilgi Merkezi",
+        readTime: "dk okuma",
+        updated: "Güncellendi",
+        byline: "CarbonCAM Editoryal Ekibi",
+        editorial: "Editoryal ilkelerimiz",
+        contents: "İçindekiler",
+        sources: "Kaynaklar ve inceleme notu",
+        sourcesIntro: "Bu içerik aşağıdaki birincil ve kurumsal kaynaklar temel alınarak hazırlanmıştır. Kaynak erişim tarihleri, sayfanın son içerik kontrolünü gösterir.",
+        accessed: "Erişim",
+        ctaTitle: "Karbon etkinizi ölçün",
+        ctaBody: "CarbonCAM ile elektrikli cihazların enerji ve tahmini emisyon etkisini inceleyin, günlük görevleri tamamlayın ve karşılaştırılabilir sayaç kayıtlarını izleyin.",
+        guide: "Uygulama rehberi",
+        privacy: "Gizlilik ve veriler",
+        share: "Bu makaleyi paylaşın:",
+        related: "İlgili Makaleler",
+        read: "Oku →",
+      }
+    : {
+        home: "Home",
+        centre: "Knowledge Centre",
+        readTime: "min read",
+        updated: "Updated",
+        byline: "CarbonCAM Editorial Team",
+        editorial: "Our editorial standards",
+        contents: "Contents",
+        sources: "Sources and review note",
+        sourcesIntro: "This guide was prepared from the primary and institutional sources below. Access dates indicate the latest content review for these references.",
+        accessed: "Accessed",
+        ctaTitle: "Measure your carbon impact",
+        ctaBody: "Use CarbonCAM to estimate appliance energy and emissions, complete daily tasks, and review comparable meter records.",
+        guide: "App guide",
+        privacy: "Privacy and data",
+        share: "Share this article:",
+        related: "Related Articles",
+        read: "Read →",
+      };
+
   return (
     <main style={{ backgroundColor: "#fff" }}>
       {/* Hero */}
@@ -60,7 +103,7 @@ export default function ArticleContent({
               onMouseEnter={(e) => (e.currentTarget.style.color = "#059669")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
             >
-              Ana Sayfa
+              {copy.home}
             </Link>
             <span>›</span>
             <Link
@@ -69,7 +112,7 @@ export default function ArticleContent({
               onMouseEnter={(e) => (e.currentTarget.style.color = "#059669")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
             >
-              Bilgi Merkezi
+              {copy.centre}
             </Link>
             <span>›</span>
             <span style={{ color: "#64748b" }}>{article.categoryLabel}</span>
@@ -98,10 +141,10 @@ export default function ArticleContent({
               {article.categoryLabel}
             </span>
             <span style={{ fontSize: "13px", color: "#94a3b8" }}>
-              {article.readingTime} dk okuma
+              {article.readingTime} {copy.readTime}
             </span>
             <span style={{ fontSize: "13px", color: "#94a3b8" }}>
-              {new Date(article.publishDate).toLocaleDateString("tr-TR", {
+              {new Date(article.publishDate).toLocaleDateString(turkish ? "tr-TR" : "en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -109,8 +152,8 @@ export default function ArticleContent({
             </span>
             {article.updatedDate && (
               <span style={{ fontSize: "13px", color: "#94a3b8" }}>
-                (Güncellendi:{" "}
-                {new Date(article.updatedDate).toLocaleDateString("tr-TR", {
+                ({copy.updated}:{" "}
+                {new Date(article.updatedDate).toLocaleDateString(turkish ? "tr-TR" : "en-US", {
                   year: "numeric",
                   month: "long",
                 })}
@@ -131,6 +174,14 @@ export default function ArticleContent({
           >
             {article.title}
           </h1>
+          <p style={{ color: "#475569", fontSize: "18px", lineHeight: 1.75, marginTop: "20px", maxWidth: "760px" }}>
+            {article.excerpt}
+          </p>
+          <p style={{ color: "#64748b", fontSize: "13px", marginTop: "18px" }}>
+            <strong style={{ color: "#334155" }}>{copy.byline}</strong>
+            <span aria-hidden="true"> · </span>
+            <Link href="/editorial-policy" style={{ color: "#047857", fontWeight: 700 }}>{copy.editorial}</Link>
+          </p>
         </div>
       </section>
 
@@ -166,7 +217,7 @@ export default function ArticleContent({
                   letterSpacing: "0.05em",
                 }}
               >
-                📋 İçindekiler
+                {copy.contents}
               </h2>
               <ol
                 style={{
@@ -224,9 +275,6 @@ export default function ArticleContent({
               </ol>
             </div>
 
-            {/* In-article AdSense Slot */}
-            <AdSlot format="horizontal" style={{ margin: "0 0 40px 0" }} />
-
             {/* Article Sections */}
             {article.content.map((section, idx) => (
               <section
@@ -262,6 +310,21 @@ export default function ArticleContent({
                 />
               </section>
             ))}
+
+            {article.sources && article.sources.length > 0 && (
+              <section style={{ backgroundColor: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "16px", marginTop: "48px", padding: "28px" }}>
+                <h2 style={{ color: "#0f172a", fontSize: "22px", fontWeight: 800, marginBottom: "12px" }}>{copy.sources}</h2>
+                <p style={{ color: "#64748b", fontSize: "14px", lineHeight: 1.7, marginBottom: "18px" }}>{copy.sourcesIntro}</p>
+                <ol style={{ display: "grid", gap: "12px", margin: 0, paddingLeft: "20px" }}>
+                  {article.sources.map((source) => (
+                    <li key={source.url} style={{ color: "#475569", fontSize: "14px", lineHeight: 1.6 }}>
+                      <a href={source.url} rel="noopener noreferrer" style={{ color: "#047857", fontWeight: 700 }} target="_blank">{source.title}</a>
+                      <span> — {source.publisher}. {copy.accessed}: {new Date(source.accessedDate).toLocaleDateString(turkish ? "tr-TR" : "en-GB")}.</span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
 
             {/* Post-article AdSense Slot */}
             <AdSlot format="horizontal" style={{ margin: "40px 0" }} />
@@ -311,7 +374,7 @@ export default function ArticleContent({
                   marginBottom: "12px",
                 }}
               >
-                Kendi karbon ayak izinizi ölçün!
+                {copy.ctaTitle}
               </h3>
               <p
                 style={{
@@ -322,9 +385,7 @@ export default function ArticleContent({
                   margin: "0 auto 24px",
                 }}
               >
-                CarbonCam uygulamasını kullanarak günlük aktivitelerinizin karbon
-                etkisini takip edin, görevleri tamamlayın ve dijital ormanınızı
-                büyütün.
+                {copy.ctaBody}
               </p>
               <div
                 style={{
@@ -334,8 +395,8 @@ export default function ArticleContent({
                   flexWrap: "wrap",
                 }}
               >
-                <a
-                  href="#"
+                <Link
+                  href="/help"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -366,10 +427,10 @@ export default function ArticleContent({
                   >
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                   </svg>
-                  App Store
-                </a>
-                <a
-                  href="#"
+                  {copy.guide}
+                </Link>
+                <Link
+                  href="/privacy"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -399,8 +460,8 @@ export default function ArticleContent({
                   >
                     <path d="M3 20.5v-17c0-.83.52-1.28 1-1.5l10 10-10 10c-.48-.22-1-.67-1-1.5m14.5-10.5L5.5 2l10.24 6.02L14 10l3.5.5m-3.5 3.5l1.74 1.98L5.5 22l12-8.5m4.5-1.5l-3.5-2L15 12l3.5 2 3.5-2z" />
                   </svg>
-                  Google Play
-                </a>
+                  {copy.privacy}
+                </Link>
               </div>
             </div>
 
@@ -424,7 +485,7 @@ export default function ArticleContent({
                   color: "#64748b",
                 }}
               >
-                Bu makaleyi paylaşın:
+                {copy.share}
               </span>
               <div style={{ display: "flex", gap: "8px" }}>
                 {[
@@ -492,7 +553,7 @@ export default function ArticleContent({
                 marginBottom: "32px",
               }}
             >
-              İlgili Makaleler
+              {copy.related}
             </h2>
             <div
               style={{
@@ -556,7 +617,7 @@ export default function ArticleContent({
                       fontWeight: 600,
                     }}
                   >
-                    Oku →
+                    {copy.read}
                   </span>
                 </Link>
               ))}

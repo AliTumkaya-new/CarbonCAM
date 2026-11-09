@@ -1,11 +1,50 @@
 "use client";
 
+import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 
 export default function CookieConsent() {
+  const turkish = useLocale() === "tr";
+  const copy = turkish
+    ? {
+        manage: "Çerez tercihlerini yönet",
+        privacy: "Gizlilik tercihleriniz",
+        privacyBody: "Tercihlerinizi aşağıdan yönetebilir ve daha sonra değiştirmek için bu paneli yeniden açabilirsiniz.",
+        necessary: "Kesinlikle gerekli",
+        necessaryBody: "Bu çerezler web sitesinin güvenli ve doğru çalışması için gereklidir.",
+        optional: "İsteğe bağlı çerezler",
+        optionalBody: "Bu çerezler site kullanımını anlamaya ve deneyimi geliştirmeye yardımcı olur.",
+        acceptAll: "Tümünü kabul et",
+        rejectAll: "Tümünü reddet",
+        acceptCurrent: "Seçimi kaydet",
+        bannerTitle: "Çerez kullanıyoruz",
+        bannerBody: "Zorunlu çerezleri sitenin çalışması için kullanırız. Analiz ve reklam çerezleri yalnızca onayınızla etkinleşir.",
+        preferences: "Tercihleri yönet",
+      }
+    : {
+        manage: "Manage cookie preferences",
+        privacy: "Your privacy choices",
+        privacyBody: "Manage your preferences below. You can reopen this panel later to change your choices.",
+        necessary: "Strictly necessary",
+        necessaryBody: "These cookies are essential for the website to work securely and correctly.",
+        optional: "Optional cookies",
+        optionalBody: "These cookies help us understand site usage and improve your experience.",
+        acceptAll: "Accept all",
+        rejectAll: "Reject all",
+        acceptCurrent: "Save selection",
+        bannerTitle: "We use cookies",
+        bannerBody: "We use necessary cookies to operate the site. Analytics and advertising cookies are enabled only with your consent.",
+        preferences: "Manage preferences",
+      };
   const [isVisible, setIsVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [optionalCookies, setOptionalCookies] = useState(false);
+
+  const saveConsent = (value: "all" | "necessary") => {
+    localStorage.setItem("cookie-consent", value);
+    window.dispatchEvent(new CustomEvent("carboncam:consent", { detail: value }));
+    setIsVisible(false);
+  };
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -13,22 +52,29 @@ export default function CookieConsent() {
       if (!consent) setIsVisible(true);
     }, 0);
 
-    return () => window.clearTimeout(timer);
+    const openPreferences = () => {
+      setOptionalCookies(localStorage.getItem("cookie-consent") === "all");
+      setShowPreferences(true);
+      setIsVisible(true);
+    };
+    window.addEventListener("carboncam:open-consent", openPreferences);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("carboncam:open-consent", openPreferences);
+    };
   }, []);
 
   const acceptAll = () => {
-    localStorage.setItem("cookie-consent", "all");
-    setIsVisible(false);
+    saveConsent("all");
   };
 
   const rejectAll = () => {
-    localStorage.setItem("cookie-consent", "necessary");
-    setIsVisible(false);
+    saveConsent("necessary");
   };
 
   const acceptCurrent = () => {
-    localStorage.setItem("cookie-consent", optionalCookies ? "all" : "necessary");
-    setIsVisible(false);
+    saveConsent(optionalCookies ? "all" : "necessary");
   };
 
   if (!isVisible) return null;
@@ -82,7 +128,7 @@ export default function CookieConsent() {
                   margin: 0,
                 }}
               >
-                Manage cookie preferences
+                {copy.manage}
               </h2>
               <button
                 onClick={() => setShowPreferences(false)}
@@ -126,7 +172,7 @@ export default function CookieConsent() {
                   marginBottom: "8px",
                 }}
               >
-                Your Privacy Choices
+                {copy.privacy}
               </h3>
               <p
                 style={{
@@ -136,8 +182,7 @@ export default function CookieConsent() {
                   margin: 0,
                 }}
               >
-                You can manage your preferences below. You may revisit this panel at any time to
-                update your choices.
+                {copy.privacyBody}
               </p>
             </div>
 
@@ -166,7 +211,7 @@ export default function CookieConsent() {
                     margin: 0,
                   }}
                 >
-                  Strictly Necessary
+                  {copy.necessary}
                 </h4>
                 <div
                   style={{
@@ -215,7 +260,7 @@ export default function CookieConsent() {
                   margin: 0,
                 }}
               >
-                These cookies are essential for the website to function properly.
+                {copy.necessaryBody}
               </p>
             </div>
 
@@ -243,7 +288,7 @@ export default function CookieConsent() {
                     margin: 0,
                   }}
                 >
-                  Optional Cookies
+                  {copy.optional}
                 </h4>
                 <button
                   onClick={() => setOptionalCookies(!optionalCookies)}
@@ -299,7 +344,7 @@ export default function CookieConsent() {
                   margin: 0,
                 }}
               >
-                These cookies help us improve your experience and analyze site usage.
+                {copy.optionalBody}
               </p>
             </div>
           </div>
@@ -328,7 +373,7 @@ export default function CookieConsent() {
                 cursor: "pointer",
               }}
             >
-              Accept all
+              {copy.acceptAll}
             </button>
             <button
               onClick={rejectAll}
@@ -345,7 +390,7 @@ export default function CookieConsent() {
                 cursor: "pointer",
               }}
             >
-              Reject all
+              {copy.rejectAll}
             </button>
             <button
               onClick={acceptCurrent}
@@ -362,7 +407,7 @@ export default function CookieConsent() {
                 cursor: "pointer",
               }}
             >
-              Accept current selection
+              {copy.acceptCurrent}
             </button>
           </div>
         </div>
@@ -403,7 +448,7 @@ export default function CookieConsent() {
               marginBottom: "8px",
             }}
           >
-            We use cookies
+            {copy.bannerTitle}
           </h3>
           <p
             style={{
@@ -413,8 +458,7 @@ export default function CookieConsent() {
               margin: 0,
             }}
           >
-            We use cookies to improve your experience, personalize content, target advertising, and
-            analyze traffic.
+            {copy.bannerBody}
           </p>
         </div>
 
@@ -440,7 +484,7 @@ export default function CookieConsent() {
               cursor: "pointer",
             }}
           >
-            Accept all
+            {copy.acceptAll}
           </button>
           <button
             onClick={rejectAll}
@@ -457,7 +501,7 @@ export default function CookieConsent() {
               cursor: "pointer",
             }}
           >
-            Reject all
+            {copy.rejectAll}
           </button>
           <button
             onClick={() => setShowPreferences(true)}
@@ -474,7 +518,7 @@ export default function CookieConsent() {
               cursor: "pointer",
             }}
           >
-            Manage preferences
+            {copy.preferences}
           </button>
         </div>
       </div>

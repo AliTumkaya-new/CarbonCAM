@@ -64,6 +64,15 @@ body {
   position: relative;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-oxanium), var(--font-inter), system-ui, sans-serif !important;
+}
+
 /* Premium Background Pattern */
 body::before {
   content: '';

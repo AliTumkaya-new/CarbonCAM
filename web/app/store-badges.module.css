@@ -1,0 +1,9 @@
+.badges { display: flex; flex-wrap: wrap; gap: 10px; }
+.badge { min-width: 174px; min-height: 56px; padding: 8px 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: #071a15; color: #fff; display: inline-flex; align-items: center; gap: 11px; text-decoration: none; box-shadow: 0 12px 26px rgba(7,26,21,.14); }
+a.badge:hover { background: #0d352a; transform: translateY(-2px); }
+.disabled { cursor: default; opacity: .94; }
+.icon { width: 28px; height: 28px; flex: 0 0 auto; display: grid; place-items: center; }
+.copy { display: flex; flex-direction: column; gap: 1px; text-align: left; }
+.overline { color: #b9c8c3; font-size: 9px; font-weight: 700; letter-spacing: .03em; }
+.name { font-family: var(--font-oxanium), sans-serif; font-size: 17px; font-weight: 750; line-height: 1.05; }
+@media (max-width: 520px) { .badges { width: 100%; } .badge { flex: 1 1 155px; min-width: 0; } }

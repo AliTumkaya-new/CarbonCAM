@@ -8,13 +8,49 @@ const webDirectory = path.dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = path.resolve(webDirectory, "..");
 
 const nextConfig: NextConfig = {
-  output: process.platform === "win32" ? undefined : "standalone", // For Docker deployments (Windows local build can fail)
   outputFileTracingRoot: workspaceRoot,
   turbopack: {
     root: workspaceRoot,
   },
   poweredByHeader: false, // Remove X-Powered-By header for security
   compress: true, // Enable gzip compression
+
+  async headers() {
+    return [
+      {
+        source: "/app-ads.txt",
+        headers: [
+          { key: "Content-Type", value: "text/plain; charset=utf-8" },
+          { key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
+      {
+        source: "/ads.txt",
+        headers: [
+          { key: "Content-Type", value: "text/plain; charset=utf-8" },
+          { key: "Cache-Control", value: "public, max-age=86400, s-maxage=86400" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+        ],
+      },
+      {
+        source: "/:path*",
+        headers: [
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), geolocation=(), microphone=()",
+          },
+        ],
+      },
+    ];
+  },
   
   // Image optimization
   images: {

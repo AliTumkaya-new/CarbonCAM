@@ -1,0 +1,92 @@
+.shell {
+  min-height: 100vh;
+  background: #f6f8f6;
+  color: #0b221c;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 253, 251, 0.92);
+  border-bottom: 1px solid rgba(11, 56, 45, 0.09);
+  backdrop-filter: blur(18px);
+}
+
+.headerInner {
+  width: min(1240px, calc(100% - 40px));
+  height: 82px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brandMark { filter: drop-shadow(0 7px 10px rgba(80, 180, 27, 0.2)); }
+.brandName { display: block; font-family: var(--font-oxanium), sans-serif; font-size: 23px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+.brandName span { color: #12ad88; }
+.brandName sup { color: #65a30d; font-size: 7px; font-weight: 800; letter-spacing: .04em; margin-left: 3px; top: -1.15em; }
+.brandTagline { display: block; margin-top: 5px; color: #61736e; font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
+.nav { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.navLink { padding: 10px 14px; border-radius: 999px; color: #42534e; font-size: 14px; font-weight: 700; text-decoration: none; }
+.navLink:hover, .navLinkActive { background: #e7f7ef; color: #08755d; }
+.actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.appButton { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 18px; border-radius: 999px; background: #0a8f70; box-shadow: 0 8px 20px rgba(10, 143, 112, 0.2); color: #fff; font-size: 13px; font-weight: 800; text-decoration: none; }
+.appButton:hover { background: #076d57; transform: translateY(-1px); }
+.menuButton { width: 44px; height: 44px; border: 1px solid #dce7e2; border-radius: 14px; background: #fff; color: #0b221c; display: none; align-items: center; justify-content: center; cursor: pointer; }
+.menuIcon, .menuIcon::before, .menuIcon::after { width: 19px; height: 2px; border-radius: 2px; background: currentColor; display: block; position: relative; }
+.menuIcon::before, .menuIcon::after { content: ""; position: absolute; left: 0; }
+.menuIcon::before { top: -6px; }
+.menuIcon::after { top: 6px; }
+.mobileMenu { display: none; padding: 8px 20px 20px; background: #fbfdfb; border-top: 1px solid #edf2ef; }
+.mobileMenuOpen { display: grid; gap: 4px; }
+.mobileMenu .navLink { border-radius: 12px; padding: 12px 14px; }
+.main { flex: 1; }
+
+.footer { background: #071a15; color: #aabbb5; }
+.footerInner { width: min(1240px, calc(100% - 40px)); margin: 0 auto; padding: 72px 0 28px; }
+.footerGrid { display: grid; grid-template-columns: minmax(260px, 1.5fr) repeat(3, minmax(150px, 1fr)); gap: 56px; }
+.footerBrand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.footerBrandName { color: #fff; font-family: var(--font-oxanium), sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.04em; }
+.footerBrandName span { color: #41d3ad; }
+.footerBrandName sup { color: #a3e635; font-size: 7px; margin-left: 3px; position: relative; top: -1.1em; }
+.footerDescription { max-width: 380px; font-size: 14px; line-height: 1.8; }
+.footerHeading { margin-bottom: 18px; color: #fff; font-size: 12px; font-weight: 850; letter-spacing: 0.12em; text-transform: uppercase; }
+.footerLinks { list-style: none; display: grid; gap: 12px; }
+.footerLink { color: #aabbb5; font-size: 14px; text-decoration: none; }
+.footerLink:hover { color: #7de2c8; }
+.footerBottom { margin-top: 58px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.09); display: flex; justify-content: space-between; gap: 24px; font-size: 12px; }
+.consentButton { border: 0; background: transparent; color: #a9c5bc; cursor: pointer; font: inherit; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+.consentButton:hover { color: #fff; }
+
+@media (max-width: 980px) {
+  .nav, .appButton { display: none; }
+  .menuButton { display: flex; }
+  .footerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .headerInner { width: min(100% - 24px, 1240px); height: 72px; gap: 8px; }
+  .brand { gap: 6px; }
+  .brandMark { width: 40px !important; height: 40px !important; }
+  .brandName { font-size: 18px; }
+  .brandName sup { font-size: 5px; margin-left: 2px; }
+  .brandTagline { display: none; }
+  .actions { gap: 4px; }
+  .menuButton { width: 40px; height: 40px; border-radius: 12px; }
+  .footerInner { width: min(100% - 36px, 1240px); padding-top: 54px; }
+  .footerGrid { grid-template-columns: 1fr; gap: 34px; }
+  .footerBottom { flex-direction: column; }
+}

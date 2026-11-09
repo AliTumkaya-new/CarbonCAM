@@ -1,10 +1,10 @@
-import { trTR } from "@clerk/localizations";
+import { enUS, trTR } from "@clerk/localizations";
 import { ClerkProvider, SignedIn } from "@clerk/nextjs";
 import "driver.js/dist/driver.css";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import { Inter } from "next/font/google";
+import { Inter, Oxanium } from "next/font/google";
 import CrispChat, { CrispChatWithClerk } from "./crisp-chat";
 import "./globals.css";
 import SentryUserContext from "./sentry-user-context";
@@ -14,39 +14,49 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+const oxanium = Oxanium({
+  variable: "--font-oxanium",
+  subsets: ["latin"],
+});
+
 const adsenseClientId = "ca-pub-4762071706286282";
 
-export const metadata: Metadata = {
-  title: {
-    default: "CarbonCam — Karbon Ayak İzi Takip Platformu",
-    template: "%s | CarbonCam",
-  },
-  description: "Karbon ayak izinizi takip edin, çevresel etkinizi ölçün. CarbonCam ile enerji tüketimi, ulaşım ve beslenme kaynaklı emisyonlarınızı analiz edin.",
-  keywords: ["karbon ayak izi", "karbon emisyonu", "CO2 hesaplama", "karbon ayak izi hesaplama", "sürdürülebilirlik", "iklim değişikliği", "CarbonCam"],
-  authors: [{ name: "CarbonCam" }],
-  creator: "CarbonCam",
-  openGraph: {
-    type: "website",
-    locale: "tr_TR",
-    siteName: "CarbonCam",
-    title: "CarbonCam — Karbon Ayak İzi Takip Platformu",
-    description: "Karbon ayak izinizi takip edin, çevresel etkinizi ölçün. CarbonCam ile emisyonlarınızı analiz edin.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "CarbonCam — Karbon Ayak İzi Takip Platformu",
-    description: "Karbon ayak izinizi takip edin, çevresel etkinizi ölçün.",
-  },
-  icons: {
-    icon: "/logo-mark.svg",
-    shortcut: "/logo-mark.svg",
-    apple: "/logo-mark.svg",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const turkish = locale === "tr";
+  const title = turkish
+    ? "CarbonCam — Karbon Ayak İzi Bilgi Platformu"
+    : "CarbonCam — Carbon Footprint Knowledge Platform";
+  const description = turkish
+    ? "Karbon emisyonlarını anlamak, enerji tüketimini hesaplamak ve daha sürdürülebilir seçimler yapmak için güvenilir rehberler."
+    : "Reliable guides for understanding carbon emissions, estimating energy use, and making more sustainable choices.";
+
+  return {
+    metadataBase: new URL("https://carboncam.com.tr"),
+    applicationName: "CarbonCAM",
+    title: { default: title, template: "%s | CarbonCam" },
+    description,
+    keywords: turkish
+      ? ["karbon ayak izi", "karbon emisyonu", "CO2 hesaplama", "sürdürülebilirlik", "CarbonCam"]
+      : ["carbon footprint", "carbon emissions", "CO2 calculator", "sustainability", "CarbonCam"],
+    authors: [{ name: "CarbonCam" }],
+    creator: "CarbonCam",
+    openGraph: {
+      type: "website",
+      locale: turkish ? "tr_TR" : "en_US",
+      siteName: "CarbonCam",
+      title,
+      description,
+    },
+    twitter: { card: "summary_large_image", title, description },
+    icons: {
+      icon: "/carboncam-logo.png",
+      shortcut: "/carboncam-logo.png",
+      apple: "/carboncam-logo.png",
+    },
+    robots: { index: true, follow: true },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -63,6 +73,26 @@ export default async function RootLayout({
     publishableKey.length >= 20 &&
     !publishableKey.includes("XXXX") &&
     !publishableKey.includes("xxxxxxxx");
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "CarbonCAM",
+      url: "https://carboncam.com.tr",
+      logo: "https://carboncam.com.tr/carboncam-logo.png",
+      email: "carboncamplus@gmail.com",
+      publishingPrinciples: "https://carboncam.com.tr/editorial-policy",
+      knowsAbout: ["appliance energy use", "carbon calculations", "energy efficiency"],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "CarbonCAM",
+      url: "https://carboncam.com.tr",
+      inLanguage: ["tr-TR", "en-US"],
+      publisher: { "@type": "Organization", name: "CarbonCAM" },
+    },
+  ];
 
   return (
     <html lang={locale}>
@@ -70,12 +100,13 @@ export default async function RootLayout({
         <meta name="google-adsense-account" content={adsenseClientId} />
         {/* AdSense script is loaded only in (marketing) layout to avoid ads on auth/dashboard pages */}
       </head>
-      <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`}>
+      <body className={`${inter.variable} ${oxanium.variable} font-sans antialiased overflow-x-hidden`}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {clerkEnabled ? (
             <ClerkProvider
               publishableKey={publishableKey}
-              localization={trTR}
+              localization={locale === "tr" ? trTR : enUS}
               signInUrl="/sign-in"
               signUpUrl="/sign-up"
               signInFallbackRedirectUrl="/dashboard"

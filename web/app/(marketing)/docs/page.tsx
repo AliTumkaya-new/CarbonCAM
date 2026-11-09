@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 export default function Page() {
+  const turkish = useLocale() === "tr";
   const apiBase =
     process.env.NEXT_PUBLIC_CARBONCAM_API_URL ??
     "/api/python";
@@ -114,7 +116,7 @@ export default function Page() {
               lineHeight: 1.2,
             }}
           >
-            API Dokümantasyonuna{" "}
+            {turkish ? "API Dokümantasyonuna" : "You Are Being Redirected to"}{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #0f172a 0%, #475569 100%)",
@@ -123,7 +125,7 @@ export default function Page() {
                 backgroundClip: "text",
               }}
             >
-              Yönlendiriliyorsunuz
+              {turkish ? "Yönlendiriliyorsunuz" : "API Documentation"}
             </span>
           </h1>
 
@@ -136,7 +138,7 @@ export default function Page() {
               marginBottom: "24px",
             }}
           >
-            Backend API dokümantasyonuna aşağıdaki adresten erişebilirsiniz:
+            {turkish ? "Backend API dokümantasyonuna aşağıdaki adresten erişebilirsiniz:" : "Backend API documentation is available at:"}
           </p>
 
           {/* URL Box */}
@@ -194,7 +196,7 @@ export default function Page() {
                 lineHeight: 1.6,
               }}
             >
-              Yönlendirme çalışmazsa, backend sunucunuzun çalıştığından emin olun.
+              {turkish ? "Yönlendirme çalışmazsa backend sunucusunun çalıştığından emin olun." : "If the link does not work, make sure the backend service is available."}
             </p>
           </div>
 
@@ -238,7 +240,7 @@ export default function Page() {
                 <polyline points="15 3 21 3 21 9" />
                 <line x1="10" y1="14" x2="21" y2="3" />
               </svg>
-              API Dokümanını Aç
+              {turkish ? "API Dokümanını Aç" : "Open API Documentation"}
             </a>
 
             <Link
@@ -279,7 +281,7 @@ export default function Page() {
                 <line x1="19" y1="12" x2="5" y2="12" />
                 <polyline points="12 19 5 12 12 5" />
               </svg>
-              Ana Sayfaya Dön
+              {turkish ? "Ana Sayfaya Dön" : "Back to Home"}
             </Link>
           </div>
         </div>

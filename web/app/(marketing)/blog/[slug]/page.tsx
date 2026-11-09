@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { articles, getArticleBySlug, getRelatedArticles, categoryColors } from "../articles";
+import { getLocale } from "next-intl/server";
+import { articles, categoryColors } from "../articles";
+import { getArticleBySlugForLocale, getRelatedArticlesForLocale } from "../articles-en";
 import ArticleContent from "./article-content";
 
 // Generate static params for all articles
@@ -17,7 +19,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const locale = await getLocale();
+  const turkish = locale === "tr";
+  const article = getArticleBySlugForLocale(slug, locale);
   if (!article) return {};
 
   return {
@@ -27,12 +31,14 @@ export async function generateMetadata({
       title: article.metaTitle,
       description: article.metaDescription,
       type: "article",
-      locale: "tr_TR",
+      locale: turkish ? "tr_TR" : "en_US",
       siteName: "CarbonCam",
       publishedTime: article.publishDate,
       modifiedTime: article.updatedDate || article.publishDate,
       authors: ["CarbonCam"],
-      tags: [article.categoryLabel, "karbon ayak izi", "sürdürülebilirlik"],
+      tags: turkish
+        ? [article.categoryLabel, "karbon ayak izi", "sürdürülebilirlik"]
+        : [article.categoryLabel, "carbon footprint", "sustainability"],
     },
     twitter: {
       card: "summary_large_image",
@@ -51,13 +57,21 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const locale = await getLocale();
+  const article = getArticleBySlugForLocale(slug, locale);
 
   if (!article) {
     notFound();
   }
 
-  const relatedArticles = getRelatedArticles(article);
+  const relatedArticles = getRelatedArticlesForLocale(article, locale);
+  const wordCount = [article.title, article.excerpt, ...article.content.map((section) => `${section.title} ${section.content}`)]
+    .join(" ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[^;]+;/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
 
   // Schema.org structured data
   const jsonLd = {
@@ -67,9 +81,14 @@ export default async function ArticlePage({
     description: article.metaDescription,
     datePublished: article.publishDate,
     dateModified: article.updatedDate || article.publishDate,
+    inLanguage: locale === "tr" ? "tr-TR" : "en-US",
+    isAccessibleForFree: true,
+    wordCount,
+    citation: article.sources?.map((source) => source.url),
+    publishingPrinciples: "https://carboncam.com.tr/editorial-policy",
     author: {
       "@type": "Organization",
-      name: "CarbonCam",
+      name: locale === "tr" ? "CarbonCAM Editoryal Ekibi" : "CarbonCAM Editorial Team",
       url: "https://carboncam.com.tr",
     },
     publisher: {
@@ -77,7 +96,7 @@ export default async function ArticlePage({
       name: "CarbonCam",
       logo: {
         "@type": "ImageObject",
-        url: "https://carboncam.com.tr/logo-mark.svg",
+        url: "https://carboncam.com.tr/carboncam-logo.png",
       },
     },
     mainEntityOfPage: {

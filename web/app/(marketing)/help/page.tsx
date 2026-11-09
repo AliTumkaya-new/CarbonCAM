@@ -1,8 +1,40 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 export default function HelpPage() {
+  const turkish = useLocale() === "tr";
+  const copy = turkish
+    ? {
+        label: "Yardım Merkezi", lead: "Size Nasıl", accent: "Yardımcı Olabiliriz?", intro: "CarbonCAM kullanımı hakkında sık sorulan sorular ve destek kaynakları", faqTitle: "Sık Sorulan Sorular",
+        faqs: [
+          ["CarbonCAM nedir ve ne işe yarar?", "CarbonCAM, elektrikli cihazların Watt değeri ve günlük kullanım süresinden enerji tüketimi ile tahmini CO₂e etkisini hesaplayan bir mobil uygulamadır. Sonuç bir sayaç ölçümü veya bağımsız sertifika değildir."],
+          ["Nasıl başlayabilirim?", "Misafir olarak devam edebilir veya desteklenen giriş yöntemlerinden biriyle oturum açabilirsiniz. Cihaz Etkisini Hesapla bölümünde cihaz adı, Watt değeri ve günlük kullanım süresini girmeniz yeterlidir."],
+          ["Fotoğraf otomatik olarak analiz ediliyor mu?", "Hayır. Kamera veya galeriden seçilen fotoğraf yalnızca hesaplama sırasında yerel referans olarak gösterilir; CarbonCAM sunucularına yüklenmez, içeriği okunmaz ve analiz kaydına eklenmez."],
+          ["Doğrulanmış tasarruf nasıl hesaplanır?", "Aynı kapsam ve benzer süre için iki karşılaştırılabilir sayaç tüketimi girilir. Uygulama azalan kWh değerini yayımlanmış elektrik faktörüyle çarpar. Bu doğrulama kullanıcı girişine dayanır; bağımsız denetim değildir."],
+          ["Hangi veriler cihazımda saklanır?", "Analiz kayıtları, tasarruf karşılaştırmaları, görev işaretleri ve profil tercihleri cihazınızda saklanır. Oturum açma hesabı Firebase Authentication tarafından yönetilir."],
+          ["Hesabımı ve yerel verilerimi nasıl silebilirim?", "Profil bölümündeki Verilerimi Temizle seçeneği cihazdaki kayıtları siler. Hesabı Kalıcı Olarak Sil seçeneği oturum hesabını ve yerel kullanıcı verilerini siler. Web üzerinden de hesap silme talebi gönderebilirsiniz."],
+          ["Görev bildirimleri hangi dilde gelir?", "Bildirimler telefonun sistem diline göre Türkçe veya İngilizce planlanır. Görevler bölümünden hatırlatıcıları açabilir veya kapatabilirsiniz."],
+          ["Nasıl destek alabilirim?", "Destek ve hesap silme talepleri için carboncamplus@gmail.com adresine yazabilirsiniz. Parolanızı veya doğrulama kodunuzu paylaşmayın."],
+        ],
+        missing: "Sorunuzu bulamadınız mı?", contactBody: "Ekibimizle iletişime geçin; talebinizi inceleyip yanıtlayalım.", contact: "Bize Ulaşın", subject: "CarbonCAM Destek",
+      }
+    : {
+        label: "Help Centre", lead: "How Can We", accent: "Help You?", intro: "Frequently asked questions and support resources for CarbonCAM", faqTitle: "Frequently Asked Questions",
+        faqs: [
+          ["What is CarbonCAM?", "CarbonCAM is a mobile app that estimates appliance energy use and CO₂e from wattage and daily usage time. The result is not a meter reading or independent certification."],
+          ["How do I get started?", "Continue as a guest or sign in with a supported method. In Calculate Device Impact, enter the device name, wattage, and daily usage time."],
+          ["Is my photo analysed automatically?", "No. A camera or gallery photo is shown only as a local reference during calculation. It is not uploaded to CarbonCAM, read, or added to the saved analysis."],
+          ["How are verified savings calculated?", "Enter two comparable meter readings covering the same scope and a similar duration. The app multiplies the reduction in kWh by the published electricity factor. This relies on user-entered data and is not an independent audit."],
+          ["What data is stored on my device?", "Analysis records, savings comparisons, task status, and profile preferences are stored on your device. Firebase Authentication manages the sign-in account."],
+          ["How do I delete my account and local data?", "Clear My Data in Profile deletes device records. Permanently Delete Account removes the sign-in account and local user data. You can also submit a deletion request on the website."],
+          ["Which language are task notifications sent in?", "Notifications are scheduled in English or Turkish according to the phone's system language. You can turn reminders on or off in Tasks."],
+          ["How can I get support?", "Email carboncamplus@gmail.com for support or account deletion. Never send your password or verification code."],
+        ],
+        missing: "Couldn’t find your answer?", contactBody: "Contact our team and we will review your request.", contact: "Contact Us", subject: "CarbonCAM Support",
+      };
+
   return (
     <main style={{ backgroundColor: "#fff" }}>
       <section
@@ -53,7 +85,7 @@ export default function HelpPage() {
               <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
               <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
-            Yardım Merkezi
+            {copy.label}
           </div>
 
           <h1
@@ -66,7 +98,7 @@ export default function HelpPage() {
               lineHeight: 1.1,
             }}
           >
-            Size Nasıl{" "}
+            {copy.lead}{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #0f172a 0%, #475569 100%)",
@@ -75,7 +107,7 @@ export default function HelpPage() {
                 backgroundClip: "text",
               }}
             >
-              Yardımcı Olabiliriz?
+              {copy.accent}
             </span>
           </h1>
 
@@ -87,7 +119,7 @@ export default function HelpPage() {
               marginBottom: "48px",
             }}
           >
-            CarbonCAM kullanımı hakkında sık sorulan sorular ve destek kaynakları
+            {copy.intro}
           </p>
         </div>
       </section>
@@ -103,46 +135,13 @@ export default function HelpPage() {
               textAlign: "center",
             }}
           >
-            Sık Sorulan Sorular
+            {copy.faqTitle}
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            {[
-              {
-                q: "CarbonCAM nedir ve ne işe yarar?",
-                a: "CarbonCAM, üretim süreçlerinizin karbon ayak izini ölçen ve optimize etmenize yardımcı olan bir SaaS platformudur. Makine, malzeme ve işlem parametrelerinizi analiz ederek detaylı emisyon raporları sunar.",
-              },
-              {
-                q: "Nasıl başlayabilirim?",
-                a: "Ücretsiz hesap oluşturarak hemen başlayabilirsiniz. 14 günlük deneme süresinde tüm özelliklere tam erişim sağlarsınız. Kredi kartı bilgisi gerekmez.",
-              },
-              {
-                q: "Hangi makine tiplerini destekliyorsunuz?",
-                a: "MAZAK, DMG MORI, HAAS, FANUC, SIEMENS ve OKUMA gibi başlıca CNC makine üreticilerini destekliyoruz. Özel makine tipleri için Enterprise planımızdan yararlanabilirsiniz.",
-              },
-              {
-                q: "Raporlar hangi standartlara uygun?",
-                a: "Tüm raporlarımız ISO 14067 standardına uygun olarak hazırlanır. PDF formatında indirilebilir ve denetim süreçlerinde kullanılabilir.",
-              },
-              {
-                q: "API entegrasyonu nasıl yapılır?",
-                a: "Professional ve Enterprise planlarında API erişimi bulunur. Dokümantasyon sayfamızdan detaylı entegrasyon kılavuzlarına ulaşabilirsiniz.",
-              },
-              {
-                q: "Verilerim güvende mi?",
-                a: "Evet. Tüm verileriniz şifreli olarak saklanır. GDPR uyumlu, SOC 2 sertifikalı altyapı kullanıyoruz. Verileriniz asla üçüncü taraflarla paylaşılmaz.",
-              },
-              {
-                q: "Destek alabiliyor muyum?",
-                a: "Evet. Starter planda email destek, Professional planda öncelikli destek, Enterprise planda ise 7/24 destek sunuyoruz.",
-              },
-              {
-                q: "Planımı değiştirebilir miyim?",
-                a: "Evet, istediğiniz zaman planınızı yükseltebilir veya düşürebilirsiniz. Fark ücretler oransal olarak hesaplanır.",
-              },
-            ].map((faq, idx) => (
+            {copy.faqs.map(([question, answer]) => (
               <div
-                key={idx}
+                key={question}
                 style={{
                   padding: "32px",
                   backgroundColor: "#f8fafc",
@@ -159,10 +158,10 @@ export default function HelpPage() {
                     marginBottom: "12px",
                   }}
                 >
-                  {faq.q}
+                  {question}
                 </h3>
                 <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.7, margin: 0 }}>
-                  {faq.a}
+                  {answer}
                 </p>
               </div>
             ))}
@@ -185,7 +184,7 @@ export default function HelpPage() {
                 marginBottom: "16px",
               }}
             >
-              Sorunuzu bulamadınız mı?
+              {copy.missing}
             </h3>
             <p
               style={{
@@ -194,10 +193,10 @@ export default function HelpPage() {
                 marginBottom: "32px",
               }}
             >
-              Ekibimizle iletişime geçin, size yardımcı olmaktan mutluluk duyarız.
+              {copy.contactBody}
             </p>
             <Link
-              href="mailto:support@carboncam.com"
+              href={`mailto:carboncamplus@gmail.com?subject=${encodeURIComponent(copy.subject)}`}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -233,7 +232,7 @@ export default function HelpPage() {
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-              Bize Ulaşın
+              {copy.contact}
             </Link>
           </div>
         </div>

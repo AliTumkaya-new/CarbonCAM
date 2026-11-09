@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 import {
-  articles,
   categoryLabels,
   categoryColors,
   type ArticleCategory,
 } from "./articles";
+import { categoryLabelsEn, getArticlesForLocale } from "./articles-en";
 import AdSlot from "../../../components/ad-slot";
 
 const allCategories: (ArticleCategory | "all")[] = [
@@ -19,14 +20,39 @@ const allCategories: (ArticleCategory | "all")[] = [
 ];
 
 export default function BlogPage() {
+  const locale = useLocale();
+  const turkish = locale === "tr";
+  const localizedArticles = getArticlesForLocale(locale);
+  const localizedCategoryLabels = turkish ? categoryLabels : categoryLabelsEn;
+  const copy = turkish
+    ? {
+        center: "Bilgi Merkezi",
+        title: "Karbon Ayak İzi",
+        titleAccent: "Bilgi Merkezi",
+        intro: "Karbon emisyonu, iklim değişikliği ve sürdürülebilir yaşam hakkında özgün ve kapsamlı makaleler.",
+        all: "Tümü",
+        article: "makale",
+        readTime: "dk okuma",
+        readMore: "Devamını Oku",
+      }
+    : {
+        center: "Knowledge Centre",
+        title: "Carbon Footprint",
+        titleAccent: "Knowledge Centre",
+        intro: "Clear, practical articles about carbon emissions, climate change, and more sustainable living.",
+        all: "All",
+        article: "articles",
+        readTime: "min read",
+        readMore: "Read more",
+      };
   const [activeCategory, setActiveCategory] = useState<
     ArticleCategory | "all"
   >("all");
 
   const filteredArticles =
     activeCategory === "all"
-      ? articles
-      : articles.filter((a) => a.category === activeCategory);
+      ? localizedArticles
+      : localizedArticles.filter((a) => a.category === activeCategory);
 
   return (
     <main style={{ backgroundColor: "#fff" }}>
@@ -73,7 +99,7 @@ export default function BlogPage() {
               marginBottom: "24px",
             }}
           >
-            📚 Bilgi Merkezi
+            {copy.center}
           </div>
 
           <h1
@@ -86,8 +112,8 @@ export default function BlogPage() {
               lineHeight: 1.1,
             }}
           >
-            Karbon Ayak İzi{" "}
-            <span style={{ color: "#059669" }}>Bilgi Merkezi</span>
+            {copy.title}{" "}
+            <span style={{ color: "#059669" }}>{copy.titleAccent}</span>
           </h1>
 
           <p
@@ -99,8 +125,7 @@ export default function BlogPage() {
               margin: "0 auto",
             }}
           >
-            Karbon emisyonu, iklim değişikliği ve sürdürülebilir yaşam hakkında
-            özgün ve kapsamlı makaleler
+            {copy.intro}
           </p>
         </div>
       </section>
@@ -127,7 +152,7 @@ export default function BlogPage() {
           >
             {allCategories.map((cat) => {
               const isActive = activeCategory === cat;
-              const label = cat === "all" ? "Tümü" : categoryLabels[cat];
+              const label = cat === "all" ? copy.all : localizedCategoryLabels[cat];
               const color =
                 cat === "all" ? "#059669" : categoryColors[cat];
 
@@ -175,7 +200,7 @@ export default function BlogPage() {
               fontWeight: 500,
             }}
           >
-            {filteredArticles.length} makale
+            {filteredArticles.length} {copy.article}
           </p>
 
           {/* Article Grid */}
@@ -261,7 +286,7 @@ export default function BlogPage() {
                     {article.categoryLabel}
                   </span>
                   <span style={{ fontSize: "12px", color: "#94a3b8" }}>
-                    {article.readingTime} dk okuma
+                    {article.readingTime} {copy.readTime}
                   </span>
                 </div>
 
@@ -307,7 +332,7 @@ export default function BlogPage() {
                       gap: "6px",
                     }}
                   >
-                    Devamını Oku
+                    {copy.readMore}
                     <svg
                       width="14"
                       height="14"
@@ -320,7 +345,7 @@ export default function BlogPage() {
                     </svg>
                   </span>
                   <span style={{ fontSize: "12px", color: "#cbd5e1" }}>
-                    {new Date(article.publishDate).toLocaleDateString("tr-TR", {
+                    {new Date(article.publishDate).toLocaleDateString(turkish ? "tr-TR" : "en-US", {
                       year: "numeric",
                       month: "short",
                     })}

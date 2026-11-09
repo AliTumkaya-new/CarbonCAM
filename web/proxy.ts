@@ -15,7 +15,12 @@ const devAuthEnabled = process.env.CARBONCAM_DEV_AUTH === "true";
 
 const isPublicRoute = createRouteMatcher([
   "/",
+  "/app-ads.txt",
+  "/ads.txt",
   "/blog(.*)",
+  "/app(.*)",
+  "/account-deletion(.*)",
+  "/contact(.*)",
   "/cookies(.*)",
   "/docs(.*)",
   "/features(.*)",

@@ -18,12 +18,20 @@ export interface Article {
   heroColor: string;
   content: ArticleSection[];
   relatedSlugs: string[];
+  sources?: ArticleSource[];
 }
 
 export interface ArticleSection {
   id: string;
   title: string;
   content: string; // HTML içerik
+}
+
+export interface ArticleSource {
+  title: string;
+  publisher: string;
+  url: string;
+  accessedDate: string;
 }
 
 export const categoryLabels: Record<ArticleCategory, string> = {
@@ -102,7 +110,7 @@ export const articles: Article[] = [
 <li><strong>ISO 14067:</strong> Ürün karbon ayak izi için standart</li>
 <li><strong>PAS 2050:</strong> Ürün ve hizmetlerin yaşam döngüsü sera gazı emisyonları</li>
 </ul>
-<p>CarbonCam uygulaması, bu uluslararası standartlara uygun hesaplama metodolojileri kullanarak bireysel karbon ayak izinizi doğru ve güvenilir şekilde hesaplar.</p>`
+<p>CarbonCam mobil uygulaması, elektrikli cihazlar için açık bir formül ve yayımlanmış Türkiye elektrik dağıtım faktörünü kullanarak tahmini CO₂e sonucu üretir. Bu sonuç sayaç ölçümü, bağımsız doğrulama veya kurumsal sera gazı envanteri değildir.</p>`
       },
       {
         id: "kisisel-vs-kurumsal",
@@ -177,18 +185,18 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <p>Yeni kıyafet, elektronik ve diğer ürün alımlarınızı yıllık bazda değerlendirin.</p>
 <h4>Adım 5: Toplam Emisyonu Hesaplayın</h4>
 <p>Her kategorideki emisyonları toplayarak yıllık karbon ayak izinizi elde edin.</p>
-<p>Tüm bu adımları <strong>CarbonCam uygulaması</strong> otomatik olarak yapar — fotoğraf çekerek, günlük aktivitelerinizi kaydederek ve akıllı algoritmalarla hesaplayarak.</p>`
+<p><strong>CarbonCam mobil uygulamasında</strong> bir elektrikli cihazın Watt değerini ve günlük kullanım süresini girerek enerji tüketimi ile tahmini CO₂e etkisini hesaplayabilir, sonucu cihazınızda saklayabilirsiniz.</p>`
       },
       {
         id: "karbon-hesaplama-araclari",
         title: "Karbon Hesaplama Araçları",
         content: `<p>Karbon ayak izi hesaplama için çeşitli araçlar mevcuttur:</p>
 <ul>
-<li><strong>CarbonCam:</strong> Mobil uygulama ile fotoğrafla analiz, gamification ve gerçek zamanlı takip</li>
+<li><strong>CarbonCam:</strong> Elektrikli cihazlar için Watt ve kullanım süresine dayalı tahmin, yerel kayıtlar ve günlük görevler</li>
 <li><strong>Çevrimiçi hesaplayıcılar:</strong> Web tabanlı basit formlar (genellikle yıllık tahmin)</li>
 <li><strong>Kurumsal platformlar:</strong> İşletmeler için detaylı raporlama araçları</li>
 </ul>
-<p>CarbonCam'in farkı, günlük aktivitelerinizi <strong>gerçek zamanlı</strong> olarak takip edebilmesi ve bunu eğlenceli bir deneyime dönüştürmesidir. XP kazanın, dijital ormanınızı büyütün ve karbon ayak izinizi azaltmanın keyfini çıkarın!</p>`
+<p>CarbonCam; kullandığı hesaplama formülünü gösterir, kayıtları cihazınızda tutar ve karşılaştırılabilir sayaç girişleriyle doğrulanmış tasarruf takibi yapmanıza yardımcı olur.</p>`
       }
     ],
     relatedSlugs: ["karbon-ayak-izi-nedir", "bireysel-karbon-ayak-izi-hesaplama", "elektrik-tuketimi-karbon-emisyonu"]
@@ -253,7 +261,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <p><strong>Yıllık emisyon:</strong> 6,47 × 365 = <strong>2.361 kg CO₂e/yıl ≈ 2,36 ton CO₂e</strong></p>
 </div>
 <p>Bu, yaklaşık <strong>105 ağacın</strong> bir yılda absorbe edebileceği CO₂ miktarına denk gelir!</p>
-<p>CarbonCam uygulaması ile araç kullanımınızı kolayca takip edebilir, farklı ulaşım alternatiflerinin emisyon karşılaştırmasını görebilirsiniz.</p>`
+<p>CarbonCam'in mevcut mobil sürümü araç emisyonu hesaplamaz; bu bölümdeki örnekler bilgilendirme amacıyla sunulur.</p>`
       },
       {
         id: "azaltma-onerileri",
@@ -328,7 +336,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Otobüs:</strong> Uzun mesafe otobüsler uçağa göre %70-80 daha az emisyon</li>
 <li><strong>Video konferans:</strong> İş seyahatlerini sanal toplantılarla değiştirmek en etkili yol</li>
 </ul>
-<p>CarbonCam ile her seyahatinizin karbon etkisini karşılaştırabilir ve bilinçli tercihler yapabilirsiniz.</p>`
+<p>CarbonCam'in mevcut mobil sürümü uçuş emisyonu hesaplamaz; seyahat örnekleri yalnızca bilgilendirme amacı taşır.</p>`
       }
     ],
     relatedSlugs: ["araba-karbon-emisyonu-hesaplama", "karbon-ayak-izi-nasil-hesaplanir", "karbon-ayak-izini-azaltma-yollari"]
@@ -395,7 +403,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Güneş panelleri:</strong> Çatı tipi güneş panelleri ile evinizin elektriğinin bir kısmını üretin</li>
 <li><strong>Yeşil enerji tarifeleri:</strong> Bazı elektrik sağlayıcıları yenilenebilir enerji tarifeleri sunar</li>
 </ul>
-<p>CarbonCam'in ev enerji takibi özelliği ile aylık elektrik tüketiminizi ve karbon emisyonunuzu takip edebilirsiniz.</p>`
+<p>CarbonCam mobil uygulamasında elektrikli cihazların etiket gücü ve kullanım süresiyle enerji tahmini oluşturabilir, karşılaştırılabilir sayaç kayıtlarıyla tüketim değişimini takip edebilirsiniz.</p>`
       }
     ],
     relatedSlugs: ["dogalgaz-karbon-emisyonu", "evde-enerji-verimliligi", "karbon-ayak-izi-nasil-hesaplanir"]
@@ -445,7 +453,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 </tbody>
 </table>
 <p>Türkiye'de bir konutun yıllık ortalama doğalgaz kaynaklı karbon emisyonu: yaklaşık <strong>2.000-3.500 kg CO₂e (2-3,5 ton)</strong>.</p>
-<p>CarbonCam uygulaması ile doğalgaz faturanızı fotoğrafla taratarak otomatik emisyon hesaplaması yapabilirsiniz.</p>`
+<p>CarbonCam'in mevcut mobil sürümü doğalgaz faturası taramaz veya doğalgaz emisyonu hesaplamaz; bu rehberdeki formüller bilgilendirme amacıyla sunulur.</p>`
       },
       {
         id: "verimlilik",
@@ -532,7 +540,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <p><strong>Bireysel Scope 2:</strong> Şebeke elektriğiniz</p>
 <p><strong>Bireysel Scope 3:</strong> Satın aldığınız ürünler, gıda, kıyafet, uçuşlar</p>
 </div>
-<p>CarbonCam uygulaması tüm bu kapsamları otomatik olarak kategorize eder ve hangi alandan ne kadar emisyon geldiğini size gösterir. Ev, Ulaşım, Yemek ve Alışveriş kategorileri ile karbon ayak izinizi detaylı şekilde analiz edebilirsiniz.</p>`
+<p>CarbonCam'in mevcut mobil sürümü, Scope 2 ile ilişkili elektrikli cihaz tahminlerine odaklanır. Scope 1 ve Scope 3 için otomatik kategorizasyon veya kurumsal raporlama yapmaz.</p>`
       }
     ],
     relatedSlugs: ["karbon-ayak-izi-nedir", "karbon-notr-nedir", "karbon-dengeleme-offset"]
@@ -594,7 +602,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Yenilenebilir enerji hedefi:</strong> 2035'e kadar elektrik üretiminde %65 yenilenebilir</li>
 <li><strong>Nükleer enerji:</strong> Akkuyu NGS ile 35 milyar kWh/yıl temiz elektrik</li>
 </ul>
-<p>Bireysel olarak karbon ayak izimizi azaltmak, Türkiye'nin bu hedeflerine ulaşmasına katkıda bulunur. CarbonCam ile bireysel katkınızı ölçebilir ve takip edebilirsiniz.</p>`
+<p>Bireysel olarak enerji tüketimini azaltmak, Türkiye'nin bu hedeflerine katkıda bulunabilir. CarbonCam ile elektrikli cihaz tüketim tahminlerinizi ve karşılaştırılabilir sayaç kayıtlarını takip edebilirsiniz.</p>`
       }
     ],
     relatedSlugs: ["paris-iklim-anlasmasi", "karbon-ayak-izi-nedir", "karbon-ayak-izini-azaltma-yollari"]
@@ -654,7 +662,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>İkinci el ve tamir:</strong> Geri dönüşüm, ikinci el alışveriş ve tamir kültürünü benimseyin</li>
 </ol>
 <p>Bu 15 öneriyi uygulamak yıllık karbon ayak izinizi <strong>4 tona kadar</strong> azaltabilir — bu da bir kişinin ortalama yıllık emisyonunun %70'inden fazlasıdır!</p>
-<p>CarbonCam uygulaması ile hangi alışkanlıklarınızı değiştirdiğinizi takip edebilir, ilerlemenizi görevler ve XP ile ölçebilir, dijital ormanınızın büyümesini izleyebilirsiniz. 🌳</p>`
+<p>CarbonCam uygulamasında günlük çevre görevlerini işaretleyebilir, elektrikli cihaz analizlerinizi kaydedebilir ve karşılaştırılabilir sayaç ölçümleriyle doğrulanmış tasarruf ilerlemenizi izleyebilirsiniz.</p>`
       }
     ],
     relatedSlugs: ["karbon-ayak-izi-nedir", "evde-enerji-verimliligi", "surdurulebilir-beslenme-karbon"]
@@ -686,7 +694,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
         title: "Bireysel Karbon Nötr Olma Stratejisi",
         content: `<p>Karbon nötr olmak için üç adımlı yaklaşım:</p>
 <h4>1. Ölçün</h4>
-<p>Önce mevcut karbon ayak izinizi doğru şekilde hesaplayın. CarbonCam uygulaması bunu otomatik yapar.</p>
+<p>Önce mevcut tüketiminizi güvenilir verilerle ölçün. CarbonCam, elektrikli cihazlar için etiket gücü ve kullanım süresine dayalı bir tahmin sunar; tam karbon ayak izinizi otomatik hesaplamaz.</p>
 <h4>2. Azaltın</h4>
 <p>Mümkün olduğunca emisyonlarınızı azaltın: enerji verimliliği, ulaşım alternatifleri, beslenme değişiklikleri.</p>
 <h4>3. Dengeleyin</h4>
@@ -732,7 +740,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Hareket sensörlü aydınlatma:</strong> Gereksiz aydınlatmayı önler</li>
 <li><strong>Enerji izleme sistemi:</strong> Anlık tüketimi görselleştirir</li>
 </ul>
-<p>CarbonCam, ev enerji tüketiminizi faturalarınız üzerinden otomatik olarak takip eder ve karbon emisyonunuzu hesaplar. Aylık trendleri görerek hangi dönemlerde daha fazla tükettiğinizi anlayabilirsiniz.</p>`
+<p>CarbonCam, elektrikli cihazların Watt değeri ve kullanım süresiyle enerji tahmini oluşturur. Karşılaştırılabilir sayaç kayıtları girildiğinde tüketim değişimini ve tahmini önlenen CO₂e değerini gösterir.</p>`
       }
     ],
     relatedSlugs: ["elektrik-tuketimi-karbon-emisyonu", "dogalgaz-karbon-emisyonu", "karbon-ayak-izini-azaltma-yollari"]
@@ -787,7 +795,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Gıda israfını önleyin:</strong> Planlı alışveriş, doğru saklama, artıkları değerlendirme</li>
 <li><strong>Su tüketimine dikkat:</strong> Şişe su yerine filtreli musluk suyu kullanın</li>
 </ul>
-<p>CarbonCam'in yemek takibi özelliği ile günlük beslenmenizin karbon etkisini fotoğrafla analiz edebilir ve daha sürdürülebilir alternatifleri keşfedebilirsiniz. 🍽️</p>`
+<p>CarbonCam'in mevcut mobil sürümü yemek fotoğrafı analizi veya beslenme emisyonu hesabı yapmaz; bu öneriler bilgilendirme amacıyla sunulur.</p>`
       }
     ],
     relatedSlugs: ["karbon-ayak-izini-azaltma-yollari", "karbon-ayak-izi-nedir", "bireysel-karbon-ayak-izi-hesaplama"]
@@ -831,7 +839,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Climate Action Reserve (CAR)</strong></li>
 </ul>
 <p>Dikkat edilecek kriterler: Ek olma (additionality), kalıcılık, sızıntı önleme, bağımsız doğrulama.</p>
-<p>CarbonCam uygulaması, karbon ayak izinizi hesapladıktan sonra güvenilir dengeleme seçeneklerini size sunar.</p>`
+<p>CarbonCam'in mevcut mobil sürümü karbon kredisi satmaz, dengeleme projesi önermeyi veya bir azaltımı sertifikalandırmayı vaat etmez.</p>`
       }
     ],
     relatedSlugs: ["karbon-notr-nedir", "karbon-ayak-izi-nedir", "karbon-ayak-izini-azaltma-yollari"]
@@ -874,7 +882,7 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
 <li><strong>Yeşil kalkınma:</strong> 2023'te Yeşil Mutabakat Eylem Planı açıklandı</li>
 <li><strong>Emisyon Ticaret Sistemi:</strong> Türkiye ETS'nin kurulması planlanmakta</li>
 </ul>
-<p>Her bireyin bu hedefe katkıda bulunması önemlidir. CarbonCam ile kendi karbon ayak izinizi azaltarak Türkiye'nin iklim hedeflerine destek olabilirsiniz.</p>`
+<p>Her bireyin bu hedefe katkıda bulunması önemlidir. CarbonCam, elektrikli cihaz tüketimini görünür kılarak daha bilinçli enerji alışkanlıkları oluşturmanıza yardımcı olabilir.</p>`
       }
     ],
     relatedSlugs: ["turkiyede-karbon-emisyonu", "karbon-notr-nedir", "scope-1-scope-2-scope-3-nedir"]
@@ -919,16 +927,16 @@ CO₂e Emisyon = Aktivite Verisi × Emisyon Faktörü
       {
         id: "carboncan-ile-hesaplama",
         title: "CarbonCam ile Kolay Hesaplama",
-        content: `<p>Manuel hesaplama yerine CarbonCam uygulamasını kullanarak karbon ayak izinizi çok daha kolay ve doğru hesaplayabilirsiniz:</p>
+        content: `<p>CarbonCam mobil uygulaması, elektrikli cihaz tüketimi ve günlük alışkanlık takibi için şu araçları sunar:</p>
 <ul>
-<li><strong>📸 Fotoğrafla Analiz:</strong> Faturalarınızı, market alışverişinizi, yemeklerinizi fotoğrafla taratın</li>
-<li><strong>📊 Otomatik Kategorizasyon:</strong> Emisyonlar Ev, Ulaşım, Yemek ve Alışveriş olarak otomatik sınıflandırılır</li>
-<li><strong>📈 Trend Analizi:</strong> Haftalık, aylık ve yıllık trendlerinizi takip edin</li>
-<li><strong>🎯 Hedef Belirleme:</strong> Aylık karbon hedefi koyun ve ilerlemenizi izleyin</li>
-<li><strong>🌳 Dijital Orman:</strong> Azalttığınız her kg CO₂e için dijital ormanınız büyür</li>
-<li><strong>🏆 Gamification:</strong> XP kazanın, görevleri tamamlayın ve seviye atlayın</li>
+<li><strong>Cihaz Etkisi:</strong> Watt değeri ve günlük kullanım süresinden enerji ile tahmini CO₂e hesabı</li>
+<li><strong>Şeffaf Formül:</strong> Kullanılan elektrik faktörünü ve hesap adımlarını inceleme</li>
+<li><strong>Yerel Kayıtlar:</strong> Analiz geçmişini cihaz üzerinde tutma ve silme</li>
+<li><strong>Doğrulanmış Tasarruf:</strong> Karşılaştırılabilir sayaç ölçümleriyle tüketim değişimini izleme</li>
+<li><strong>Günlük Görevler:</strong> Çevre görevlerini işaretleme ve isteğe bağlı hatırlatıcılar</li>
+<li><strong>Hesap Kontrolü:</strong> Verileri temizleme, çıkış yapma ve hesabı kalıcı silme</li>
 </ul>
-<p>CarbonCam'i ücretsiz indirin ve karbon ayak izinizi bugün takip etmeye başlayın!</p>`
+<p>Güncel uygulama bilgileri, gizlilik politikası ve hesap silme seçenekleri carboncam.com.tr üzerinde yayımlanır.</p>`
       }
     ],
     relatedSlugs: ["karbon-ayak-izi-nasil-hesaplanir", "karbon-ayak-izi-nedir", "karbon-ayak-izini-azaltma-yollari"]
