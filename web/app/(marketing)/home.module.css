@@ -3,6 +3,7 @@
 .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 84% 16%, rgba(163, 230, 53, 0.36), transparent 28%), radial-gradient(circle at 8% 88%, rgba(45, 212, 191, 0.17), transparent 24%), linear-gradient(118deg, rgba(255,255,255,.88), rgba(230,247,237,.75)); }
 .heroInner { position: relative; width: min(1240px, calc(100% - 40px)); min-height: 690px; margin: 0 auto; padding: 78px 0 64px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(380px, .95fr); align-items: center; gap: 74px; }
 .heroCopy { min-width: 0; }
+.heroBadge { display: inline-flex; align-items: center; gap: 8px; background: #047857; color: #ecfdf5; font-family: var(--font-oxanium), sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(4, 120, 87, .2); }
 .title { max-width: 730px; color: #0a211b; font-family: var(--font-oxanium), sans-serif !important; font-size: clamp(46px, 6.5vw, 78px); font-weight: 700; line-height: 1; letter-spacing: -.035em; }
 .titleAccent { display: block; color: #0a8f70; }
 .intro { max-width: 650px; margin-top: 26px; color: #48615a; font-size: clamp(17px, 2vw, 20px); line-height: 1.72; }

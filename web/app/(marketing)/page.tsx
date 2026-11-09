@@ -9,14 +9,15 @@ import styles from "./home.module.css";
 
 const copyByLocale = {
   tr: {
+    heroBadge: "COP31 & Net-Zero 2030 / 2053 Vizyonu",
     title: "Enerji tüketimini",
     titleAccent: "görünür hale getir.",
-    intro: "Elektrikli cihazların Watt değerini ve günlük kullanım süresini gir; tahmini enerji tüketimini ve CO₂e etkisini açık, anlaşılır sonuçlarla incele.",
-    details: "Uygulama özelliklerini incele →",
+    intro: "Elektrik faturası tarama, güneş enerjisi karbon ikamesi ve cihaz bazlı güç analiziyle COP31 hedefleri doğrultusunda tahmini tüketim ve CO₂e etkisini açık sonuçlarla incele.",
+    details: "COP31 & Uygulama Özelliklerini İncele →",
     facts: [
-      { title: "Girdiden anlaşılır sonuca", body: "Cihaz gücü ve kullanım süresinden günlük, aylık ve yıllık enerji tahmini oluştur." },
-      { title: "Kayıtların cihazında", body: "Analiz geçmişini ve günlük ilerlemeni telefonunda tut; istediğinde temizle." },
-      { title: "Karşılaştırılabilir tasarruf", body: "Aynı koşullardaki sayaç değerlerini karşılaştırarak tüketim değişimini takip et." },
+      { title: "COP31 & Şeffaf Karbon Hesabı", body: "IPCC ve şebeke emisyon katsayılarıyla her kWh tüketimin iklim etkisini net, doğrulanabilir metriklerle gör." },
+      { title: "Akıllı Fatura Okuma (OCR)", body: "Elektrik faturanı kamerayla tara; aktif kWh, tarife dilimleri ve hanenin aylık karbon salımını anında keşfet." },
+      { title: "Güneş Enerjisi (GES) İkamesi", body: "Güneş panellerinin şebekeden önlediği CO₂e miktarını, ağaç ve tasarruf eşdeğerlerini canlı takip et." },
     ],
     articlesKicker: "CarbonCAM Bilgi Merkezi",
     articlesTitle: "Enerji ve karbon konusunda net, uygulanabilir rehberler.",
@@ -24,19 +25,20 @@ const copyByLocale = {
     featured: "Öne çıkan rehber",
     readMore: "Rehberi oku →",
     readTime: "dk okuma",
-    appTitle: "Tahmini gör. Kaydet. Daha bilinçli karar ver.",
-    appBody: "CarbonCAM uygulamasında cihaz bazlı enerji tahminleri oluşturabilir, günlük çevre görevlerini takip edebilir ve karşılaştırılabilir sayaç kayıtlarını inceleyebilirsin.",
+    appTitle: "COP31 Uyumlu Akıllı Karbon & Enerji Asistanı.",
+    appBody: "CarbonCAM mobil uygulamasında fatura tarama, güneş enerjisi emisyon ikamesi, cihaz Watt simülasyonları ve sürdürülebilirlik görevleriyle geleceği bugünden şekillendir.",
     appButton: "Uygulama özelliklerini incele",
   },
   en: {
+    heroBadge: "COP31 & Net-Zero 2030 / 2053 Vision",
     title: "Make energy use",
     titleAccent: "easier to see.",
-    intro: "Enter an appliance wattage and daily usage time to review estimated energy use and CO₂e impact through clear, understandable results.",
-    details: "Explore app features →",
+    intro: "From smart utility bill scanning to solar carbon offset tracking and appliance wattage simulations, review clear energy estimates aligned with COP31 climate goals.",
+    details: "Explore COP31 & App Features →",
     facts: [
-      { title: "From input to a clear result", body: "Estimate daily, monthly, and yearly energy use from appliance power and usage time." },
-      { title: "Records stay on your device", body: "Keep analysis history and daily progress on your phone and clear it whenever you choose." },
-      { title: "Comparable savings", body: "Track consumption changes using meter readings recorded under comparable conditions." },
+      { title: "COP31 & Transparent Carbon Math", body: "Measure the exact climate impact of every kWh with certified IPCC and national grid emission standards." },
+      { title: "Smart Bill Scanning (OCR)", body: "Scan electricity bills with your phone camera to instantly extract active kWh, tariff rates, and monthly emissions." },
+      { title: "Solar Carbon Offsets", body: "Track emissions prevented by rooftop solar power, accompanied by live tree-absorbency and fuel equivalents." },
     ],
     articlesKicker: "CarbonCAM Knowledge Centre",
     articlesTitle: "Clear, practical guides to energy and carbon.",
@@ -44,8 +46,8 @@ const copyByLocale = {
     featured: "Featured guide",
     readMore: "Read the guide →",
     readTime: "min read",
-    appTitle: "Estimate it. Save it. Make a more informed decision.",
-    appBody: "Use CarbonCAM to create appliance energy estimates, follow daily environmental tasks, and review comparable meter records.",
+    appTitle: "COP31-Aligned Smart Carbon & Energy Assistant.",
+    appBody: "Use CarbonCAM to scan electricity bills, track solar carbon offsets, simulate appliance wattage, and follow daily eco-challenges.",
     appButton: "Explore app features",
   },
 } as const;
@@ -63,6 +65,10 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
+            <span className={styles.heroBadge}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#34d399", display: "inline-block" }} />
+              {copy.heroBadge}
+            </span>
             <h1 className={styles.title}>{copy.title}<span className={styles.titleAccent}>{copy.titleAccent}</span></h1>
             <p className={styles.intro}>{copy.intro}</p>
             <div className={styles.heroActions}>
